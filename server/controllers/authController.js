@@ -137,15 +137,14 @@ const verifyEmail = async (req, res) => {
       return res.status(400).json({ message: 'Verification token is required' });
     }
 
-    // Find user with valid token
     const user = await User.findOne({
       emailVerificationToken: token,
       emailVerificationExpires: { $gt: Date.now() }
     });
 
-    // if (!user) {
-    //   return res.status(400).json({ message: 'Invalid or expired verification token' });
-    // }
+    if (!user) {
+      return res.status(400).json({ message: 'Invalid or expired verification token' });
+    }
 
     // Update user
     user.isEmailVerified = true;

@@ -81,9 +81,6 @@ const RegisterPage = () => {
       errors.confirmPassword = 'Passwords do not match';
     }
 
-    if (!acceptTerms) {
-      errors.terms = 'You must accept the terms and conditions';
-    }
 
     setValidationErrors(errors);
     return Object.keys(errors).length === 0;
