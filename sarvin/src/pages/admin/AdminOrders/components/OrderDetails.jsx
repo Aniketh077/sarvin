@@ -1,7 +1,10 @@
 import React, { useState , useEffect} from 'react';
 import { ChevronLeft, Loader2, Package, User, MapPin, CreditCard, FileText, Mail, Printer, Download,ChevronDown, Check,X } from 'lucide-react';
 
-const OrderDetails = ({ order, onClose, onUpdateStatus, statusUpdateLoading, getOrderStatus, getOrderTotal }) => {
+const OrderDetails = ({ order, onClose, onUpdateStatus, statusUpdateLoading}) => {
+  const getOrderStatus = (ord) => ord?.orderStatus || 'processing';
+  const getOrderTotal = (ord) => ord?.total || 0;
+
   const [selectedStatus, setSelectedStatus] = useState(getOrderStatus(order));
   const [statusDropdownOpen, setStatusDropdownOpen] = useState(false);
 

@@ -53,16 +53,15 @@ export const payOrder = createAsyncThunk(
 // Admin actions
 export const fetchAllOrders = createAsyncThunk(
   'orders/fetchAll',
-  async (_, { getState, rejectWithValue }) => {
+  async ({ page, limit, search, status } = {}, { getState, rejectWithValue }) => { 
     try {
       const { auth } = getState();
-      return await orderAPI.getOrders(auth.user.token);
+      return await orderAPI.getOrders(auth.user.token, { page, limit, search, status });
     } catch (error) {
       return rejectWithValue(error.response.data);
     }
   }
 );
-
 export const updateOrderStatus = createAsyncThunk(
   'orders/updateStatus',
   async ({ id, status }, { getState, rejectWithValue }) => {
@@ -81,7 +80,10 @@ const initialState = {
   loading: false,
   error: null,
   success: false,
-  successPay: false
+  successPay: false,
+  currentPage: 1,
+  totalPages: 1,
+  totalOrders: 0,
 };
 
 const orderSlice = createSlice({
@@ -153,17 +155,21 @@ const orderSlice = createSlice({
       })
       
       // Admin: Fetch all orders
-      .addCase(fetchAllOrders.pending, (state) => {
+     .addCase(fetchAllOrders.pending, (state) => {
         state.loading = true;
       })
       .addCase(fetchAllOrders.fulfilled, (state, action) => {
         state.loading = false;
-        state.orders = action.payload;
+        state.orders = action.payload.orders;
+        state.currentPage = action.payload.currentPage;
+        state.totalPages = action.payload.totalPages;
+        state.totalOrders = action.payload.totalOrders;
       })
       .addCase(fetchAllOrders.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload?.message || 'Failed to load orders';
       })
+
       
       // Admin: Update order status
       .addCase(updateOrderStatus.pending, (state) => {

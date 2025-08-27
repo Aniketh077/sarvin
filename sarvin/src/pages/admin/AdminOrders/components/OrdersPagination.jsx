@@ -1,13 +1,10 @@
 import React from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
-const OrdersPagination = ({ currentPage, totalPages, ordersPerPage, filteredOrders, onPageChange }) => {
-  if (filteredOrders.length <= ordersPerPage) {
-    return null;
-  }
-
-  const indexOfLastOrder = currentPage * ordersPerPage;
-  const indexOfFirstOrder = indexOfLastOrder - ordersPerPage;
+const OrdersPagination = ({ currentPage, totalPages, onPageChange, totalItems, itemsPerPage }) => {
+  
+  const indexOfFirstItem = (currentPage - 1) * itemsPerPage + 1;
+  const indexOfLastItem = Math.min(currentPage * itemsPerPage, totalItems);
 
   // Helper function to get visible pages for mobile
   const getMobileVisiblePages = () => {
@@ -63,11 +60,9 @@ const OrdersPagination = ({ currentPage, totalPages, ordersPerPage, filteredOrde
     <div className="flex flex-col space-y-3 sm:space-y-4">
       {/* Info Text */}
       <div className="text-xs sm:text-sm text-gray-700 text-center">
-        Showing <span className="font-medium">{indexOfFirstOrder + 1}</span> to{' '}
-        <span className="font-medium">
-          {Math.min(indexOfLastOrder, filteredOrders.length)}
-        </span>{' '}
-        of <span className="font-medium">{filteredOrders.length}</span> orders
+        Showing <span className="font-medium">{indexOfFirstItem}</span> to{' '}
+         <span className="font-medium">{indexOfLastItem}</span> of{' '}
+        <span className="font-medium">{totalItems}</span> orders
       </div>
       
       {/* Pagination Controls */}

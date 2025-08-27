@@ -2,40 +2,32 @@ import React from 'react';
 import { Eye, Calendar, User, Package, DollarSign, CheckCircle } from 'lucide-react';
 import formatProductNames from  './formatProductNames'
 
-export const OrdersTable = ({ orders, onViewOrder, getOrderStatus, getOrderTotal, searchQuery, statusFilter }) => {
+export const OrdersTable = ({ orders, onViewOrder}) => {
+
+  const getOrderStatus = (order) => order.orderStatus || 'processing';
+  const getOrderTotal = (order) => order.total || 0;
   // Format date helper
-  const formatDate = (dateString) => {
+const formatDate = (dateString) => {
     if (!dateString) return 'N/A';
     return new Date(dateString).toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit'
+      year: 'numeric', month: 'short', day: 'numeric',
     });
   };
 
-  // Format currency helper
   const formatCurrency = (amount) => {
     return new Intl.NumberFormat('en-IN', {
-      style: 'currency',
-      currency: 'INR'
+      style: 'currency', currency: 'INR'
     }).format(amount || 0);
   };
 
   // Get status class helper
-  const getStatusClass = (status) => {
+const getStatusClass = (status) => {
     switch (status?.toLowerCase()) {
-      case 'delivered':
-        return 'bg-green-100 text-green-800';
-      case 'processing':
-        return 'bg-yellow-100 text-yellow-800';
-      case 'shipped':
-        return 'bg-blue-100 text-blue-800';
-      case 'cancelled':
-        return 'bg-red-100 text-red-800';
-      default:
-        return 'bg-yellow-100 text-yellow-800';
+      case 'delivered': return 'bg-green-100 text-green-800';
+      case 'processing': return 'bg-yellow-100 text-yellow-800';
+      case 'shipped': return 'bg-blue-100 text-blue-800';
+      case 'cancelled': return 'bg-red-100 text-red-800';
+      default: return 'bg-gray-100 text-gray-800';
     }
   };
 
@@ -112,95 +104,53 @@ export const OrdersTable = ({ orders, onViewOrder, getOrderStatus, getOrderTotal
     <>
       {/* Mobile View - Cards */}
       <div className="block md:hidden mb-4">
-        {orders.length > 0 ? (
-          orders.map((order) => (
-            <MobileOrderCard key={order._id} order={order} />
-          ))
+        {orders && orders.length > 0 ? (
+          orders.map((order) => <MobileOrderCard key={order._id} order={order} />)
         ) : (
-          <div className="bg-white border border-gray-200 rounded-lg p-6 text-center">
-            <Package className="h-12 w-12 text-gray-300 mx-auto mb-3" />
-            <p className="text-gray-500 text-sm">
-              {searchQuery || statusFilter !== 'all' 
-                ? 'No orders found. Try a different search or filter.' 
-                : 'No orders found.'}
-            </p>
-          </div>
+          <div className="text-center py-10">No orders found.</div>
         )}
       </div>
 
       {/* Desktop/Tablet View - Table */}
       <div className="hidden md:block bg-white overflow-hidden shadow-sm rounded-lg mb-6">
         <div className="overflow-x-auto">
-          <table className="w-full divide-y-2 divide-gray-200">
+          <table className="w-full">
             <thead className="bg-gray-50">
               <tr>
-                <th className="px-4 lg:px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                  Order Details
-                </th>
-                <th className="px-4 lg:px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                  Customer
-                </th>
-                <th className="px-4 lg:px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                  Products
-                </th>
-                <th className="px-4 lg:px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                  Total
-                </th>
-                <th className="px-4 lg:px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                  Status
-                </th>
-                <th className="px-4 lg:px-6 py-4 text-right text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                  Actions
-                </th>
+                <th className="p-4 text-left text-xs font-semibold text-gray-600 uppercase">Order Details</th>
+                <th className="p-4 text-left text-xs font-semibold text-gray-600 uppercase">Customer</th>
+                <th className="p-4 text-left text-xs font-semibold text-gray-600 uppercase">Products</th>
+                <th className="p-4 text-left text-xs font-semibold text-gray-600 uppercase">Total</th>
+                <th className="p-4 text-left text-xs font-semibold text-gray-600 uppercase">Status</th>
+                <th className="p-4 text-right text-xs font-semibold text-gray-600 uppercase">Actions</th>
               </tr>
             </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
-              {orders.map((order) => {
+            <tbody className="divide-y divide-gray-200">
+              {orders && orders.map((order) => {
                 const orderStatus = getOrderStatus(order);
                 const orderTotal = getOrderTotal(order);
                 
                 return (
-                  <tr 
-                    key={order._id} 
-                    className="hover:bg-gray-50 transition-colors cursor-pointer"
-                    onClick={() => onViewOrder(order._id)}
-                  >
-                    <td className="px-4 lg:px-6 py-4">
-                      <div className="flex flex-col space-y-1">
-                        <span className="text-sm font-semibold text-[#2A4365]">
-                          #{order.orderId || order._id.slice(-8)}
-                        </span>
-                        <span className="text-xs text-gray-500">
-                          {formatDate(order.createdAt)}
-                        </span>
-                      </div>
+                  <tr key={order._id} className="hover:bg-gray-50 cursor-pointer" onClick={() => onViewOrder(order._id)}>
+                    <td className="p-4">
+                      <div className="font-semibold text-[#2A4365]">#{order.orderId}</div>
+                      <div className="text-xs text-gray-500">{formatDate(order.createdAt)}</div>
                     </td>
-                    <td className="px-4 lg:px-6 py-4">
-                      <div className="flex flex-col space-y-1">
-                        <span className="text-sm font-medium text-gray-900 max-w-[150px] lg:max-w-[200px] truncate">
-                          {order.user?.name || order.shippingAddress?.fullName || 'N/A'}
-                        </span>
-                        <span className="text-xs text-gray-500 max-w-[150px] lg:max-w-[200px] truncate">
-                          {order.user?.email || 'N/A'}
-                        </span>
-                      </div>
+                    <td className="p-4">
+                      <div>{order.user?.name || 'N/A'}</div>
+                      <div className="text-xs text-gray-500">{order.user?.email}</div>
                     </td>
-                    <td className="px-4 lg:px-6 py-4">
-                      <span className="text-sm text-gray-900 max-w-[120px] lg:max-w-[180px] truncate block font-semibold">
-                        {formatProductNames(order)}
-                      </span>
+                    <td className="p-4 max-w-xs truncate">
+                      {/* This will now work correctly as the backend provides the product name */}
+                      {formatProductNames(order) || 'Unknown Product'}
                     </td>
-                    <td className="px-4 lg:px-6 py-4">
-                      <span className="text-sm font-semibold text-green-600">
-                        {formatCurrency(orderTotal)}
-                      </span>
-                    </td>
-                    <td className="px-4 lg:px-6 py-4">
-                      <span className={`px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${getStatusClass(orderStatus)}`}>
+                    <td className="p-4 font-semibold">{formatCurrency(orderTotal)}</td>
+                    <td className="p-4">
+                      <span className={`px-2 py-1 text-xs font-semibold rounded-full ${getStatusClass(orderStatus)}`}>
                         {orderStatus.charAt(0).toUpperCase() + orderStatus.slice(1)}
                       </span>
                     </td>
-                    <td className="px-4 lg:px-6 py-4 text-right">
+                      <td className="px-4 lg:px-6 py-4 text-right">
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
@@ -216,15 +166,11 @@ export const OrdersTable = ({ orders, onViewOrder, getOrderStatus, getOrderTotal
                 );
               })}
               
-              {orders.length === 0 && (
+              {(!orders || orders.length === 0) && (
                 <tr>
-                  <td colSpan={6} className="px-6 py-12 text-center">
-                    <Package className="h-12 w-12 text-gray-300 mx-auto mb-4" />
-                    <p className="text-gray-500">
-                      {searchQuery || statusFilter !== 'all' 
-                        ? 'No orders found. Try a different search or filter.' 
-                        : 'No orders found.'}
-                    </p>
+                  <td colSpan={6} className="text-center py-16 text-gray-500">
+                    <Package className="h-12 w-12 mx-auto mb-2 text-gray-300" />
+                    No orders found.
                   </td>
                 </tr>
               )}
@@ -235,7 +181,5 @@ export const OrdersTable = ({ orders, onViewOrder, getOrderStatus, getOrderTotal
     </>
   );
 };
-
-
 
 export default OrdersTable;

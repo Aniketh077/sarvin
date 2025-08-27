@@ -13,7 +13,7 @@ const axiosInstance = axios.create({
 // Request interceptor
 axiosInstance.interceptors.request.use(
   (config) => {
-    console.log(`Making ${config.method.toUpperCase()} request to: ${config.baseURL}${config.url}`);
+    // console.log(`Making ${config.method.toUpperCase()} request to: ${config.baseURL}${config.url}`);
     
     const user = JSON.parse(localStorage.getItem('user') || '{}');
     if (user && user.token) {

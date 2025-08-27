@@ -68,15 +68,18 @@ const updateOrderToPaid = async (id, paymentResult, token) => {
 };
 
 // Get all orders (Admin)
-const getOrders = async (token) => {
+const getOrders = async (token, { page = 1, limit = 5, search, status }) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`
-    }
+    },
+    params: { page, limit, search, status } 
   };
   const response = await axios.get(API_URL, config);
   return response.data;
 };
+
+
 
 // Update order status (Admin)
 const updateOrderStatus = async (id, status, token) => {

@@ -13,7 +13,7 @@ const getProducts = async (req, res) => {
       collection, 
       featured,
       newArrival,
-      bestSeller, // ADDED
+      bestSeller, 
       search,
       page = 1,
       limit = 12,
@@ -37,7 +37,7 @@ const getProducts = async (req, res) => {
     // Featured, new arrival, and best seller filters
     if (featured === 'true') query.featured = true;
     if (newArrival === 'true') query.newArrival = true;
-    if (bestSeller === 'true') query.bestSeller = true; // ADDED
+    if (bestSeller === 'true') query.bestSeller = true; 
 
     // Search filter
     if (search) {
@@ -102,39 +102,81 @@ const getProducts = async (req, res) => {
       query.stock = { $gt: 0 };
     }
 
-    // Sorting
-    let sortOptions = { createdAt: -1 };
-    switch (sortBy) {
-      case 'price-asc':
-        sortOptions = { $sort: { discountPrice: 1, price: 1 } };
-        break;
-      case 'price-desc':
-        sortOptions = { $sort: { discountPrice: -1, price: -1 } };
-        break;
-      case 'newest':
-        sortOptions = { createdAt: -1 };
-        break;
-      case 'rating':
-        sortOptions = { rating: -1, reviewCount: -1 };
-        break;
-      case 'name':
-        sortOptions = { name: 1 };
-        break;
-      case 'featured':
-        sortOptions = { featured: -1, createdAt: -1 };
-        break;
-    }
-
-    const pageNumber = parseInt(page);
+     const pageNumber = parseInt(page);
     const pageSize = parseInt(limit);
     const skip = (pageNumber - 1) * pageSize;
 
-    const products = await Product.find(query)
-      .populate('type', 'name logo')
-      .sort(sortOptions)
-      .limit(pageSize)
-      .skip(skip)
-      .lean();
+     const pipeline = [];
+
+    
+    pipeline.push({ $match: query });
+
+  pipeline.push({
+      $addFields: {
+        effectivePrice: {
+          $ifNull: ["$discountPrice", "$price"]
+        }
+      }
+    });
+
+
+    // Sorting
+    let sortStage = {};
+    switch (sortBy) {
+      case 'price-asc':
+        sortStage = { $sort: { effectivePrice: 1 } };
+        break;
+      case 'price-desc':
+        sortStage = { $sort: { effectivePrice: -1 } };
+        break;
+      case 'newest':
+        sortStage = { $sort: { createdAt: -1 } };
+        break;
+      case 'rating':
+        sortStage = { $sort: { rating: -1, reviewCount: -1 } };
+        break;
+      case 'name':
+        sortStage = { $sort: { name: 1 } };
+        break;
+      case 'featured':
+        sortStage = { $sort: { featured: -1, createdAt: -1 } };
+        break;
+      default:
+        sortStage = { $sort: { createdAt: -1 } };
+    }
+    pipeline.push(sortStage);
+
+   
+     pipeline.push(
+      {
+        $facet: {
+          metadata: [{ $count: "total" }],
+          data: [
+            { $skip: skip },
+            { $limit: pageSize },
+            {
+              $lookup: {
+                from: "types",
+                localField: "type",
+                foreignField: "_id",
+                as: "type"
+              }
+            },
+            { $unwind: { path: "$type", preserveNullAndEmptyArrays: true } }
+          ]
+        }
+      }
+    );
+
+    const results = await Product.aggregate(pipeline);
+    const products = results[0].data;
+    const totalProducts = results[0].metadata[0] ? results[0].metadata[0].total : 0;
+    // const products = await Product.find(query)
+    //   .populate('type', 'name logo')
+    //   .sort(sortOptions)
+    //   .limit(pageSize)
+    //   .skip(skip)
+    //   .lean();
 
     const count = await Product.countDocuments(query);
     const totalPages = Math.ceil(count / pageSize);

@@ -4,9 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Package, ShoppingCart, Users, LogOut, Menu, X, ChevronRight, Mail, MessageSquare, BarChart3, Home, ChevronLeft, Calendar, User, DollarSign, Eye } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import { fetchDashboardStats, fetchAllUsers } from '../../store/slices/adminSlice';
-import { getSubscribers, getContactSubmissions } from '../../store/slices/newsletterContactSlice';
-import { fetchAllOrders } from '../../store/slices/orderSlice';
-import { fetchProducts, fetchBestSellers } from '../../store/slices/productSlice';
 import AdminProducts from './AdminProducts/AdminProducts';
 import AdminOrders from './AdminOrders/AdminMainOrders';
 import AdminCustomers from './AdminCustomers';
@@ -29,37 +26,27 @@ const AdminDashboard = () => {
   const [activeTab, setActiveTab] = useState(AdminTab.DASHBOARD);
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
-  const [selectedOrderId, setSelectedOrderId] = useState(null); // NEW: Track selected order for details
+  const [selectedOrderId, setSelectedOrderId] = useState(null); 
   const { user, logout, isAdmin, isInitialized } = useAuth();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   // Check if screen is mobile
-  useEffect(() => {
+ useEffect(() => {
     const checkScreenSize = () => {
       const mobile = window.innerWidth < 768;
       setIsMobile(mobile);
-      // Auto-close sidebar on mobile by default
-      if (mobile) {
-        setSidebarOpen(false);
-      }
+      if (mobile) setSidebarOpen(false);
     };
-    
     checkScreenSize();
     window.addEventListener('resize', checkScreenSize);
-    
     return () => window.removeEventListener('resize', checkScreenSize);
   }, []);
 
   useEffect(() => {
     if (isInitialized && user && isAdmin) {
       dispatch(fetchDashboardStats());
-      dispatch(fetchAllOrders());
       dispatch(fetchAllUsers());
-      dispatch(fetchProducts({ limit: 6 }));
-      dispatch(fetchBestSellers(3));
-      dispatch(getSubscribers());
-      dispatch(getContactSubmissions());
     }
   }, [user, isAdmin, isInitialized, dispatch]);
 
@@ -292,91 +279,42 @@ return (
 };
 
 const AdminDashboardContent = ({ onViewDetails }) => {
-  const dispatch = useDispatch();
-  const { stats, users, loading: adminLoading } = useSelector(state => state.admin);
-  const { orders, loading: ordersLoading } = useSelector(state => state.orders);
-  const { products, loading: productsLoading, bestSellers, bestSellersLoading } = useSelector(state => state.products);
+  const { stats, loading: adminLoading } = useSelector(state => state.admin);
+  // const { products, loading: productsLoading, bestSellers, bestSellersLoading } = useSelector(state => state.products);
+  const recentOrders = stats?.recentOrders || [];
 
-  // Calculate dashboard statistics
-  const calculateDashboardStats = () => {
-    const currentDate = new Date();
-    const currentMonth = currentDate.getMonth();
-    const currentYear = currentDate.getFullYear();
-    
-    // Filter orders for current month
-    const currentMonthOrders = orders?.filter(order => {
-      const orderDate = new Date(order.createdAt);
-      return orderDate.getMonth() === currentMonth && orderDate.getFullYear() === currentYear;
-    }) || [];
-    
-    // Calculate monthly revenue
-    const monthlyRevenue = currentMonthOrders.reduce((total, order) => {
-      return total + (order.totalPrice || order.total || 0);
-    }, 0);
-    
-    // Count total customers (excluding admin users)
-    const totalCustomers = users?.filter(user => user.role !== 'admin').length || 0;
-    
-    // Calculate total revenue from all orders
-    const totalRevenue = orders?.reduce((total, order) => {
-      return total + (order.totalPrice || order.total || 0);
-    }, 0) || 0;
-    
-    return {
-      totalProducts: products?.length || 0,
-      totalOrders: orders?.length || 0,
-      totalCustomers,
-      monthlyRevenue,
-      totalRevenue,
-      currentMonthOrders: currentMonthOrders.length
-    };
-  };
 
-  const dashboardStats = calculateDashboardStats();
-
-  // Get recent orders (last 5)
-  const recentOrders = orders?.slice(0, 5) || [];
   
-  // Get popular products (first 3 from products list)
-  const popularProducts = bestSellers || [];
-
-  const formatCurrency = (amount) => {
-    return new Intl.NumberFormat('en-IN', {
-      style: 'currency',
-      currency: 'INR'
-    }).format(amount);
+ const formatCurrency = (amount) => {
+    return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(amount || 0);
   };
-
   const formatDate = (dateString) => {
-    return new Date(dateString).toLocaleDateString('en-IN', {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric'
-    });
+    if (!dateString) return '';
+    return new Date(dateString).toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: 'numeric' });
   };
-
   const getStatusColor = (status) => {
     switch (status?.toLowerCase()) {
-      case 'delivered':
-        return 'bg-green-100 text-green-800';
-      case 'processing':
-        return 'bg-yellow-100 text-yellow-800';
-      case 'shipped':
-        return 'bg-blue-100 text-blue-800';
-      case 'pending':
-        return 'bg-gray-100 text-gray-800';
-      default:
-        return 'bg-gray-100 text-gray-800';
+      case 'delivered': return 'bg-green-100 text-green-800';
+      case 'processing': return 'bg-yellow-100 text-yellow-800';
+      case 'shipped': return 'bg-blue-100 text-blue-800';
+      default: return 'bg-gray-100 text-gray-800';
     }
   };
 
-  const getCurrentMonthName = () => {
-    const months = [
-      'January', 'February', 'March', 'April', 'May', 'June',
-      'July', 'August', 'September', 'October', 'November', 'December'
-    ];
-    return months[new Date().getMonth()];
-  };
+ 
+
+  if (adminLoading || !stats) {
+    return (
+      <div className="p-6">
+        <div className="animate-pulse">
+          <div className="h-8 bg-gray-200 rounded w-1/4 mb-6"></div>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+            {[...Array(4)].map((_, i) => (<div key={i} className="bg-gray-200 rounded-lg h-24"></div>))}
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   // Mobile Order Card Component
   const MobileOrderCard = ({ order }) => {
@@ -440,10 +378,8 @@ const AdminDashboardContent = ({ onViewDetails }) => {
     );
   };
 
-  // Get frontend URL for product navigation
-  const frontendUrl = import.meta.env.VITE_FRONTEND_URL;
 
- if (adminLoading || ordersLoading || productsLoading || bestSellersLoading) {
+ if (adminLoading ) {
     return (
       <div className="p-3 lg:p-4 xl:p-6">
         <div className="animate-pulse">
@@ -467,32 +403,27 @@ const AdminDashboardContent = ({ onViewDetails }) => {
           <div className="bg-gradient-to-r from-blue-50 to-blue-100 rounded-lg p-3 lg:p-4 xl:p-6 shadow-sm border border-blue-200">
             <p className="text-xs lg:text-sm text-blue-600 font-medium">Total Products</p>
             <p className="text-xl lg:text-2xl font-bold mt-1 lg:mt-2 text-blue-800">
-              {dashboardStats.totalProducts}
+              {stats.totalProducts}
             </p>
           </div>
           
           <div className="bg-gradient-to-r from-green-50 to-green-100 rounded-lg p-3 lg:p-4 xl:p-6 shadow-sm border border-green-200">
             <p className="text-xs lg:text-sm text-green-600 font-medium">Total Orders</p>
             <p className="text-xl lg:text-2xl font-bold mt-1 lg:mt-2 text-green-800">
-              {dashboardStats.totalOrders}
+              {stats.totalOrders}
             </p>
           </div>
           
-          <div className="bg-gradient-to-r from-purple-50 to-purple-100 rounded-lg p-3 lg:p-4 xl:p-6 shadow-sm border border-purple-200">
-            <p className="text-xs lg:text-sm text-purple-600 font-medium">{getCurrentMonthName()} Revenue</p>
-            <p className="text-xl lg:text-2xl font-bold mt-1 lg:mt-2 text-purple-800">
-              {formatCurrency(dashboardStats.monthlyRevenue)}
-            </p>
-            <p className="text-xs text-purple-600 mt-1">
-              {dashboardStats.currentMonthOrders} orders this month
-            </p>
+          <div className="bg-purple-50 p-4 rounded-lg border border-purple-200">
+            <p className="text-sm text-purple-600 font-medium">This Month's Revenue</p>
+            <p className="text-2xl font-bold mt-2 text-purple-800">{formatCurrency(stats.monthlyRevenue)}</p>
+            <p className="text-xs text-gray-500 mt-1 font-semibold">Total: {formatCurrency(stats.totalRevenue)}</p>
           </div>
           
-          <div className="bg-gradient-to-r from-orange-50 to-orange-100 rounded-lg p-3 lg:p-4 xl:p-6 shadow-sm border border-orange-200">
-            <p className="text-xs lg:text-sm text-orange-600 font-medium">Total Customers</p>
-            <p className="text-xl lg:text-2xl font-bold mt-1 lg:mt-2 text-orange-800">
-              {dashboardStats.totalCustomers}
-            </p>
+         <div className="bg-orange-50 p-4 rounded-lg border">
+            <p className="text-sm text-orange-600">Total Customers</p>
+            {/* FIX: Displays the correct, backend-calculated count */}
+            <p className="text-2xl font-bold mt-2">{stats.totalUsers}</p>
           </div>
         </div>
       </div>
@@ -697,7 +628,7 @@ const AdminDashboardContent = ({ onViewDetails }) => {
           </Button>
         </div>
         
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-4 xl:gap-6">
+        {/* <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-4 xl:gap-6">
           <div className="bg-gradient-to-r from-blue-50 to-blue-100 rounded-lg p-3 lg:p-4 xl:p-6 shadow-sm border border-blue-200">
             <p className="text-xs lg:text-sm text-blue-600 font-medium">Total Customers</p>
             <p className="text-xl lg:text-2xl font-bold mt-1 lg:mt-2 text-blue-800">
@@ -718,7 +649,7 @@ const AdminDashboardContent = ({ onViewDetails }) => {
               {formatCurrency(dashboardStats.totalRevenue)}
             </p>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

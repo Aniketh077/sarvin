@@ -24,9 +24,11 @@ import ProductDeleteConfirmationModal from './components/ProductDeleteConfirmati
 const AdminProducts = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { products, types, loading } = useSelector(state => state.products);
-  
-  const [searchQuery, setSearchQuery] = useState('');
+  const { products, types, loading, totalPages, currentPage: serverCurrentPage, totalProducts } = useSelector(state => state.products);
+   const [debouncedSearchQuery, setDebouncedSearchQuery] = useState('');
+   const [searchTerm, setSearchTerm] = useState('');
+
+
   const [isAddProductOpen, setIsAddProductOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [editingProduct, setEditingProduct] = useState(null);
@@ -42,32 +44,46 @@ const AdminProducts = () => {
     productName: ''
   });
   
-  const productsPerPage = 5;
+   const productsPerPage = 6; 
+
+    useEffect(() => {
+    const params = {
+      page: currentPage,
+      limit: productsPerPage,
+      search: debouncedSearchQuery || undefined, 
+      sortBy: 'newest',
+    };
+    dispatch(fetchProducts(params));
+  }, [dispatch, currentPage, debouncedSearchQuery]);
 
   useEffect(() => {
-    dispatch(fetchProducts({ limit: 200 })); // Fetch all products
     dispatch(fetchTypes());
   }, [dispatch]);
 
-  const filteredAndSortedProducts = products
-    .filter(product => 
-      product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      (product.type?.name || '').toLowerCase().includes(searchQuery.toLowerCase())
-    )
-    .sort((a, b) => {
-      const dateA = new Date(a.createdAt || a._id);
-      const dateB = new Date(b.createdAt || b._id);
-      return dateB - dateA;
-    });
+
+   useEffect(() => {
+    // Set a timer for 1 second (1000ms)
+    const timerId = setTimeout(() => {
+      setDebouncedSearchQuery(searchTerm);
+      // Reset to page 1 only when a debounced search term is set
+      if (searchTerm) {
+        setCurrentPage(1);
+      }
+    }, 1000);
+
+    // This cleanup function runs before the effect runs again, clearing the old timer.
+    return () => {
+      clearTimeout(timerId);
+    };
+  }, [searchTerm]); 
+
   
-  const totalPages = Math.ceil(filteredAndSortedProducts.length / productsPerPage);
+  // const totalPages = Math.ceil(filteredAndSortedProducts.length / productsPerPage);
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-  const currentProducts = filteredAndSortedProducts.slice(indexOfFirstProduct, indexOfLastProduct);
   
-  const handleSearch = (e) => {
-    setSearchQuery(e.target.value);
-    setCurrentPage(1);
+    const handleSearch = (e) => {
+    setSearchTerm(e.target.value);
   };
   
   const handlePageChange = (page) => {
@@ -236,25 +252,23 @@ const AdminProducts = () => {
           <Input
             type="text"
             placeholder="Search products..."
-            value={searchQuery}
+           value={searchTerm}
             onChange={handleSearch}
             leftIcon={<Search className="h-5 w-5 text-gray-400" />}
             fullWidth
           />
         </div>
 
-        <div className="mb-4 text-sm text-gray-600">
-          Showing {currentProducts.length} of {filteredAndSortedProducts.length} products 
-          {searchQuery && ` (filtered by "${searchQuery}")`}
-          <span className="block sm:inline sm:ml-2 text-xs text-gray-500">
-            Sorted by: Recently Added First
-          </span>
+      <div className="mb-4 text-sm text-gray-600">
+          Showing {products.length} of {totalProducts} products 
+          {debouncedSearchQuery && ` (filtered by "${debouncedSearchQuery}")`}
         </div>
+
         
         <div className="bg-white overflow-hidden shadow-sm rounded-lg mb-6">
           <div className="overflow-x-auto">
             <ProductsTable 
-              products={currentProducts}
+              products={products} 
               onEdit={handleEditProduct}
               onDelete={handleDeleteProduct}
               onProductClick={handleProductClick}
@@ -262,17 +276,15 @@ const AdminProducts = () => {
           </div>
         </div>
         
-        {filteredAndSortedProducts.length > productsPerPage && (
+        {totalPages > 1 && (
           <Pagination
-            currentPage={currentPage}
+            currentPage={serverCurrentPage}
             totalPages={totalPages}
             onPageChange={handlePageChange}
-            indexOfFirstProduct={indexOfFirstProduct}
-            indexOfLastProduct={indexOfLastProduct}
-            totalProducts={filteredAndSortedProducts.length}
+            totalItems={totalProducts}
+            itemsPerPage={productsPerPage}
           />
         )}
-        
         {isAddProductOpen && (
           <ProductForm
             onClose={closeProductForm}

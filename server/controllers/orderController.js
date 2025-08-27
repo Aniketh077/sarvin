@@ -421,12 +421,51 @@ const updateOrderToPaid = async (req, res) => {
 // @route   GET /api/orders
 const getOrders = async (req, res) => {
   try {
-    const orders = await Order.find()
-      .populate('user', 'name email')
-      .populate('items.product', 'name image images')
-      .sort({ createdAt: -1 });
-    
-    res.json(orders);
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const skip = (page - 1) * limit;
+
+    // --- Build the query object dynamically ---
+    const query = {};
+
+    // Handle status filtering
+    if (req.query.status && req.query.status !== 'all') {
+      query.orderStatus = req.query.status;
+    }
+
+    // Handle search functionality
+    if (req.query.search) {
+      const searchRegex = new RegExp(req.query.search, 'i');
+
+      const matchingUsers = await User.find({
+        $or: [{ name: searchRegex }, { email: searchRegex }],
+      }).select('_id');
+      const userIds = matchingUsers.map(user => user._id);
+
+      query.$or = [
+        { orderId: searchRegex },
+        { 'shippingAddress.fullName': searchRegex },
+        { user: { $in: userIds } }, 
+      ];
+    }
+    // --- End of query building ---
+
+    const [orders, totalOrders] = await Promise.all([
+      Order.find(query)
+        .populate('user', 'name email')
+        .populate('items.product', 'name image') 
+        .sort({ createdAt: -1 })
+        .skip(skip)
+        .limit(limit),
+      Order.countDocuments(query)
+    ]);
+
+    res.json({
+      orders,
+      totalOrders,
+      currentPage: page,
+      totalPages: Math.ceil(totalOrders / limit),
+    });
   } catch (error) {
     console.error('Get orders error:', error);
     res.status(500).json({ message: 'Server error', error: error.message });
