@@ -28,6 +28,7 @@ const AdminDashboard = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [selectedOrderId, setSelectedOrderId] = useState(null); 
   const { user, logout, isAdmin, isInitialized } = useAuth();
+  const { users } = useSelector(state => state.admin);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -46,9 +47,11 @@ const AdminDashboard = () => {
   useEffect(() => {
     if (isInitialized && user && isAdmin) {
       dispatch(fetchDashboardStats());
-      dispatch(fetchAllUsers());
+      if (users.length === 0) {
+        dispatch(fetchAllUsers());
+      }
     }
-  }, [user, isAdmin, isInitialized, dispatch]);
+  }, [user, isAdmin, isInitialized,dispatch, users.length]);
 
   if (!isInitialized) {
     return (
@@ -114,7 +117,7 @@ const AdminDashboard = () => {
       case AdminTab.PRODUCTS:
         return <AdminProducts />;
       case AdminTab.ORDERS:
-        return <AdminOrders initialOrderId={selectedOrderId} />; // Pass selectedOrderId
+        return <AdminOrders initialOrderId={selectedOrderId} />; 
       case AdminTab.CUSTOMERS:
         return <AdminCustomers />;
       case AdminTab.NEWSLETTER:
