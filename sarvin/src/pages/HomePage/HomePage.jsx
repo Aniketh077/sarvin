@@ -46,7 +46,7 @@ const HomePage = () => {
       <StatsSection />
       <CollectionCards />
       <FeaturedProducts products={featuredProducts || []} />
-      <PromotionalBanner />
+      {/* <PromotionalBanner /> */}
       <NewArrivals products={newArrivals || []} />
       <BestSellers />
       <BenefitsSection />

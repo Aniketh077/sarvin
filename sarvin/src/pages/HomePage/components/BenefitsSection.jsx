@@ -11,7 +11,7 @@ const BenefitsSection = () => {
     {
       icon: Shield,
       title: 'Extended Warranty',
-      description: 'Up to 5 years protection on all products'
+      description: 'period varies with each product.'
     },
     {
       icon: CreditCard,

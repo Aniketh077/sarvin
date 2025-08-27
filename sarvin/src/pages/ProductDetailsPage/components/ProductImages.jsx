@@ -32,10 +32,16 @@ const ProductImages = ({ product, activeImage, setActiveImage }) => {
           className="w-full h-full object-contain p-4"
         />
         {product.discountPrice && (
-          <div className="absolute left-4 top-4 z-10 bg-red-500 px-3 py-1 text-sm font-semibold text-white">
-            {Math.round(((product.price - product.discountPrice) / product.price) * 100)}% OFF
-          </div>
-        )}
+  Math.round(((product.price - product.discountPrice) / product.price) * 100) > 0 && (
+    <div className="absolute left-0 top-4 z-10 bg-red-500 px-3 py-1 text-sm font-semibold text-white">
+      {Math.round(
+        ((product.price - product.discountPrice) / product.price) * 100
+      )}
+      % OFF
+    </div>
+  )
+)}
+        
         {product.newArrival && (
           <div className="absolute right-4 top-4 z-10 bg-[#2A4365] px-3 py-1 text-sm font-semibold text-white">
             NEW

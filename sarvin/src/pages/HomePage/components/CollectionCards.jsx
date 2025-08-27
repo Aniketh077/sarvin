@@ -7,7 +7,7 @@ const CollectionCards = () => {
     {
       title: "Small Appliances",
       bgColor: "bg-[#2A4365]",
-      imageUrl: "/assets/Small_Appliances.jpg",
+      imageUrl: "/assets/Small_Appliances.png",
       exploreUrl: "/products/small-appliances",
       types: [
         { name: "Hand Blenders", link: "/products?type=Hand+Blender" },

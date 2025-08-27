@@ -121,7 +121,7 @@ const ContactPage = () => {
     {
       icon: Phone,
       title: 'Call Us',
-      details: ['+91 93109 79906', 'Customer Support', 'Mon-Sat: 8AM-8PM'],
+      details: ['+91 93109 79906', 'Customer Support', 'Mon-Sat: 9AM-6PM'],
       action: 'Call Now',
       onClick: handleCallNow
     },
@@ -335,7 +335,7 @@ const ContactPage = () => {
                 <div className="space-y-2">
                   <div className="flex justify-between">
                     <span className="text-gray-600">Monday - Saturday</span>
-                    <span className="font-medium">8:00 AM - 8:00 PM</span>
+                    <span className="font-medium">9:00 AM - 6:00 PM</span>
                   </div>
                   {/* <div className="flex justify-between">
                     <span className="text-gray-600">Saturday</span>
