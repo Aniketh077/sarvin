@@ -16,6 +16,6 @@ const razorpay = new Razorpay({
   key_secret: process.env.RAZORPAY_KEY_SECRET,
 });
 
-console.log('Razorpay initialized with Key ID:', process.env.RAZORPAY_KEY_ID);
+// console.log('Razorpay initialized with Key ID:', process.env.RAZORPAY_KEY_ID);
 
 module.exports = razorpay;

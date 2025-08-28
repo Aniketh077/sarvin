@@ -14,7 +14,7 @@ const productSchema = new mongoose.Schema({
   discountPrice: Number,
   collection: {
     type: String,
-    required: true,
+    required: false,
     enum: ['Cooking Appliances', 'Small Appliances'],
   },
   warranty: { type: String, required: true }, 
@@ -28,12 +28,12 @@ const productSchema = new mongoose.Schema({
   burners: {
     type: Number,
     enum: [2, 3, 4],
-    required: function() { return this.collection === 'Cooking Appliances'; }
+    // required: function() { return this.collection === 'Cooking Appliances'; }
   },
   ignitionType: {
     type: String,
     enum: ['Auto Ignition', 'Manual Ignition'],
-    required: function() { return this.collection === 'Cooking Appliances'; }
+    // required: function() { return this.collection === 'Cooking Appliances'; }
   },
   reviews:
    [{user: {type: mongoose.Schema.Types.ObjectId,ref: 'User',required: true},

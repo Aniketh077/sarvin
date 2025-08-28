@@ -15,14 +15,21 @@ const worker = new Worker('emailQueue', async (job) => {
       case 'sendVerificationEmail':
         await emailService.sendVerificationEmail(data.email, data.token, data.name);
         break;
-      // Add cases for other emails like 'sendWelcomeEmail', 'sendPasswordResetEmail', etc.
       case 'sendPasswordResetEmail':
         await emailService.sendPasswordResetEmail(data.email, data.token, data.name);
         break;
-
+      case 'sendOrderConfirmationEmail':
+    await emailService.sendOrderConfirmationEmail(data.order, data.user);
+    break;
+      case 'sendOrderNotificationToAdmin':
+    await emailService.sendOrderNotificationToAdmin(data.order, data.user);
+    break;
       default:
         throw new Error(`Unknown email type: ${type}`);
     }
+     console.log(`[${job.id}] Successfully sent email. Response: ${result.response}`);
+    console.log(`[${job.id}] Message ID: ${result.messageId}`);
+    console.log(`[${job.id}] Accepted by: ${result.accepted}`);
     
   } catch (error) {
     console.error(`Failed to send email for job ${job.id}`, error);

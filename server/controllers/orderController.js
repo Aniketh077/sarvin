@@ -238,13 +238,20 @@ const order = new Order({
 
     // Send emails
     try {
-      console.log('=== Sending Order Emails ===');
-      await emailService.sendOrderConfirmationEmail(populatedOrder, req.user);
+       console.log('=== Adding Order Emails to Queue ===');
+  // Add job for customer email
+  await emailQueue.add('sendOrderEmail', {
+    type: 'sendOrderConfirmationEmail',
+    data: { order: populatedOrder, user: req.user }
+  });
       console.log('Order confirmation email sent to customer');
-      await emailService.sendOrderNotificationToAdmin(populatedOrder, req.user);
-      console.log('Order notification email sent to admin');
+       await emailQueue.add('sendOrderEmail', {
+    type: 'sendOrderNotificationToAdmin',
+    data: { order: populatedOrder, user: req.user }
+  });
+  console.log('Order emails successfully added to the queue.');
     } catch (emailError) {
-      console.error('Error sending order emails:', emailError);
+      console.error('Error adding order emails to the queue:', queueError);
     }
 
     res.status(201).json(populatedOrder);

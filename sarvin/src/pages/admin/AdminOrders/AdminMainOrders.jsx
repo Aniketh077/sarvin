@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Loader2 } from 'lucide-react';
 import Button from '../../../components/ui/Button';
-import { fetchAllOrders } from '../../../store/slices/orderSlice';
+import { fetchAllOrders,updateOrderStatus } from '../../../store/slices/orderSlice';
 import OrdersStatistics from './components/OrdersStatistics';
 import OrdersFilters from './components/OrdersFilters';
 import OrdersTable from './components/OrdersTable';
@@ -38,6 +38,10 @@ const AdminOrders = ({ initialOrderId }) => {
       clearTimeout(timerId);
     };
   }, [searchTerm]);
+
+  const handleUpdateStatus = (id, status) => {
+    dispatch(updateOrderStatus({ id, status }));
+  };
 
   // This single useEffect handles ALL data fetching.
   // It re-runs whenever the page, debounced search term, or status filter changes.
@@ -105,6 +109,8 @@ const AdminOrders = ({ initialOrderId }) => {
         <OrderDetails
           order={orderDetails}
           onClose={handleCloseOrderDetails}
+           onUpdateStatus={handleUpdateStatus}
+          statusUpdateLoading={loading}
         />
       )}
     </div>

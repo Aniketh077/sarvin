@@ -235,8 +235,8 @@ const ProductForm = ({ onClose, onSave, product, types }) => {
 
               {formData.collection === 'Cooking Appliances' && (
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6 p-4 bg-gray-50 rounded-md border mb-6">
-                      <FormField label="Number of Burners" name="burners" value={formData.burners} onChange={handleChange} type="select" options={burnerOptions} required />
-                      <FormField label="Ignition Type" name="ignitionType" value={formData.ignitionType} onChange={handleChange} type="select" options={ignitionOptions} required />
+                      <FormField label="Number of Burners" name="burners" value={formData.burners} onChange={handleChange} type="select" options={burnerOptions}  />
+                      <FormField label="Ignition Type" name="ignitionType" value={formData.ignitionType} onChange={handleChange} type="select" options={ignitionOptions} />
                   </div>
               )}
 
