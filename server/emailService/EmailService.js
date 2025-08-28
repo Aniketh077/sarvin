@@ -44,8 +44,9 @@ class EmailService {
 
   async createTransporter() {
     try {
+      console.log('Attempting to get Access Token...');
       const accessToken = await this.getAccessToken();
-      
+      console.log('Access Token acquired:');
       const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
@@ -142,7 +143,9 @@ const customerMailOptions = {
 
   async sendVerificationEmail(email, verificationToken, name) {
     try {
+      console.log(`Creating transporter for verification email to ${email}...`)
       const transporter = await this.createTransporter();
+      console.log('Transporter created. Sending mail...');
       
       const verificationUrl = `${process.env.FRONTEND_URL}/verify-email?token=${verificationToken}`;
       

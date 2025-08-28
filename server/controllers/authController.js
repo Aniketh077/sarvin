@@ -3,6 +3,7 @@ const generateToken = require('../config/jwt');
 const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
 const emailService = require('../emailService/EmailService');
+const emailQueue = require('../config/queue');
 
 // @desc    Authenticate user
 // @route   POST /api/auth/login
@@ -197,7 +198,14 @@ const resendVerificationEmail = async (req, res) => {
     await user.save();
 
     // Send verification email
-    await emailService.sendVerificationEmail(email, verificationToken, user.name);
+     await emailQueue.add('sendEmailJob', {
+      type: 'sendVerificationEmail',
+      data: {
+        email: user.email,
+        token: verificationToken,
+        name: user.name,
+      },
+    });
 
     res.json({
       message: 'Verification email sent successfully!'
