@@ -15,6 +15,7 @@ import {
   Phone, 
 } from "lucide-react";
 import Button from "../ui/Button";
+import DevelopmentBanner from "../DevelopmentBanner";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false); // For mobile menu
@@ -251,6 +252,7 @@ const Header = () => {
 
   return (
     <header className="fixed top-0 z-50 w-full bg-white  transition-all duration-300">
+      <DevelopmentBanner />
       <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* --- Top Bar (Logo, Search, Icons) --- */}
        {/* --- Top Bar (Logo, Search, Icons) --- */}

@@ -108,7 +108,7 @@ app.get('/', (req, res) => {
   res.json({
     message: 'E-commerce API Server',
     environment: process.env.NODE_ENV || 'development',
-    status: 'running',
+    status: 'running smoothly',
     endpoints: {
       health: '/api/health',
       auth: '/api/auth',
