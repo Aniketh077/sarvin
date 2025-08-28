@@ -1,5 +1,6 @@
 const Order = require('../models/Order');
 const Product = require('../models/Product');
+const User = require('../models/User');
 const razorpay = require('../config/razorpay');
 const mongoose = require('mongoose');
 const crypto = require('crypto');
@@ -495,7 +496,8 @@ const updateOrderStatus = async (req, res) => {
     
     const populatedOrder = await Order.findById(updatedOrder._id)
       .populate('statusHistory.updatedBy', 'name email')
-      .populate('user', 'name email');
+      .populate('user', 'name email')
+      .populate('items.product', 'name image price'); 
     
     res.json(populatedOrder);
   } catch (error) {
