@@ -241,7 +241,14 @@ const forgotPassword = async (req, res) => {
     await user.save();
 
     // Send reset email
-    await emailService.sendPasswordResetEmail(email, resetToken, user.name);
+    await emailQueue.add('sendEmailJob', { 
+  type: 'sendPasswordResetEmail',
+  data: {
+    email: user.email,
+    token: resetToken,
+    name: user.name,
+  },
+});
 
     res.json({
       message: 'Password reset email sent successfully!'

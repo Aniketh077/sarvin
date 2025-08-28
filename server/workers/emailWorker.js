@@ -19,9 +19,11 @@ const worker = new Worker('emailQueue', async (job) => {
       case 'sendPasswordResetEmail':
         await emailService.sendPasswordResetEmail(data.email, data.token, data.name);
         break;
+
       default:
         throw new Error(`Unknown email type: ${type}`);
     }
+    
   } catch (error) {
     console.error(`Failed to send email for job ${job.id}`, error);
     throw error; // This will cause BullMQ to retry the job
