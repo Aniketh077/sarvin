@@ -57,6 +57,7 @@ class EmailService {
           refreshToken: process.env.GMAIL_REFRESH_TOKEN,
           accessToken: accessToken
         }
+         , apiUrl: 'https://gmail.googleapis.com/'
       });
 
       return transporter;

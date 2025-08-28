@@ -3,7 +3,6 @@ const generateToken = require('../config/jwt');
 const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
 const emailService = require('../emailService/EmailService');
-const emailQueue = require('../config/queue');
 
 // @desc    Authenticate user
 // @route   POST /api/auth/login
@@ -11,17 +10,13 @@ const loginUser = async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    // Input validation
     if (!email || !password) {
       return res.status(400).json({ message: 'Email and password are required' });
     }
 
-    // Find user in database
     const user = await User.findOne({ email });
     
-    // Check if user exists and password matches
     if (user && (await bcrypt.compare(password, user.password))) {
-      // For admin, no email verification required
       if (user.role === 'admin') {
         return res.json({
           _id: user._id,
@@ -37,7 +32,6 @@ const loginUser = async (req, res) => {
         });
       }
 
-      // For regular users, check email verification
       if (!user.isEmailVerified) {
         return res.status(401).json({ 
           message: 'Please verify your email address before logging in',
@@ -72,27 +66,22 @@ const registerUser = async (req, res) => {
   const { name, email, password } = req.body;
 
   try {
-    // Input validation
     if (!name || !email || !password) {
       return res.status(400).json({ message: 'Name, email, and password are required' });
     }
 
-    // Check if user already exists
     const userExists = await User.findOne({ email });
     
     if (userExists) {
       return res.status(400).json({ message: 'User already exists' });
     }
 
-    // Hash password
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    // Generate email verification token
     const verificationToken = crypto.randomBytes(32).toString('hex');
-    const verificationExpires = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 hours
+    const verificationExpires = new Date(Date.now() + 24 * 60 * 60 * 1000);
 
-    // Create user
     const user = await User.create({
       name,
       email,
@@ -104,7 +93,6 @@ const registerUser = async (req, res) => {
     });
 
     if (user) {
-      // Send verification email
       try {
         await emailService.sendVerificationEmail(email, verificationToken, name);
         
@@ -114,7 +102,6 @@ const registerUser = async (req, res) => {
         });
       } catch (emailError) {
         console.error('Email sending error:', emailError);
-        // Delete user if email sending fails
         await User.findByIdAndDelete(user._id);
         res.status(500).json({ message: 'Registration failed. Please try again.' });
       }
@@ -130,7 +117,6 @@ const registerUser = async (req, res) => {
 // @desc    Verify email
 // @route   POST /api/auth/verify-email
 const verifyEmail = async (req, res) => {
-  // Get token from query parameter or body
   const token = req.query.token || req.body.token;
 
   try {
@@ -147,7 +133,6 @@ const verifyEmail = async (req, res) => {
       return res.status(400).json({ message: 'Invalid or expired verification token' });
     }
 
-    // Update user
     user.isEmailVerified = true;
     user.emailVerificationToken = null;
     user.emailVerificationExpires = null;
@@ -189,23 +174,14 @@ const resendVerificationEmail = async (req, res) => {
       return res.status(400).json({ message: 'Email is already verified' });
     }
 
-    // Generate new verification token
     const verificationToken = crypto.randomBytes(32).toString('hex');
-    const verificationExpires = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 hours
+    const verificationExpires = new Date(Date.now() + 24 * 60 * 60 * 1000);
 
     user.emailVerificationToken = verificationToken;
     user.emailVerificationExpires = verificationExpires;
     await user.save();
 
-    // Send verification email
-     await emailQueue.add('sendEmailJob', {
-      type: 'sendVerificationEmail',
-      data: {
-        email: user.email,
-        token: verificationToken,
-        name: user.name,
-      },
-    });
+    await emailService.sendVerificationEmail(user.email, verificationToken, user.name);
 
     res.json({
       message: 'Verification email sent successfully!'
@@ -232,23 +208,14 @@ const forgotPassword = async (req, res) => {
       return res.status(404).json({ message: 'User not found' });
     }
 
-    // Generate reset token
     const resetToken = crypto.randomBytes(32).toString('hex');
-    const resetExpires = new Date(Date.now() + 60 * 60 * 1000); // 1 hour
+    const resetExpires = new Date(Date.now() + 60 * 60 * 1000);
 
     user.passwordResetToken = resetToken;
     user.passwordResetExpires = resetExpires;
     await user.save();
 
-    // Send reset email
-    await emailQueue.add('sendEmailJob', { 
-  type: 'sendPasswordResetEmail',
-  data: {
-    email: user.email,
-    token: resetToken,
-    name: user.name,
-  },
-});
+    await emailService.sendPasswordResetEmail(user.email, resetToken, user.name);
 
     res.json({
       message: 'Password reset email sent successfully!'
@@ -269,21 +236,18 @@ const resetPassword = async (req, res) => {
       return res.status(400).json({ message: 'Token and new password are required' });
     }
 
-    // Find user with valid reset token
     const user = await User.findOne({
       passwordResetToken: token,
       passwordResetExpires: { $gt: Date.now() }
     });
 
-    // if (!user) {
-    //   return res.status(400).json({ message: 'Invalid or expired reset token' });
-    // }
+    if (!user) {
+      return res.status(400).json({ message: 'Invalid or expired reset token' });
+    }
 
-    // Hash new password
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(newPassword, salt);
 
-    // Update user
     user.password = hashedPassword;
     user.passwordResetToken = null;
     user.passwordResetExpires = null;
@@ -333,7 +297,6 @@ const updateProfile = async (req, res) => {
   try {
     const { name, email, phoneNumber, address, city, state, pincode } = req.body;
     
-    // Check if email is being changed and if it already exists
     if (email && email !== req.user.email) {
       const emailExists = await User.findOne({ email });
       if (emailExists) {
