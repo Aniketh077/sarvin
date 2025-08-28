@@ -1,7 +1,8 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getMe } from '../store/slices/authSlice'; // <-- 1. IMPORT getMe
+import { getMe } from '../store/slices/authSlice'; 
 import { loginUser, registerUser, logout as logoutAction, clearError } from '../store/slices/authSlice';
+import LoadingSpinner from '../components/ui/LoadingSpinner';
 
 const AuthContext = createContext();
 
@@ -104,8 +105,13 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider value={value}>
-      {/* Only render children once initialization is complete */}
-      {isInitialized ? children : null /* Or a loading spinner */}
+     {isInitialized ? (
+      children
+    ) : (
+      <div className="min-h-screen flex items-center justify-center">
+        <LoadingSpinner/>
+      </div>
+    )}
     </AuthContext.Provider>
   );
 };
