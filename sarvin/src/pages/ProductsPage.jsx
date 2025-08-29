@@ -368,43 +368,17 @@ const ProductsPage = () => {
     return "All Products";
   };
 
- const getHeaderStyle = () => {
-    // Read directly from URL parameters for immediate detection.
-    const typeParam = searchParams.get("type");
-    const typesParam = searchParams.get("types")?.split(",") || [];
-    
-    // Combine all type filters from the URL into a Set for easy checking.
-    const allSelectedTypes = new Set(typesParam.filter(Boolean));
-    if (typeParam) {
-      allSelectedTypes.add(typeParam);
-    }
+const getHeaderStyle = () => {
 
-    // Default banner for "All Products" or any mixed filters.
-    let imageUrl = "/assets/banner/Mix_Banner3.png";
-
-    const lowerCaseCollection = decodedCollectionName?.toLowerCase();
-
-    // Conditions for specific banners, ordered by specificity.
-    if (allSelectedTypes.has("Stainless Steel Gas Stove")) {
-      imageUrl = "/assets/banner/Steel_Stove_Banner.png";
-    } else if (
-      lowerCaseCollection === "cooking appliances" ||
-      allSelectedTypes.has("Glass Gas Stove")
-    ) {
-      imageUrl = "/assets/banner/Glass_Stove_Banner.png";
-    } else if (
-      lowerCaseCollection === "small appliances" ||
-      allSelectedTypes.has("Mixer Grinder")
-    ) {
-      imageUrl = "/assets/banner/Grinder_Banner.png";
-    }
+    const backgroundColor = "#2A4365";
+    const subtlePattern = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3E%3Cpath d='M-1,1 l2,-2 M0,8 l8,-8 M7,9 l2,-2' stroke='%23FFFFFF' stroke-width='0.5' stroke-opacity='0.05'/%3E%3C/svg%3E")`;
 
     return {
-      backgroundImage: `linear-gradient(rgba(42, 67, 101, 0.7), rgba(42, 67, 101, 0.7)), url(${imageUrl})`,
-      backgroundSize: "cover",
-      backgroundPosition: "center",
+      backgroundColor: backgroundColor,
+      backgroundImage: subtlePattern,
     };
   };
+
 
 
   return (

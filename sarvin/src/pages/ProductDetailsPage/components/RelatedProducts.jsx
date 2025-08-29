@@ -22,7 +22,7 @@ const RelatedProducts = ({ relatedProducts, collectionName }) => {
             to={`/product/${relatedProduct._id}`}
             className="group block bg-white rounded-lg border border-gray-200 overflow-hidden shadow-sm hover:shadow-md transition-all"
           >
-            <div className="relative h-60 overflow-hidden bg-gray-100 p-4">
+            <div className="relative h-60 overflow-hidden p-4">
               <img
                 src={relatedProduct.image}
                 alt={relatedProduct.name}

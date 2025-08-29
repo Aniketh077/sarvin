@@ -66,16 +66,17 @@ const ProductCard = ({ product, viewMode = "grid" }) => {
         )}
 
         {/* Badges */}
-        {product.discountPrice && (
-  Math.round(((product.price - product.discountPrice) / product.price) * 100) > 0 && (
-    <div className="absolute left-0 top-4 z-10 bg-red-500 px-3 py-1 text-sm font-semibold text-white">
-      {Math.round(
-        ((product.price - product.discountPrice) / product.price) * 100
-      )}
-      % OFF
-    </div>
-  )
-)}
+        {product.discountPrice &&
+          Math.round(
+            ((product.price - product.discountPrice) / product.price) * 100
+          ) > 0 && (
+            <div className="absolute left-0 top-4 z-10 bg-red-500 px-3 py-1 text-sm font-semibold text-white">
+              {Math.round(
+                ((product.price - product.discountPrice) / product.price) * 100
+              )}
+              % OFF
+            </div>
+          )}
 
         {product.newArrival && (
           <div className="absolute right-0 top-4 z-10 bg-[#2A4365] px-3 py-1 text-sm font-semibold text-white">
@@ -84,7 +85,7 @@ const ProductCard = ({ product, viewMode = "grid" }) => {
         )}
 
         {/* Image Section */}
-        <div className="md:w-1/3 h-60 md:h-auto relative overflow-hidden bg-gray-100">
+        <div className="md:w-1/3 h-60 md:h-auto relative overflow-hidden ">
           <Link to={`/product/${productId}`} className="block h-full">
             <img
               src={
@@ -122,7 +123,8 @@ const ProductCard = ({ product, viewMode = "grid" }) => {
             </div>
 
             <div className="mb-4">
-              {product.discountPrice ? (
+              {product.discountPrice &&
+              product.discountPrice < product.price ? (
                 <div className="flex items-center">
                   <span className="text-xl font-semibold">
                     ₹{product.discountPrice.toFixed(2)}
@@ -199,17 +201,17 @@ const ProductCard = ({ product, viewMode = "grid" }) => {
   // Default grid view
   return (
     <div className="group relative overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm transition-all duration-300 hover:shadow-md">
-       {product.discountPrice && (
-  Math.round(((product.price - product.discountPrice) / product.price) * 100) > 0 && (
-    <div className="absolute left-0 top-4 z-10 bg-red-500 px-3 py-1 text-sm font-semibold text-white">
-      {Math.round(
-        ((product.price - product.discountPrice) / product.price) * 100
-      )}
-      % OFF
-    </div>
-  )
-)}
-
+      {product.discountPrice &&
+        Math.round(
+          ((product.price - product.discountPrice) / product.price) * 100
+        ) > 0 && (
+          <div className="absolute left-0 top-4 z-10 bg-red-500 px-3 py-1 text-sm font-semibold text-white">
+            {Math.round(
+              ((product.price - product.discountPrice) / product.price) * 100
+            )}
+            % OFF
+          </div>
+        )}
 
       {product.newArrival && (
         <div className="absolute right-0 top-4 z-10 bg-[#2A4365] px-3 py-1 text-sm font-semibold text-white">
@@ -233,7 +235,7 @@ const ProductCard = ({ product, viewMode = "grid" }) => {
       )}
 
       <Link to={`/product/${productId}`} className="block">
-        <div className="relative h-60 overflow-hidden bg-gray-100 p-4">
+        <div className="relative h-60 overflow-hidden  p-4">
           <img
             src={product.image}
             alt={product.name}
@@ -262,7 +264,8 @@ const ProductCard = ({ product, viewMode = "grid" }) => {
 
           <div className="flex items-center justify-between">
             <div>
-              {product.discountPrice ? (
+              {product.discountPrice &&
+              product.discountPrice < product.price ? (
                 <div className="flex items-center">
                   <span className="text-lg font-semibold">
                     ₹{product.discountPrice.toFixed(2)}

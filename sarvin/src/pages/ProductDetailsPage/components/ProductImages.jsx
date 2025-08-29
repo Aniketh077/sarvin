@@ -25,7 +25,7 @@ const ProductImages = ({ product, activeImage, setActiveImage }) => {
 
   return (
     <div className="p-6">
-      <div className="relative mb-4 aspect-square bg-gray-100 rounded-lg overflow-hidden">
+      <div className="relative mb-4 aspect-square rounded-lg overflow-hidden">
         <img
           src={productImages[activeImage] || product.image}
           alt={product.name}

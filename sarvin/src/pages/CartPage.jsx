@@ -170,30 +170,31 @@ const CartPage = () => {
                     </div>
 
                     <div className="sm:w-1/4 flex flex-col items-end justify-between">
-                      <div className="text-right">
-                        {item.product.discountPrice ? (
-                          <div>
-                            <span className="font-semibold">
-                              ₹{(item.product.discountPrice || 0).toFixed(2)}
-                            </span>
-                            <span className="text-sm text-gray-500 ml-2 line-through">
-                              ₹{(item.product.price || 0).toFixed(2)}
-                            </span>
-                          </div>
-                        ) : (
-                          <span className="font-semibold">
-                            ₹{(item.product.price || 0).toFixed(2)}
-                          </span>
-                        )}
-                        <p className="text-sm text-gray-500 mt-1">
-                          Subtotal: ₹
-                          {(
-                            (item.product.discountPrice ||
-                              item.product.price ||
-                              0) * item.quantity
-                          ).toFixed(2)}
-                        </p>
-                      </div>
+                     <div className="text-right">
+  {item.product.discountPrice && item.product.discountPrice < item.product.price ? (
+    <div>
+      <span className="font-semibold">
+        ₹{(item.product.discountPrice || 0).toFixed(2)}
+      </span>
+      <span className="text-sm text-gray-500 ml-2 line-through">
+        ₹{(item.product.price || 0).toFixed(2)}
+      </span>
+    </div>
+  ) : (
+    <span className="font-semibold">
+      ₹{(item.product.price || 0).toFixed(2)}
+    </span>
+  )}
+  <p className="text-sm text-gray-500 mt-1">
+    Subtotal: ₹
+    {(
+      (item.product.discountPrice && item.product.discountPrice < item.product.price
+        ? item.product.discountPrice
+        : item.product.price || 0) * item.quantity
+    ).toFixed(2)}
+  </p>
+</div>
+
 
                       <button
                         onClick={() =>

@@ -133,13 +133,13 @@ const Header = () => {
       {
         name: "Glass Gas Stove",
         path: "/products?type=Glass+Gas+Stove",
-        src: "/assets/Cooking_Appliances.png",
+        src: "/assets/Header/Cooking_Appliances_H.png",
         alt: "Glass cooktop stove",
       },
       {
         name: "Stainless Steel",
         path: "/products?type=Stainless+Steel",
-        src: "/assets/StainLessSteel.png",
+        src: "/assets/Header/Cooking_Appliances_H1.png",
         alt: "Stainless steel gas stove",
       },
     ],
@@ -154,13 +154,13 @@ const Header = () => {
       {
         name: "Mixer Grinders",
         path: "/products?type=Mixer+Grinder",
-        src: "/assets/Grinder.png",
+        src: "/assets/Header/small_Appliances_H.png",
         alt: "A modern mixer grinder",
       },
       {
         name: "Hand Blenders",
         path: "/products?type=Hand+Blender",
-        src: "/assets/Hand_Blender.png",
+        src: "/assets/Header/small_Appliances_H1.png",
         alt: "A centrifugal juicer",
       },
     ],
@@ -252,7 +252,7 @@ const Header = () => {
 
   return (
     <header className="fixed top-0 z-50 w-full bg-white  transition-all duration-300">
-      <DevelopmentBanner />
+      {/* <DevelopmentBanner /> */}
       <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* --- Top Bar (Logo, Search, Icons) --- */}
        {/* --- Top Bar (Logo, Search, Icons) --- */}

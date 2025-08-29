@@ -1,41 +1,50 @@
-import React from 'react';
-import { Minus, Plus, Check, ShoppingCart, Star, TruckIcon, ShieldCheck, Share2 } from 'lucide-react';
-import Button from '../../../components/ui/Button';
-import { useToast } from '../../../contexts/ToastContext';
+import React from "react";
+import {
+  Minus,
+  Plus,
+  Check,
+  ShoppingCart,
+  Star,
+  TruckIcon,
+  ShieldCheck,
+  Share2,
+} from "lucide-react";
+import Button from "../../../components/ui/Button";
+import { useToast } from "../../../contexts/ToastContext";
 
-const ProductInfo = ({ 
-  product, 
-  quantity, 
-  incrementQuantity, 
-  decrementQuantity, 
-  setQuantity, 
-  handleAddToCart, 
-  isDescriptionExpanded, 
-  setIsDescriptionExpanded, 
-  collectionName
+const ProductInfo = ({
+  product,
+  quantity,
+  incrementQuantity,
+  decrementQuantity,
+  setQuantity,
+  handleAddToCart,
+  isDescriptionExpanded,
+  setIsDescriptionExpanded,
+  collectionName,
 }) => {
   const { showSuccess, showError } = useToast();
-  const typeName = product.type?.name || product.type || 'Unknown';
+  const typeName = product.type?.name || product.type || "Unknown";
 
-const handleShare = async () => {
+  const handleShare = async () => {
     const shareData = {
       title: product.name,
       text: `Check out this product: ${product.name}`,
-      url: window.location.href 
+      url: window.location.href,
     };
 
     if (navigator.share) {
       try {
         await navigator.share(shareData);
       } catch (err) {
-        console.error('Share failed:', err);
+        console.error("Share failed:", err);
       }
     } else {
       try {
         await navigator.clipboard.writeText(window.location.href);
-        showSuccess('Product link copied to clipboard!');
+        showSuccess("Product link copied to clipboard!");
       } catch (err) {
-        showError('Failed to copy link.');
+        showError("Failed to copy link.");
       }
     }
   };
@@ -44,11 +53,12 @@ const handleShare = async () => {
     <div className="p-6 flex flex-col">
       <div className="mb-1 text-sm text-gray-500">{typeName}</div>
       <h1 className="text-2xl md:text-3xl font-bold mb-2">{product.name}</h1>
-      
+
       <div className="flex items-center mb-4">
         <div className="flex items-center">
           {[1, 2, 3, 4, 5].map((star) => {
-            const fillPercent = Math.min(Math.max(product.rating - (star - 1), 0), 1) * 100;
+            const fillPercent =
+              Math.min(Math.max(product.rating - (star - 1), 0), 1) * 100;
 
             return (
               <div key={star} className="relative w-5 h-5 mr-0.5">
@@ -65,22 +75,34 @@ const handleShare = async () => {
           <span className="ml-2 text-sm font-medium">{product.rating}</span>
         </div>
         <span className="mx-2 text-gray-300">|</span>
-        <span className="text-sm text-gray-500">{product.reviewCount} reviews</span>
+        <span className="text-sm text-gray-500">
+          {product.reviewCount} reviews
+        </span>
       </div>
-      
+
       <div className="mb-4">
-        {product.discountPrice ? (
+        {product.discountPrice && product.discountPrice < product.price ? (
           <div className="flex items-center">
-            <span className="text-3xl font-bold">₹{product.discountPrice.toFixed(2)}</span>
-            <span className="ml-2 text-lg text-gray-500 line-through">₹{product.price.toFixed(2)}</span>
+            <span className="text-3xl font-bold">
+              ₹{product.discountPrice.toFixed(2)}
+            </span>
+            <span className="ml-2 text-lg text-gray-500 line-through">
+              ₹{product.price.toFixed(2)}
+            </span>
           </div>
         ) : (
-          <span className="text-3xl font-bold">₹{product.price.toFixed(2)}</span>
+          <span className="text-3xl font-bold">
+            ₹{product.price.toFixed(2)}
+          </span>
         )}
       </div>
-      
+
       <div className="mb-6">
-        <p className={`text-gray-600 ${isDescriptionExpanded ? '' : 'line-clamp-3'}`}>
+        <p
+          className={`text-gray-600 ${
+            isDescriptionExpanded ? "" : "line-clamp-3"
+          }`}
+        >
           {product.description}
         </p>
         {product.description.length > 150 && (
@@ -88,11 +110,11 @@ const handleShare = async () => {
             onClick={() => setIsDescriptionExpanded(!isDescriptionExpanded)}
             className="text-[#2A4365] text-sm font-medium hover:text-[#C87941] mt-1"
           >
-            {isDescriptionExpanded ? 'Show less' : 'Read more'}
+            {isDescriptionExpanded ? "Show less" : "Read more"}
           </button>
         )}
       </div>
-      
+
       {/* Key Features */}
       {product.features && product.features.length > 0 && (
         <div className="mb-6">
@@ -107,24 +129,29 @@ const handleShare = async () => {
           </ul>
         </div>
       )}
-      
+
       {/* Stock */}
       <div className="mb-6">
         <div className="flex items-center">
-          <div className={`h-3 w-3 rounded-full mr-2 ${
-            product.stock > 5 ? 'bg-green-500' : 
-            product.stock > 0 ? 'bg-yellow-500' : 'bg-red-500'
-          }`}></div>
+          <div
+            className={`h-3 w-3 rounded-full mr-2 ${
+              product.stock > 5
+                ? "bg-green-500"
+                : product.stock > 0
+                ? "bg-yellow-500"
+                : "bg-red-500"
+            }`}
+          ></div>
           <span className="text-sm font-medium">
             {product.stock > 5
-              ? 'In Stock'
+              ? "In Stock"
               : product.stock > 0
               ? `Low Stock (${product.stock} left)`
-              : 'Out of Stock'}
+              : "Out of Stock"}
           </span>
         </div>
       </div>
-      
+
       {/* Quantity Selector and Add to Cart */}
       <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 mb-6">
         <div className="flex items-center border border-gray-300 rounded-md w-36">
@@ -167,7 +194,7 @@ const handleShare = async () => {
         >
           Add to Cart
         </Button>
-         <Button
+        <Button
           variant="outline"
           size="lg"
           className="w-full sm:w-16 flex-shrink-0"
@@ -185,7 +212,7 @@ const handleShare = async () => {
           <Heart className="h-5 w-5" />
         </Button> */}
       </div>
-      
+
       {/* Benefits */}
       <div className="space-y-3 mb-6 border-t border-gray-100 pt-4">
         <div className="flex items-center">
@@ -195,11 +222,11 @@ const handleShare = async () => {
         <div className="flex items-center">
           <ShieldCheck className="h-5 w-5 text-[#2A4365] mr-3" />
           <span className="text-sm">
-            {(product.warranty&& product.warranty) || '1 year'} warranty
+            {(product.warranty && product.warranty) || "1 year"} warranty
           </span>
         </div>
       </div>
-      
+
       <div className="border-t border-gray-100 pt-4 mt-auto">
         <div className="flex items-center text-sm">
           <span className="text-gray-500">SKU: {product._id}</span>

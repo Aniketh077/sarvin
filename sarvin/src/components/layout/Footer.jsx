@@ -1,7 +1,14 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Mail, Phone, Facebook, Twitter, Instagram, Youtube, ArrowRight } from 'lucide-react';
-import FAQModal from '../FAQModal/FAQModal';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import {
+  Mail,
+  Phone,
+  Facebook,
+  Twitter,
+  Instagram,
+  ArrowRight,
+} from "lucide-react";
+import FAQModal from "../FAQModal/FAQModal";
 
 const Footer = () => {
   const [isFAQModalOpen, setIsFAQModalOpen] = useState(false);
@@ -28,34 +35,75 @@ const Footer = () => {
                   src="/sarvinindia.jpeg"
                   alt="Sarvin"
                   className="h-10 w-auto object-contain"
-                  style={{ maxWidth: '120px' }}
+                  style={{ maxWidth: "120px" }}
                 />
               </Link>
               <p className="text-gray-300 mb-6">
-                Sarvin brings you the best in home appliances with premium quality, innovative technology,
-                and exceptional customer service. Transform your home with our wide range of products.
+                Sarvin brings you the best in home appliances with premium
+                quality, innovative technology, and exceptional customer
+                service. Transform your home with our wide range of products.
               </p>
               <div className="space-y-3">
                 <div className="flex items-start">
                   <Mail className="h-5 w-5 text-[#C87941] mt-1 mr-3" />
-                  <span className="text-gray-300">sarvinhomeappl@gmail.com</span>
+                  <a
+                    href="mailto:sarvinhomeappl@gmail.com"
+                    className="text-gray-300 hover:text-[#C87941] transition-colors"
+                  >
+                    sarvinhomeappl@gmail.com
+                  </a>
                 </div>
                 <div className="flex items-start">
                   <Phone className="h-5 w-5 text-[#C87941] mt-1 mr-3" />
-                  <span className="text-gray-300">+91 93109 79906</span>
+                  <a
+                    href="tel:+919310979906"
+                    className="text-gray-300 hover:text-[#C87941] transition-colors"
+                  >
+                    +91 93109 79906
+                  </a>
                 </div>
               </div>
             </div>
 
             {/* Quick Links */}
             <div>
-              <h3 className="text-lg font-semibold mb-4 border-b border-gray-700 pb-2">Quick Links</h3>
+              <h3 className="text-lg font-semibold mb-4 border-b border-gray-700 pb-2">
+                Quick Links
+              </h3>
               <ul className="space-y-2">
-                <li><Link to="/" className="text-gray-300 hover:text-[#C87941] transition-colors">Home</Link></li>
-                <li><Link to="/products" className="text-gray-300 hover:text-[#C87941] transition-colors">Shop</Link></li>
+                <li>
+                  <Link
+                    to="/"
+                    className="text-gray-300 hover:text-[#C87941] transition-colors"
+                  >
+                    Home
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/products"
+                    className="text-gray-300 hover:text-[#C87941] transition-colors"
+                  >
+                    Shop
+                  </Link>
+                </li>
                 {/* <li><Link to="/deals" className="text-gray-300 hover:text-[#C87941] transition-colors">Special Deals</Link></li> */}
-                <li><Link to="/about" className="text-gray-300 hover:text-[#C87941] transition-colors">About Us</Link></li>
-                <li><Link to="/contact" className="text-gray-300 hover:text-[#C87941] transition-colors">Contact</Link></li>
+                <li>
+                  <Link
+                    to="/about"
+                    className="text-gray-300 hover:text-[#C87941] transition-colors"
+                  >
+                    About Us
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/contact"
+                    className="text-gray-300 hover:text-[#C87941] transition-colors"
+                  >
+                    Contact
+                  </Link>
+                </li>
               </ul>
             </div>
 
@@ -63,11 +111,20 @@ const Footer = () => {
             <div className="space-y-8">
               {/* Help & Info Section */}
               <div>
-                <h3 className="text-lg font-semibold mb-4 border-b border-gray-700 pb-2">Help & Info</h3>
+                <h3 className="text-lg font-semibold mb-4 border-b border-gray-700 pb-2">
+                  Help & Info
+                </h3>
                 <ul className="space-y-2">
-                  <li><a href="tel:+919310979906" className="text-gray-300 hover:text-[#C87941] transition-colors">Customer Service +91 93109 79906</a></li>
                   <li>
-                    <button 
+                    <a
+                      href="tel:+919310979906"
+                      className="text-gray-300 hover:text-[#C87941] transition-colors"
+                    >
+                      Customer Service +91 93109 79906
+                    </a>
+                  </li>
+                  <li>
+                    <button
                       onClick={handleFAQClick}
                       className="text-gray-300 hover:text-[#C87941] transition-colors text-left"
                     >
@@ -104,16 +161,25 @@ const Footer = () => {
           <div className="border-t border-gray-700 py-6">
             <div className="flex flex-col md:flex-row justify-between items-center">
               <p className="text-gray-300 text-sm mb-4 md:mb-0">
-                &copy; {new Date().getFullYear()} Sarvin Home Appliances. All rights reserved.
+                &copy; {new Date().getFullYear()} Sarvin Home Appliances. All
+                rights reserved.
               </p>
               <div className="flex space-x-4">
-                <a href="https://www.facebook.com/profile.php?id=100079974925586&mibextid=ZbWKwL" className="text-gray-300 hover:text-[#C87941] transition-colors" aria-label="Facebook">
+                <a
+                  href="https://www.facebook.com/profile.php?id=100079974925586&mibextid=ZbWKwL"
+                  className="text-gray-300 hover:text-[#C87941] transition-colors"
+                  aria-label="Facebook"
+                >
                   <Facebook className="h-5 w-5" />
                 </a>
                 {/* <a href="#" className="text-gray-300 hover:text-[#C87941] transition-colors" aria-label="Twitter">
                   <Twitter className="h-5 w-5" />
                 </a> */}
-                <a href="https://www.instagram.com/sarvinindia/" className="text-gray-300 hover:text-[#C87941] transition-colors" aria-label="Instagram">
+                <a
+                  href="https://www.instagram.com/sarvinindia/"
+                  className="text-gray-300 hover:text-[#C87941] transition-colors"
+                  aria-label="Instagram"
+                >
                   <Instagram className="h-5 w-5" />
                 </a>
                 {/* <a href="#" className="text-gray-300 hover:text-[#C87941] transition-colors" aria-label="YouTube">
