@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Package, ShoppingCart, Users, LogOut, Menu, X, ChevronRight, Mail, MessageSquare, BarChart3, Home, ChevronLeft, Calendar, User, DollarSign, Eye } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
-import { fetchDashboardStats, fetchAllUsers } from '../../store/slices/adminSlice';
+import { fetchDashboardStats } from '../../store/slices/adminSlice';
 import AdminProducts from './AdminProducts/AdminProducts';
 import AdminOrders from './AdminOrders/AdminMainOrders';
 import AdminCustomers from './AdminCustomers';
@@ -44,12 +44,14 @@ const AdminDashboard = () => {
     return () => window.removeEventListener('resize', checkScreenSize);
   }, []);
 
+   const handleViewOrderDetails = (orderId) => {
+    setSelectedOrderId(orderId);
+    setActiveTab(AdminTab.ORDERS); 
+  };
+
   useEffect(() => {
     if (isInitialized && user && isAdmin) {
       dispatch(fetchDashboardStats());
-      if (users.length === 0) {
-        dispatch(fetchAllUsers());
-      }
     }
   }, [user, isAdmin, isInitialized,dispatch, users.length]);
 
@@ -117,9 +119,10 @@ const AdminDashboard = () => {
       case AdminTab.PRODUCTS:
         return <AdminProducts />;
       case AdminTab.ORDERS:
-        return <AdminOrders initialOrderId={selectedOrderId} />; 
+        return <AdminOrders initialOrderId={selectedOrderId} 
+        onCloseDetails={() => setSelectedOrderId(null)} />; 
       case AdminTab.CUSTOMERS:
-        return <AdminCustomers />;
+        return <AdminCustomers onViewOrder={handleViewOrderDetails} />; 
       case AdminTab.NEWSLETTER:
         return <AdminNewsletter />;
       case AdminTab.CONTACT:

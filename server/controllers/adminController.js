@@ -1,6 +1,7 @@
 const User = require('../models/User');
 const Product = require('../models/Product');
 const Order = require('../models/Order');
+const mongoose = require('mongoose');
 
 // @desc    Get dashboard stats
 // @route   GET /api/admin/dashboard
@@ -60,17 +61,86 @@ const getDashboardStats = async (req, res) => {
 
 // @desc    Get all users
 // @route   GET /api/admin/users
+// @desc    Get all users with pagination
+// @route   GET /api/admin/users
 const getUsers = async (req, res) => {
   try {
-    const users = await User.find({ role: 'user' }).select('-password');
-    res.json(users);
-  } catch (error)
- {
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const skip = (page - 1) * limit;
+
+    const query = { role: 'user' };
+    if (req.query.search) {
+      const searchRegex = new RegExp(req.query.search, 'i');
+      query.$or = [
+        { name: searchRegex },
+        { email: searchRegex }
+      ];
+    }
+
+    const [users, totalUsers] = await Promise.all([
+      User.find(query)
+        .select('-password')
+        .sort({ createdAt: -1 })
+        .skip(skip)
+        .limit(limit),
+      User.countDocuments(query)
+    ]);
+
+    res.json({
+      users,
+      totalUsers,
+      currentPage: page,
+      totalPages: Math.ceil(totalUsers / limit),
+    });
+
+  } catch (error) {
+    console.error('Get users error:', error);
     res.status(500).json({ message: 'Server error' });
   }
 };
 
+// @desc    Get all orders for a specific user (Admin)
+// @route   GET /api/admin/users/:userId/orders
+const getUserOrders = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 5;
+    const skip = (page - 1) * limit;
+    const [orders, totalOrders, totalSpentResult] = await Promise.all([
+      Order.find({ user: userId })
+        .populate('items.product', 'name image')
+        .sort({ createdAt: -1 })
+        .skip(skip)
+        .limit(limit),
+    
+      Order.countDocuments({ user: userId }),
+      Order.aggregate([
+        { $match: { user: new mongoose.Types.ObjectId(userId) } },
+        { $group: { _id: null, total: { $sum: '$total' } } }
+      ])
+    ]);
+
+    const lifetimeTotalSpent = totalSpentResult[0]?.total || 0;
+
+    res.json({
+      orders,
+      totalOrders,
+      currentPage: page,
+      totalPages: Math.ceil(totalOrders / limit),
+      lifetimeTotalSpent, 
+    });
+
+  } catch (error) {
+    console.error(`Error fetching orders for user ${req.params.userId}:`, error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
+
 module.exports = {
   getDashboardStats,
-  getUsers
+  getUsers,
+  getUserOrders
 };

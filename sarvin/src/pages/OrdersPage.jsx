@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { Package, ChevronRight, Truck, AlertCircle, Loader2 } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
+import { Package, ChevronRight, Truck, AlertCircle } from 'lucide-react';
 import Button from '../components/ui/Button';
-import { useNavigate } from 'react-router-dom';
 import { fetchMyOrders } from '../store/slices/orderSlice';
 import LoadingSpinner from '../components/ui/LoadingSpinner';
 
@@ -54,29 +53,23 @@ const OrdersPage = () => {
       day: 'numeric'
     });
   };
-
-
+  
   const getProductImage = (item) => {
     if (!item || !item.product) return '/placeholder-image.jpg';
-
     if (item.product.image) return item.product.image;
     if (item.product.images && item.product.images.length > 0) return item.product.images[0];
     return '/placeholder-image.jpg';
   };
 
   const getProductName = (item) => {
-    if (!item || !item.product) return 'Product Name';
+    if (!item || !item.product) return 'Product Unavailable';
     return item.product.name || 'Product Name';
   };
 
-  // Loading state
   if (loading) {
-    return (
-        <LoadingSpinner/>
-    );
+    return <LoadingSpinner />;
   }
 
-  // Error state
   if (error) {
     return (
       <div className="min-h-screen pt-20 pb-16">
@@ -86,8 +79,8 @@ const OrdersPage = () => {
               <AlertCircle className="h-12 w-12 text-red-500 mx-auto mb-4" />
               <h2 className="text-xl font-semibold text-red-800 mb-2">Error Loading Orders</h2>
               <p className="text-red-600 mb-4">{error}</p>
-              <Button 
-                variant="primary" 
+              <Button
+                variant="primary"
                 onClick={() => dispatch(fetchMyOrders())}
               >
                 Try Again
@@ -127,9 +120,8 @@ const OrdersPage = () => {
             <div className="space-y-6">
               {orders.map((order) => (
                 <div key={order._id}
-                onClick={() => navigate(`/orders/${order._id}`)}
-                 className="bg-white rounded-lg shadow-sm overflow-hidden cursor-pointer hover:shadow-lg transition-shadow duration-200">
-                  <div className="p-6 border-b border-gray-100">
+                  className="bg-white rounded-lg shadow-sm overflow-hidden transition-shadow duration-200">
+                  <div className="p-6 border-b border-gray-100 cursor-pointer hover:bg-gray-50" onClick={() => navigate(`/orders/${order._id}`)}>
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between">
                       <div>
                         <div className="flex items-center">
@@ -156,53 +148,57 @@ const OrdersPage = () => {
                   </div>
 
                   <div className="px-6 py-4">
-                    {order.items && order.items.map((item, index) => (
-                      <div key={`${item.product?._id || item.product || index}`} className="flex items-center py-4 border-b border-gray-100 last:border-0">
-                        <div className="h-20 w-20 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-                          <img
-                            src={getProductImage(item)}
-                            alt={getProductName(item)}
-                            className="h-full w-full object-contain"
-                            onError={(e) => {
-                              e.target.src = '/placeholder-image.jpg';
-                            }}
-                            onClick={() => navigate(`/product/${item.product.id || item.product._id}`)}
-                          />
-                        </div>
-                        <div className="ml-6 flex-1">
-                          <div className="flex items-center justify-between">
-                            <h3 className="text-sm font-medium">
-                              {getProductName(item)}
-                            </h3>
-                            <p className="text-sm font-medium">₹{(item.price || 0).toFixed(2)}</p>
+                    {order.items && order.items.map((item, index) => {
+                      // If product data is missing, render a fallback UI that is NOT clickable
+                      if (!item.product) {
+                        return (
+                          <div key={`${order._id}-${index}`} className="flex items-center py-4 border-b border-gray-100 last:border-0">
+                            <div className="h-20 w-20 flex-shrink-0 overflow-hidden rounded-md border border-gray-200 bg-gray-100 flex items-center justify-center">
+                              <AlertCircle className="h-8 w-8 text-gray-400" />
+                            </div>
+                            <div className="ml-6 flex-1">
+                              <h3 className="text-sm font-medium text-red-600">
+                                Product Unavailable
+                              </h3>
+                              <p className="mt-1 text-xs text-gray-500">This product may have been removed.</p>
+                            </div>
                           </div>
-                          <p className="mt-1 text-sm text-gray-500">Quantity: {item.quantity || 0}</p>
-                          {!item.product && (
-                            <p className="mt-1 text-xs text-red-500">Product information unavailable</p>
-                          )}
+                        );
+                      }
+
+                      // Otherwise, render the product as normal, with a clickable image
+                      return (
+                        <div key={item.product._id} className="flex items-center py-4 border-b border-gray-100 last:border-0">
+                          <div className="h-20 w-20 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+                            <img
+                              src={getProductImage(item)}
+                              alt={getProductName(item)}
+                              className="h-full w-full object-contain cursor-pointer"
+                              onError={(e) => { e.target.src = '/placeholder-image.jpg'; }}
+                              onClick={() => navigate(`/product/${item.product._id}`)}
+                            />
+                          </div>
+                          <div className="ml-6 flex-1">
+                            <div className="flex items-center justify-between">
+                              <h3 className="text-sm font-medium">
+                                {getProductName(item)}
+                              </h3>
+                              <p className="text-sm font-medium">₹{(item.price || 0).toFixed(2)}</p>
+                            </div>
+                            <p className="mt-1 text-sm text-gray-500">Quantity: {item.quantity || 0}</p>
+                          </div>
                         </div>
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
 
                   <div className="px-6 py-4 bg-gray-50 flex justify-between items-center">
                     <div className="flex space-x-3">
-                      {/* <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => {
-                          // Add track order functionality
-                          console.log('Track order:', order._id);
-                        }}
-                      >
-                        Track Order
-                      </Button> */}
                       {order.paymentStatus === 'pending' && (
                         <Button
                           variant="primary"
                           size="sm"
                           onClick={() => {
-                            // Add payment functionality
                             console.log('Complete payment:', order._id);
                           }}
                         >

@@ -14,17 +14,30 @@ const getDashboardStats = async (token) => {
 };
 
 // Get all users
-const getUsers = async (token) => {
+const getUsers = async (token, { page = 1, limit = 10, search = '' }) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`
-    }
+    },
+    params: { page, limit, search }
   };
-  const response = await axios.get(API_URL, config);
+  const response = await axios.get(API_URL, config); 
+  return response.data;
+};
+
+const getUserOrders = async (token, userId, { page = 1, limit = 5 }) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`
+    },
+    params: { page, limit }
+  };
+  const response = await axios.get(`${API_URL}/${userId}/orders`, config);
   return response.data;
 };
 
 export const adminAPI = {
   getDashboardStats,
-  getUsers
+  getUsers,
+  getUserOrders
 };

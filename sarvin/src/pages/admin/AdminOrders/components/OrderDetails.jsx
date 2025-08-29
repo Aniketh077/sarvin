@@ -307,7 +307,7 @@ const OrderDetails = ({ order, onClose, onUpdateStatus, statusUpdateLoading}) =>
         <body>
            <div class="print-header">
         <div class="company-info">
-          <h1>SARVIN ELECTRONICS</h1>
+          <h1>SARVIN APPLIANCES</h1>
           <h3>ORDER DETAILS</h3>
           <h2>Order #${orderInfo.orderId}</h2>
           <p>Generated on ${new Date().toLocaleDateString()}</p>
