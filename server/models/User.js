@@ -24,6 +24,7 @@ const userSchema = new mongoose.Schema({
     type: String, 
     required: true, 
     unique: true,
+    index: true,
     match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please add a valid email']
   },
   password: { type: String, required: true },
@@ -47,7 +48,7 @@ const userSchema = new mongoose.Schema({
       default: Date.now
     }
   },
-  role: { type: String, enum: ['user', 'admin'], default: 'user' },
+  role: { type: String, enum: ['user', 'admin'], default: 'user',index: true  },
   
   // Email verification fields
   isEmailVerified: {

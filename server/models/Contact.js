@@ -29,12 +29,14 @@ const contactSchema = new mongoose.Schema({
   status: {
     type: String,
     enum: ['pending', 'in-progress', 'resolved', 'closed'],
-    default: 'pending'
+    default: 'pending',
+    index: true
   },
   department: {
     type: String,
     enum: ['general', 'sales', 'support', 'warranty', 'feedback', 'partnership'],
-    default: 'general'
+    default: 'general',
+    index: true
   },
   priority: {
     type: String,

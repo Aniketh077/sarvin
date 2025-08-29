@@ -14,12 +14,14 @@ const orderSchema = new mongoose.Schema({
   orderId: {
     type: String,
     unique: true,
-    required: true
+    required: true,
+    index: true
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
-    required: true
+    required: true,
+    index: true
   },
   items: [orderItemSchema],
   total: { type: Number, required: true },
@@ -37,13 +39,15 @@ const orderSchema = new mongoose.Schema({
   paymentStatus: {
     type: String,
     enum: ['pending', 'completed', 'failed'],
-    default: 'pending'
+    default: 'pending',
+    index: true
   },
   paymentId: String,
   orderStatus: {
   type: String,
   enum: ['processing', 'shipped', 'delivered', 'cancelled'],
-  default: 'processing'
+  default: 'processing',
+  index: true
 },
 statusHistory: [{
   status: {
@@ -60,7 +64,7 @@ statusHistory: [{
     ref: 'User'
   }
 }],
-  createdAt: { type: Date, default: Date.now }
+  createdAt: { type: Date, default: Date.now, index: true }
 });
 
 // Static method to generate unique order ID with SVN prefix and serial numbers

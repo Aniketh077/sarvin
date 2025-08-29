@@ -6,7 +6,8 @@ const newsletterSchema = new mongoose.Schema({
     required: true,
     unique: true,
     lowercase: true,
-    trim: true
+    trim: true,
+    index: true
   },
   subscriptionDate: {
     type: Date,
@@ -14,7 +15,8 @@ const newsletterSchema = new mongoose.Schema({
   },
   isActive: {
     type: Boolean,
-    default: true
+    default: true,
+    index: true
   },
   source: {
     type: String,

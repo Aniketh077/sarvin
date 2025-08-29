@@ -1,6 +1,7 @@
 import React from 'react';
-import { Minus, Plus, Check, ShoppingCart, Star, TruckIcon, ShieldCheck, Heart } from 'lucide-react';
+import { Minus, Plus, Check, ShoppingCart, Star, TruckIcon, ShieldCheck, Share2 } from 'lucide-react';
 import Button from '../../../components/ui/Button';
+import { useToast } from '../../../contexts/ToastContext';
 
 const ProductInfo = ({ 
   product, 
@@ -13,7 +14,31 @@ const ProductInfo = ({
   setIsDescriptionExpanded, 
   collectionName
 }) => {
+  const { showSuccess, showError } = useToast();
   const typeName = product.type?.name || product.type || 'Unknown';
+
+const handleShare = async () => {
+    const shareData = {
+      title: product.name,
+      text: `Check out this product: ${product.name}`,
+      url: window.location.href 
+    };
+
+    if (navigator.share) {
+      try {
+        await navigator.share(shareData);
+      } catch (err) {
+        console.error('Share failed:', err);
+      }
+    } else {
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showSuccess('Product link copied to clipboard!');
+      } catch (err) {
+        showError('Failed to copy link.');
+      }
+    }
+  };
 
   return (
     <div className="p-6 flex flex-col">
@@ -141,6 +166,15 @@ const ProductInfo = ({
           className="flex-1"
         >
           Add to Cart
+        </Button>
+         <Button
+          variant="outline"
+          size="lg"
+          className="w-full sm:w-16 flex-shrink-0"
+          onClick={handleShare}
+          aria-label="Share this product"
+        >
+          <Share2 className="h-5 w-5" />
         </Button>
         {/* <Button
           variant="outline"

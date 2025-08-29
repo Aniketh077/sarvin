@@ -6,20 +6,22 @@ const productSchema = new mongoose.Schema({
     unique: true,  
     sparse: true,  
     uppercase: true,
-    trim: true
+    trim: true,
+    index: true
   },
-  name: { type: String, required: true },
+  name: { type: String, required: true,index: true},
   description: { type: String, required: false },
-  price: { type: Number, required: true },
+  price: { type: Number, required: true,index: true },
   discountPrice: Number,
   collection: {
     type: String,
     required: false,
+    index: true,
     enum: ['Cooking Appliances', 'Small Appliances'],
   },
   warranty: { type: String, required: true }, 
-  bestSeller: { type: Boolean, default: false }, 
-  type: { type: mongoose.Schema.Types.ObjectId, ref: 'Type', required: true },
+  bestSeller: { type: Boolean, default: false,index: true }, 
+  type: { type: mongoose.Schema.Types.ObjectId, ref: 'Type', required: true ,index: true},
   image: { type: String },
   images: [String],
   features: [String],
@@ -44,9 +46,9 @@ const productSchema = new mongoose.Schema({
    }],
   rating: { type: Number, default: 0,set: v => parseFloat(v.toFixed(1)) },
   reviewCount: { type: Number, default: 0 },
-  featured: { type: Boolean, default: false },
-  newArrival: { type: Boolean, default: false },
-  createdAt: { type: Date, default: Date.now }
+  featured: { type: Boolean, default: false, index: true },
+  newArrival: { type: Boolean, default: false,index: true },
+  createdAt: { type: Date, default: Date.now ,index: true }
 });
 
 productSchema.pre('save', function(next) {
