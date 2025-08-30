@@ -6,6 +6,7 @@ import { fetchProducts, fetchTypes } from "../store/slices/productSlice";
 import ProductCard from "../components/ui/ProductCard";
 import Button from "../components/ui/Button";
 import CustomSelect from "../components/ui/CustomSelect";
+import LoadingSpinner from "../components/ui/LoadingSpinner";
 
 // Helper component for collapsible filter sections
 const FilterSection = ({ title, children, isOpen, onToggle }) => (
@@ -159,7 +160,6 @@ const SearchPage = () => {
     { label: "2 Burners", value: "2" },
     { label: "3 Burners", value: "3" },
     { label: "4 Burners", value: "4" },
-    { label: "5 Burners", value: "5" }, 
   ];
   const ignitionTypeOptions = [
     { label: "Auto Ignition", value: "Auto Ignition" },
@@ -457,7 +457,7 @@ const SearchPage = () => {
               <div className="flex-1">
                 {loading && products.length === 0 ? (
                     <div className="flex items-center justify-center p-12">
-                        <div className="animate-spin  h-16 w-16 border-b-2 border-[#2A4365]"></div>
+                        <LoadingSpinner/>
                     </div>
                 ) : !loading && products.length === 0 ? (
                     <div className="bg-white p-8  shadow-sm text-center">

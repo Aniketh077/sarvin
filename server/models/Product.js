@@ -29,7 +29,7 @@ const productSchema = new mongoose.Schema({
   stock: { type: Number, default: 0 },
   burners: {
     type: Number,
-    enum: [1, 2, 3, 4, 5],
+    enum: [1, 2, 3, 4],
     // required: function() { return this.collection === 'Cooking Appliances'; }
   },
   ignitionType: {

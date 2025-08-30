@@ -18,6 +18,7 @@ import {
 import ProductCard from "../components/ui/ProductCard";
 import Button from "../components/ui/Button";
 import CustomSelect from "../components/ui/CustomSelect";
+import LoadingSpinner from "../components/ui/LoadingSpinner";
 
 // Helper component for collapsible filter sections
 const FilterSection = ({ title, children, isOpen, onToggle }) => (
@@ -50,7 +51,7 @@ const FilterCheckbox = ({ label, value, checked, onChange, count }) => (
     />
     <span
       className={`
-        h-4 w-4 rounded border border-gray-400 flex items-center justify-center transition-colors
+        h-4 w-4 border border-gray-400 flex items-center justify-center transition-colors
         peer-checked:bg-[#C87941] peer-checked:border-[#C87941]
         peer-focus-visible:ring-2 peer-focus-visible:ring-offset-1 peer-focus-visible:ring-[#C87941]
         group-hover:border-[#C87941]
@@ -184,7 +185,6 @@ const ProductsPage = () => {
     { label: "2 Burners", value: "2" },
     { label: "3 Burners", value: "3" },
     { label: "4 Burners", value: "4" },
-    { label: "5 Burners", value: "5" },
   ];
   const ignitionTypeOptions = [
     { label: "Auto Ignition", value: "Auto Ignition" },
@@ -590,7 +590,7 @@ const getHeaderStyle = () => {
           <div className="flex-1">
             {loading && currentPage === 1 ? (
               <div className="flex items-center justify-center p-12">
-                <div className="animate-spin  h-16 w-16 border-b-2 border-[#2A4365]"></div>
+                <LoadingSpinner/>
               </div>
             ) : products.length === 0 && !loading ? (
               <div className="bg-white p-8  shadow-sm text-center">

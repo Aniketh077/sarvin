@@ -198,7 +198,6 @@ const ProductForm = ({ onClose, onSave, product, types }) => {
     { value: 2, label: '2 Burners' },
     { value: 3, label: '3 Burners' },
     { value: 4, label: '4 Burners' },
-    { value: 5, label: '5 Burners' }
   ];
 
   const ignitionOptions = [

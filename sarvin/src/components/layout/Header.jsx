@@ -129,7 +129,6 @@ const Header = () => {
       { name: "2 Burner", path: "/products?burners=2" },
       { name: "3 Burner", path: "/products?burners=3" },
       { name: "4 Burner", path: "/products?burners=4" },
-      { name: "5 Burner", path: "/products?burners=5" },
     ],
     images: [
       {
@@ -140,7 +139,7 @@ const Header = () => {
       },
       {
         name: "Stainless Steel",
-        path: "/products?type=Stainless+Steel",
+        path: "/products?type=Stainless+Steel+Gas+Stove",
         src: "/assets/Header/Cooking_Appliances_H1.png",
         alt: "Stainless steel gas stove",
       },
