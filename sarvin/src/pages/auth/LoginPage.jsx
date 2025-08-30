@@ -110,7 +110,7 @@ const LoginPage = () => {
   return (
     <div className="min-h-screen pt-20 pb-16 flex flex-col justify-center">
       <div className="container mx-auto px-4">
-        <div className="max-w-md mx-auto bg-white rounded-lg shadow-sm overflow-hidden">
+        <div className="max-w-md mx-auto bg-white  shadow-sm overflow-hidden">
           <div className="p-6 sm:p-8">
             <div className="text-center mb-8">
               <h1 className="text-2xl font-bold mb-2">Welcome Back</h1>

@@ -16,7 +16,7 @@ const PaymentInfo = ({ order }) => {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-sm overflow-hidden">
+    <div className="bg-white  shadow-sm overflow-hidden">
       <div className="px-6 py-4 border-b border-gray-100">
         <h2 className="text-lg font-semibold flex items-center">
           <CreditCard className="h-5 w-5 mr-2" />
@@ -31,7 +31,7 @@ const PaymentInfo = ({ order }) => {
         <div>
           <p className="text-sm text-gray-600 mb-1">Payment Status</p>
           <span
-            className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getPaymentStatusColor(
+            className={`inline-flex items-center px-2.5 py-0.5  text-xs font-medium ${getPaymentStatusColor(
               order.paymentStatus
             )}`}
           >

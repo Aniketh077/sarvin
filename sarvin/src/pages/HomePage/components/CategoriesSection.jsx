@@ -19,7 +19,7 @@ const CategoriesSection = ({ categories }) => {
               to={`/products/${category.name.toLowerCase().replace(/\s+/g, '-')}`}
               className="group"
             >
-              <div className="bg-white rounded-xl shadow-sm overflow-hidden transition-all duration-300 group-hover:shadow-lg group-hover:-translate-y-1">
+              <div className="bg-white  shadow-sm overflow-hidden transition-all duration-300 group-hover:shadow-lg group-hover:-translate-y-1">
                 <div className="h-40 overflow-hidden">
                   <img
                     src={category.image}

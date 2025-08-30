@@ -32,7 +32,7 @@ const CustomSelect = ({
         <button
           type="button"
           onClick={() => setIsOpen(!isOpen)}
-          className={`w-full px-4 py-3 text-left border border-[#E2E8F0] bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-[#2A4365] focus:border-[#2A4365] transition-all duration-200 ${
+          className={`w-full px-4 py-3 text-left border border-[#E2E8F0] bg-white  focus:outline-none focus:ring-2 focus:ring-[#2A4365] focus:border-[#2A4365] transition-all duration-200 ${
             isOpen ? "ring-2 ring-[#2A4365] border-[#2A4365]" : ""
           }`}
         >
@@ -49,7 +49,7 @@ const CustomSelect = ({
         </button>
 
         {isOpen && (
-          <div className="absolute z-50 w-full mt-1 bg-white border border-[#E2E8F0] rounded-md shadow-lg max-h-60 overflow-y-auto">
+          <div className="absolute z-50 w-full mt-1 bg-white border border-[#E2E8F0]  shadow-lg max-h-60 overflow-y-auto">
             {options.map((option) => (
               <button
                 key={option.value}

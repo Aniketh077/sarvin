@@ -5,13 +5,13 @@ import { formatDate, getStatusColor, getPriorityColor, getDepartmentColor } from
 const ViewModal = ({ submission, onClose, onEdit }) => {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+      <div className="bg-white  max-w-4xl w-full max-h-[90vh] overflow-y-auto">
         <div className="p-4 sm:p-6">
           <div className="flex justify-between items-center mb-4 sm:mb-6">
             <h2 className="text-xl sm:text-2xl font-bold text-gray-900">Contact Submission Details</h2>
             <button
               onClick={onClose}
-              className="text-gray-400 hover:text-gray-600 p-2 rounded-lg hover:bg-gray-100"
+              className="text-gray-400 hover:text-gray-600 p-2  hover:bg-gray-100"
             >
               <X size={24} />
             </button>
@@ -19,7 +19,7 @@ const ViewModal = ({ submission, onClose, onEdit }) => {
           
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
             <div className="space-y-4">
-              <div className="bg-gray-50 rounded-lg p-4">
+              <div className="bg-gray-50  p-4">
                 <h3 className="font-medium text-gray-900 mb-3">Contact Information</h3>
                 <div className="space-y-2">
                   <div className="flex items-center">
@@ -39,7 +39,7 @@ const ViewModal = ({ submission, onClose, onEdit }) => {
                 </div>
               </div>
 
-              <div className="bg-gray-50 rounded-lg p-4">
+              <div className="bg-gray-50  p-4">
                 <h3 className="font-medium text-gray-900 mb-3">Submission Details</h3>
                 <div className="space-y-2">
                   <div>
@@ -48,7 +48,7 @@ const ViewModal = ({ submission, onClose, onEdit }) => {
                   </div>
                   <div>
                     <span className="text-sm font-medium text-gray-600">Department:</span>
-                    <span className={`ml-2 inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getDepartmentColor(submission.department)}`}>
+                    <span className={`ml-2 inline-flex px-2 py-1 text-xs font-semibold  ${getDepartmentColor(submission.department)}`}>
                       {submission.department || 'general'}
                     </span>
                   </div>
@@ -61,18 +61,18 @@ const ViewModal = ({ submission, onClose, onEdit }) => {
             </div>
 
             <div className="space-y-4">
-              <div className="bg-gray-50 rounded-lg p-4">
+              <div className="bg-gray-50  p-4">
                 <h3 className="font-medium text-gray-900 mb-3">Status & Priority</h3>
                 <div className="space-y-2">
                   <div>
                     <span className="text-sm font-medium text-gray-600">Status:</span>
-                    <span className={`ml-2 inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getStatusColor(submission.status)}`}>
+                    <span className={`ml-2 inline-flex px-2 py-1 text-xs font-semibold  ${getStatusColor(submission.status)}`}>
                       {submission.status || 'pending'}
                     </span>
                   </div>
                   <div>
                     <span className="text-sm font-medium text-gray-600">Priority:</span>
-                    <span className={`ml-2 inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getPriorityColor(submission.priority)}`}>
+                    <span className={`ml-2 inline-flex px-2 py-1 text-xs font-semibold  ${getPriorityColor(submission.priority)}`}>
                       {submission.priority || 'medium'}
                     </span>
                   </div>
@@ -80,7 +80,7 @@ const ViewModal = ({ submission, onClose, onEdit }) => {
               </div>
 
               {submission.adminNotes && (
-                <div className="bg-gray-50 rounded-lg p-4">
+                <div className="bg-gray-50  p-4">
                   <h3 className="font-medium text-gray-900 mb-3">Admin Notes</h3>
                   <p className="text-sm text-gray-600 whitespace-pre-wrap break-words">
                     {submission.adminNotes}
@@ -92,7 +92,7 @@ const ViewModal = ({ submission, onClose, onEdit }) => {
 
           <div className="mt-6">
             <h3 className="font-medium text-gray-900 mb-3">Message</h3>
-            <div className="bg-gray-50 rounded-lg p-4 whitespace-pre-wrap">
+            <div className="bg-gray-50  p-4 whitespace-pre-wrap">
               <p className="text-sm text-gray-900 break-words">{submission.message}</p>
             </div>
           </div>
@@ -100,14 +100,14 @@ const ViewModal = ({ submission, onClose, onEdit }) => {
           <div className="mt-6 flex flex-col sm:flex-row justify-end space-y-2 sm:space-y-0 sm:space-x-2">
             <button
               onClick={onClose}
-              className="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition-colors"
+              className="px-4 py-2 bg-gray-200 text-gray-800  hover:bg-gray-300 transition-colors"
             >
               Close
             </button>
             <button
               onClick={onEdit}
               style={{ backgroundColor: '#2A4365' }}
-              className="px-4 py-2 text-white rounded-lg hover:opacity-90 transition-all"
+              className="px-4 py-2 text-white  hover:opacity-90 transition-all"
             >
               Edit Submission
             </button>

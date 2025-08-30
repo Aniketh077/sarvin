@@ -77,14 +77,14 @@ const MobileSlider = ({ products }) => {
         <>
           <button
             onClick={prevSlide}
-            className="absolute left-2 top-1/2 -translate-y-1/2 z-10 flex items-center justify-center w-8 h-8 bg-white/90 hover:bg-white rounded-full shadow-lg transition-all duration-200"
+            className="absolute left-2 top-1/2 -translate-y-1/2 z-10 flex items-center justify-center w-8 h-8 bg-white/90 hover:bg-white  shadow-lg transition-all duration-200"
           >
             <FaChevronLeft className="text-gray-700 text-sm" />
           </button>
           
           <button
             onClick={nextSlide}
-            className="absolute right-2 top-1/2 -translate-y-1/2 z-10 flex items-center justify-center w-8 h-8 bg-white/90 hover:bg-white rounded-full shadow-lg transition-all duration-200"
+            className="absolute right-2 top-1/2 -translate-y-1/2 z-10 flex items-center justify-center w-8 h-8 bg-white/90 hover:bg-white  shadow-lg transition-all duration-200"
           >
             <FaChevronRight className="text-gray-700 text-sm" />
           </button>
@@ -98,7 +98,7 @@ const MobileSlider = ({ products }) => {
             <button
               key={index}
               onClick={() => setCurrentIndex(index)}
-              className={`w-2 h-2 rounded-full transition-colors duration-200 ${
+              className={`w-2 h-2  transition-colors duration-200 ${
                 index === currentIndex ? 'bg-white' : 'bg-white/50'
               }`}
             />
@@ -113,7 +113,7 @@ const MobileSlider = ({ products }) => {
 const PrevArrow = ({ onClick }) => (
   <button
     onClick={onClick}
-    className="absolute left-2 top-1/2 -translate-y-1/2 z-20 flex items-center justify-center w-10 h-10 bg-white/90 hover:bg-white rounded-full shadow-lg transition-all duration-200"
+    className="absolute left-2 top-1/2 -translate-y-1/2 z-20 flex items-center justify-center w-10 h-10 bg-white/90 hover:bg-white  shadow-lg transition-all duration-200"
     style={{ left: '-15px' }}
   >
     <FaChevronLeft className="text-gray-700 text-lg" />
@@ -123,7 +123,7 @@ const PrevArrow = ({ onClick }) => (
 const NextArrow = ({ onClick }) => (
   <button
     onClick={onClick}
-    className="absolute right-2 top-1/2 -translate-y-1/2 z-20 flex items-center justify-center w-10 h-10 bg-white/90 hover:bg-white rounded-full shadow-lg transition-all duration-200"
+    className="absolute right-2 top-1/2 -translate-y-1/2 z-20 flex items-center justify-center w-10 h-10 bg-white/90 hover:bg-white  shadow-lg transition-all duration-200"
     style={{ right: '-15px' }}
   >
     <FaChevronRight className="text-gray-700 text-lg" />

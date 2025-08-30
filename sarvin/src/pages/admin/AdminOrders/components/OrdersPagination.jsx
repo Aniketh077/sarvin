@@ -72,7 +72,7 @@ const OrdersPagination = ({ currentPage, totalPages, onPageChange, totalItems, i
           <button
             onClick={() => onPageChange(currentPage - 1)}
             disabled={currentPage === 1}
-            className="inline-flex items-center px-2 sm:px-3 py-1 sm:py-2 border border-gray-300 rounded-md bg-white text-xs sm:text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            className="inline-flex items-center px-2 sm:px-3 py-1 sm:py-2 border border-gray-300  bg-white text-xs sm:text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           >
             <ChevronLeft className="h-3 w-3 sm:h-4 sm:w-4" />
             <span className="hidden sm:inline ml-1">Prev</span>
@@ -84,7 +84,7 @@ const OrdersPagination = ({ currentPage, totalPages, onPageChange, totalItems, i
               <button
                 key={page}
                 onClick={() => onPageChange(page)}
-                className={`inline-flex items-center px-2 py-1 border rounded-md text-xs font-medium transition-colors ${
+                className={`inline-flex items-center px-2 py-1 border  text-xs font-medium transition-colors ${
                   currentPage === page
                     ? 'bg-[#2A4365] text-white border-[#2A4365]'
                     : 'border-gray-300 bg-white text-gray-700 hover:bg-gray-50'
@@ -106,7 +106,7 @@ const OrdersPagination = ({ currentPage, totalPages, onPageChange, totalItems, i
                 <button
                   key={page}
                   onClick={() => onPageChange(page)}
-                  className={`inline-flex items-center px-3 py-2 border rounded-md text-sm font-medium transition-colors ${
+                  className={`inline-flex items-center px-3 py-2 border  text-sm font-medium transition-colors ${
                     currentPage === page
                       ? 'bg-[#2A4365] text-white border-[#2A4365]'
                       : 'border-gray-300 bg-white text-gray-700 hover:bg-gray-50'
@@ -122,7 +122,7 @@ const OrdersPagination = ({ currentPage, totalPages, onPageChange, totalItems, i
           <button
             onClick={() => onPageChange(currentPage + 1)}
             disabled={currentPage === totalPages}
-            className="inline-flex items-center px-2 sm:px-3 py-1 sm:py-2 border border-gray-300 rounded-md bg-white text-xs sm:text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            className="inline-flex items-center px-2 sm:px-3 py-1 sm:py-2 border border-gray-300  bg-white text-xs sm:text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           >
             <span className="hidden sm:inline mr-1">Next</span>
             <ChevronRight className="h-3 w-3 sm:h-4 sm:w-4" />

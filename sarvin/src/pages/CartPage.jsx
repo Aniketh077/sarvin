@@ -33,9 +33,9 @@ const CartPage = () => {
     return (
       <div className="min-h-screen pt-20 pb-16 bg-gray-50">
         <div className="container mx-auto px-4">
-          <div className="max-w-2xl mx-auto bg-white rounded-lg shadow-sm p-8 mt-12 text-center">
+          <div className="max-w-2xl mx-auto bg-white  p-8 mt-12 text-center">
             <div className="mb-6 flex justify-center">
-              <div className="w-24 h-24 rounded-full bg-gray-100 flex items-center justify-center">
+              <div className="w-24 h-24 bg-gray-100 flex items-center justify-center">
                 <ShoppingCart className="h-12 w-12 text-gray-400" />
               </div>
             </div>
@@ -70,7 +70,7 @@ const CartPage = () => {
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Cart Items */}
           <div className="lg:w-2/3">
-            <div className="bg-white rounded-lg shadow-sm overflow-hidden">
+            <div className="bg-white  overflow-hidden">
               <div className="p-6 border-b border-gray-100">
                 <div className="flex justify-between items-center">
                   <h2 className="text-xl font-semibold">Cart Items</h2>
@@ -117,7 +117,7 @@ const CartPage = () => {
                         </p>
 
                         <div className="flex items-center mb-4 sm:mb-0">
-                          <div className="flex items-center border border-gray-300 rounded-md">
+                          <div className="flex items-center border border-gray-300 ">
                             <button
                               onClick={() =>
                                 updateQuantity(
@@ -226,7 +226,7 @@ const CartPage = () => {
           {/* Order Summary + Secure Payments */}
           <div className="lg:w-1/3 sticky top-24 space-y-6">
             {/* Order Summary */}
-            <div className="bg-white rounded-lg shadow-sm overflow-hidden">
+            <div className="bg-white  overflow-hidden">
               <div className="p-6 border-b border-gray-100">
                 <h2 className="text-xl font-semibold">Order Summary</h2>
               </div>
@@ -268,7 +268,7 @@ const CartPage = () => {
             </div>
 
             {/* Secure Payment Card */}
-            <div className="bg-white rounded-lg shadow-sm p-6">
+            <div className="bg-white  p-6">
               <div className="flex justify-between items-center mb-4">
                 <h3 className="font-medium text-gray-800">
                   100% Secure Payments

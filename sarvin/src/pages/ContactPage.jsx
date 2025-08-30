@@ -90,7 +90,7 @@ const ContactPage = () => {
 
   // Handler functions for actions
   const handleGetDirections = () => {
-    const address = "123 Electronics Plaza, Andheri West, Mumbai 400058, Maharashtra, India";
+    const address = "Plot No. 33 Bhankri - Pali Road, Behind JAV Forging, Faridabad, Haryana - 121001";
     const encodedAddress = encodeURIComponent(address);
     window.open(`https://www.google.com/maps/search/?api=1&query=${encodedAddress}`, '_blank');
   };
@@ -172,7 +172,7 @@ const ContactPage = () => {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {contactInfo.map((info, index) => (
-              <div key={index} className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+              <div key={index} className="bg-white p-6  shadow-sm hover:shadow-md transition-shadow">
                 <div className="bg-[#EBF5FF] w-12 h-12 rounded-full flex items-center justify-center mb-4">
                   <info.icon className="h-6 w-6 text-[#2A4365]" />
                 </div>
@@ -206,7 +206,7 @@ const ContactPage = () => {
               </p>
 
               {contactSubmitted ? (
-                <div className="bg-green-50 border border-green-200 rounded-lg p-6 text-center">
+                <div className="bg-green-50 border border-green-200  p-6 text-center">
                   <div className="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                     <Send className="h-8 w-8 text-green-600" />
                   </div>
@@ -257,7 +257,7 @@ const ContactPage = () => {
                         value={formData.subject}
                         onChange={handleChange}
                         required
-                        className="w-full rounded-md border border-gray-300 bg-white px-4 py-2 text-gray-900 focus:border-[#2A4365] focus:outline-none focus:ring-1 focus:ring-[#2A4365]"
+                        className="w-full  border border-gray-300 bg-white px-4 py-2 text-gray-900 focus:border-[#2A4365] focus:outline-none focus:ring-1 focus:ring-[#2A4365]"
                       >
                         <option value="">Select a subject</option>
                         {departments.map((dept) => (
@@ -279,13 +279,13 @@ const ContactPage = () => {
                       onChange={handleChange}
                       rows={6}
                       required
-                      className="w-full rounded-md border border-gray-300 bg-white px-4 py-2 text-gray-900 focus:border-[#2A4365] focus:outline-none focus:ring-1 focus:ring-[#2A4365]"
+                      className="w-full  border border-gray-300 bg-white px-4 py-2 text-gray-900 focus:border-[#2A4365] focus:outline-none focus:ring-1 focus:ring-[#2A4365]"
                       placeholder="Tell us how we can help you..."
                     ></textarea>
                   </div>
                   
                   {contactError && (
-                    <div className="bg-red-50 border border-red-200 rounded-md p-4">
+                    <div className="bg-red-50 border border-red-200  p-4">
                       <p className="text-red-600 text-sm">
                         {contactError.message || 'An error occurred. Please try again.'}
                       </p>
@@ -312,7 +312,7 @@ const ContactPage = () => {
               <h2 className="text-3xl font-bold mb-6">Visit Our Factory</h2>
               
               {/* Google Maps Embed */}
-              <div className="rounded-lg overflow-hidden shadow-md mb-6"> 
+              <div className=" overflow-hidden shadow-md mb-6"> 
   <iframe
     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3497.031630850157!2d77.2490059!3d28.3893757!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cdbb65aaaaa91%3A0x483a7e0ac5ff8dda!2sSARVATRA%20INDUSTRIES%20(INDIA)%20PRIVATE%20LIMITED!5e0!3m2!1sen!2sin!4v1692277924567!5m2!1sen!2sin"
     width="100%"
@@ -327,7 +327,7 @@ const ContactPage = () => {
 
 
               {/* Store Hours */}
-              <div className="bg-white border border-gray-200 rounded-lg p-6 mb-6">
+              <div className="bg-white border border-gray-200  p-6 mb-6">
                 <h3 className="text-lg font-semibold mb-4 flex items-center">
                   <Clock className="h-5 w-5 mr-2 text-[#2A4365]" />
                   Store Hours
@@ -349,7 +349,7 @@ const ContactPage = () => {
               </div>
 
               {/* Quick Contact */}
-              <div className="bg-[#2A4365] text-white rounded-lg p-6">
+              <div className="bg-[#2A4365] text-white  p-6">
                 <h3 className="text-lg font-semibold mb-4 flex items-center">
                   <Headphones className="h-5 w-5 mr-2" />
                   Need Immediate Help?
@@ -394,7 +394,7 @@ const ContactPage = () => {
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {faqs.map((faq, index) => (
-                <div key={index} className="bg-white p-6 rounded-lg shadow-sm">
+                <div key={index} className="bg-white p-6  shadow-sm">
                   <h3 className="font-semibold mb-3">{faq.question}</h3>
                   <p className="text-gray-600">{faq.answer}</p>
                 </div>

@@ -36,12 +36,12 @@ const FeatureManager = ({ features, onChange }) => {
               type="text"
               value={feature}
               onChange={(e) => updateFeature(index, e.target.value)}
-              className="flex-1 px-4 py-3 border border-[#E2E8F0] rounded-md focus:outline-none focus:ring-2 focus:ring-[#2A4365] focus:border-[#2A4365] transition-all duration-200 text-[#2A4365]"
+              className="flex-1 px-4 py-3 border border-[#E2E8F0]  focus:outline-none focus:ring-2 focus:ring-[#2A4365] focus:border-[#2A4365] transition-all duration-200 text-[#2A4365]"
             />
             <button
               type="button"
               onClick={() => removeFeature(index)}
-              className="p-2 text-[#C87941] hover:text-[#A0522D] hover:bg-[#FEF5E7] rounded-md transition-all duration-200"
+              className="p-2 text-[#C87941] hover:text-[#A0522D] hover:bg-[#FEF5E7]  transition-all duration-200"
             >
               <X className="h-5 w-5" />
             </button>
@@ -53,12 +53,12 @@ const FeatureManager = ({ features, onChange }) => {
             value={newFeature}
             onChange={(e) => setNewFeature(e.target.value)}
             placeholder="Add new feature"
-            className="flex-1 px-4 py-3 border border-[#E2E8F0] rounded-md focus:outline-none focus:ring-2 focus:ring-[#2A4365] focus:border-[#2A4365] transition-all duration-200 text-[#2A4365] placeholder-gray-400"
+            className="flex-1 px-4 py-3 border border-[#E2E8F0]  focus:outline-none focus:ring-2 focus:ring-[#2A4365] focus:border-[#2A4365] transition-all duration-200 text-[#2A4365] placeholder-gray-400"
           />
           <button
             type="button"
             onClick={addFeature}
-            className="px-6 py-3 bg-[#2A4365] text-white rounded-md hover:bg-[#1A365D] transition-all duration-200 font-medium"
+            className="px-6 py-3 bg-[#2A4365] text-white  hover:bg-[#1A365D] transition-all duration-200 font-medium"
           >
             Add
           </button>

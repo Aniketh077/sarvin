@@ -29,6 +29,10 @@ const ProductReviews = ({
     currentReviewPage * reviewsPerPage
   );
 
+  const formatRating = (rating) => {
+  return Number.isInteger(rating) ? rating : rating.toFixed(1);
+};
+
   const totalPages = Math.ceil(validReviews.length / reviewsPerPage);
 
   const handlePreviousPage = () => {
@@ -68,7 +72,7 @@ const ProductReviews = ({
   }
 
   return (
-    <div className="bg-white rounded-lg shadow-sm overflow-hidden mt-4">
+    <div className="bg-white  shadow-sm overflow-hidden mt-4">
       <div className="p-4 lg:p-6">
         <h2 className="text-xl lg:text-2xl font-bold mb-4 lg:mb-6">
           Customer Reviews
@@ -80,9 +84,9 @@ const ProductReviews = ({
           <div className="w-full lg:w-[30%] space-y-6">
             {/* Overall Rating */}
             {product.reviews && product.reviews.length > 0 && (
-              <div className="bg-gradient-to-br from-[#2A4365] to-[#3A5A7A] rounded-lg p-4 lg:p-6 text-white text-center">
+              <div className="bg-gradient-to-br from-[#2A4365] to-[#3A5A7A]  p-4 lg:p-6 text-white text-center">
                 <div className="text-3xl lg:text-4xl font-bold mb-2">
-                  {product.rating.toFixed(1)}
+                  {formatRating(product.rating)}
                 </div>
                 <div className="flex justify-center mb-2">
                   {[1, 2, 3, 4, 5].map((star) => {
@@ -127,7 +131,7 @@ const ProductReviews = ({
 
             {/* Rating Breakdown */}
             {product.reviews && product.reviews.length > 0 && (
-              <div className="bg-gray-50 rounded-lg p-4 lg:p-6">
+              <div className="bg-gray-50  p-4 lg:p-6">
                 <h3 className="text-base lg:text-lg font-semibold mb-3 lg:mb-4 text-gray-900">
                   Rating Breakdown
                 </h3>
@@ -151,9 +155,9 @@ const ProductReviews = ({
                           </span>
                           <Star className="h-3 w-3 lg:h-4 lg:w-4 text-[#C87941] fill-[#C87941]" />
                         </div>
-                        <div className="flex-1 h-2 lg:h-3 bg-gray-200 rounded-full overflow-hidden">
+                        <div className="flex-1 h-2 lg:h-3 bg-gray-200  overflow-hidden">
                           <div
-                            className="h-full bg-gradient-to-r from-[#C87941] to-[#D4935C] rounded-full transition-all duration-500 ease-out"
+                            className="h-full bg-gradient-to-r from-[#C87941] to-[#D4935C]  transition-all duration-500 ease-out"
                             style={{ width: `${percentage}%` }}
                           ></div>
                         </div>
@@ -186,11 +190,11 @@ const ProductReviews = ({
                       return (
                         <div
                           key={review._id}
-                          className="bg-white border border-gray-200 rounded-lg p-4 lg:p-4 "
+                          className="bg-white border border-gray-200  p-4 lg:p-4 "
                         >
                           <div className="flex items-start justify-between mb-3 lg:mb-4">
                             <div className="flex items-center space-x-3">
-                              <div className="w-10 h-10 lg:w-12 lg:h-12 bg-gradient-to-br from-[#2A4365] to-[#3A5A7A] rounded-full flex items-center justify-center text-white font-semibold text-base lg:text-lg">
+                              <div className="w-10 h-10 lg:w-12 lg:h-12 bg-gradient-to-br from-[#2A4365] to-[#3A5A7A]  flex items-center justify-center text-white font-semibold text-base lg:text-lg">
                                 {(review.user?.name || "A")
                                   .charAt(0)
                                   .toUpperCase()}
@@ -216,7 +220,7 @@ const ProductReviews = ({
                                     {review.user?.name || "Anonymous"}
                                   </span>
                                   {review.orderId && (
-                                    <span className="text-[10px] bg-[#587297] text-white  px-1 py-0.5 rounded-full font-medium">
+                                    <span className="text-[10px] bg-[#587297] text-white  px-1 py-0.5  font-medium">
                                       ✓ Verified Purchase
                                     </span>
                                   )}
@@ -317,7 +321,7 @@ const ProductReviews = ({
                           <button
                             key={pageNumber}
                             onClick={() => setCurrentReviewPage(pageNumber)}
-                            className={`w-8 h-8 rounded-lg text-sm font-medium transition-all duration-200 ${
+                            className={`w-8 h-8  text-sm font-medium transition-all duration-200 ${
                               isActive
                                 ? "bg-[#2A4365] text-white shadow-lg transform scale-105"
                                 : "text-gray-500 hover:text-[#2A4365] hover:bg-gray-100"

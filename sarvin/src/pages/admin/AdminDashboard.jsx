@@ -59,7 +59,7 @@ const AdminDashboard = () => {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-100">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+          <div className="animate-spin  h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
           <p className="mt-4 text-gray-600">Loading...</p>
         </div>
       </div>
@@ -183,7 +183,7 @@ return (
             {isMobile && sidebarOpen && (
               <button
                 onClick={closeSidebar}
-                className="p-1 rounded-md hover:bg-[#3D5980] transition-colors"
+                className="p-1  hover:bg-[#3D5980] transition-colors"
               >
                 <X size={20} />
               </button>
@@ -194,7 +194,7 @@ return (
           <div className="px-2 py-4 border-b border-[#3D5980]">
             <button
               onClick={handleMainWebsite}
-              className="flex items-center w-full px-3 py-3 rounded-md transition-colors text-gray-300 hover:bg-[#3D5980] hover:text-white"
+              className="flex items-center w-full px-3 py-3  transition-colors text-gray-300 hover:bg-[#3D5980] hover:text-white"
               title="Main Website"
             >
               <Home className="h-5 w-5 flex-shrink-0" />
@@ -213,7 +213,7 @@ return (
                   <button
                     key={item.key}
                     onClick={() => handleTabChange(item.key)}
-                    className={`flex items-center w-full px-3 py-3 rounded-md transition-colors group ${
+                    className={`flex items-center w-full px-3 py-3  transition-colors group ${
                       activeTab === item.key
                         ? 'bg-[#3D5980] text-white'
                         : 'text-gray-300 hover:bg-[#3D5980] hover:text-white'
@@ -233,7 +233,7 @@ return (
           {/* User section */}
           <div className="border-t border-[#3D5980] p-4">
             <div className="flex items-center justify-center mb-3">
-              <div className="h-8 w-8 rounded-full bg-[#C87941] flex items-center justify-center flex-shrink-0">
+              <div className="h-8 w-8  bg-[#C87941] flex items-center justify-center flex-shrink-0">
                 <span className="text-white text-sm font-semibold">
                   {user?.name?.charAt(0).toUpperCase()}
                 </span>
@@ -247,7 +247,7 @@ return (
             </div>
             <button
               onClick={handleLogout}
-              className="flex items-center justify-center w-full px-3 py-2 text-sm text-gray-300 rounded-md hover:bg-[#3D5980] hover:text-white transition-colors"
+              className="flex items-center justify-center w-full px-3 py-2 text-sm text-gray-300  hover:bg-[#3D5980] hover:text-white transition-colors"
               title="Sign out"
             >
               <LogOut className="h-4 w-4 flex-shrink-0" />
@@ -264,7 +264,7 @@ return (
         isMobile ? 'ml-0' : (sidebarOpen ? 'ml-52' : 'ml-16')
       }`}>
         <div className="p-3 lg:p-4 xl:p-6">
-          <div className="rounded-lg bg-white shadow-sm">
+          <div className=" bg-white shadow-sm">
             {renderTabContent()}
           </div>
         </div>
@@ -274,7 +274,7 @@ return (
       {!isMobile && (
         <button
           onClick={toggleSidebar}
-          className="fixed top-4 z-40 bg-[#2A4365] text-white p-2 rounded-r-md transform -translate-y-1/2 transition-all duration-300 "
+          className="fixed top-4 z-40 bg-[#2A4365] text-white p-2 rounded-md transform -translate-y-1/2 transition-all duration-300 "
           style={{ left: sidebarOpen ? '12rem' : '3rem' }}
         >
           {sidebarOpen ? <ChevronLeft size={16} /> : <ChevronRight size={16} />}
@@ -315,7 +315,7 @@ const AdminDashboardContent = ({ onViewDetails }) => {
         <div className="animate-pulse">
           <div className="h-8 bg-gray-200 rounded w-1/4 mb-6"></div>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-            {[...Array(4)].map((_, i) => (<div key={i} className="bg-gray-200 rounded-lg h-24"></div>))}
+            {[...Array(4)].map((_, i) => (<div key={i} className="bg-gray-200  h-24"></div>))}
           </div>
         </div>
       </div>
@@ -328,7 +328,7 @@ const AdminDashboardContent = ({ onViewDetails }) => {
     const orderStatus = order.status || order.orderStatus || 'Pending';
     
     return (
-      <div className="bg-white border border-gray-200 rounded-lg p-4 mb-3 hover:shadow-md transition-shadow">
+      <div className="bg-white border border-gray-200  p-4 mb-3 hover:shadow-md transition-shadow">
         {/* Header */}
         <div className="flex justify-between items-start mb-3">
           <div className="flex-1 min-w-0">
@@ -339,7 +339,7 @@ const AdminDashboardContent = ({ onViewDetails }) => {
               {order.user?.name || order.shippingAddress?.fullName || 'N/A'}
             </p>
           </div>
-          <span className={`px-2 py-1 text-xs font-semibold rounded-full ${getStatusColor(orderStatus)}`}>
+          <span className={`px-2 py-1 text-xs font-semibold  ${getStatusColor(orderStatus)}`}>
             {orderStatus.charAt(0).toUpperCase() + orderStatus.slice(1)}
           </span>
         </div>
@@ -392,7 +392,7 @@ const AdminDashboardContent = ({ onViewDetails }) => {
           <div className="h-6 lg:h-8 bg-gray-200 rounded w-1/4 mb-4 lg:mb-6"></div>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4 xl:gap-6 mb-6 lg:mb-8">
             {[...Array(4)].map((_, i) => (
-              <div key={i} className="bg-gray-200 rounded-lg h-20 lg:h-24"></div>
+              <div key={i} className="bg-gray-200  h-20 lg:h-24"></div>
             ))}
           </div>
         </div>
@@ -406,27 +406,27 @@ const AdminDashboardContent = ({ onViewDetails }) => {
         <h1 className="text-lg lg:text-xl xl:text-2xl font-bold mb-3 lg:mb-4 xl:mb-6">Dashboard</h1>
         
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4 xl:gap-6">
-          <div className="bg-gradient-to-r from-blue-50 to-blue-100 rounded-lg p-3 lg:p-4 xl:p-6 shadow-sm border border-blue-200">
+          <div className="bg-gradient-to-r from-blue-50 to-blue-100  p-3 lg:p-4 xl:p-6 shadow-sm border border-blue-200">
             <p className="text-xs lg:text-sm text-blue-600 font-medium">Total Products</p>
             <p className="text-xl lg:text-2xl font-bold mt-1 lg:mt-2 text-blue-800">
               {stats.totalProducts}
             </p>
           </div>
           
-          <div className="bg-gradient-to-r from-green-50 to-green-100 rounded-lg p-3 lg:p-4 xl:p-6 shadow-sm border border-green-200">
+          <div className="bg-gradient-to-r from-green-50 to-green-100  p-3 lg:p-4 xl:p-6 shadow-sm border border-green-200">
             <p className="text-xs lg:text-sm text-green-600 font-medium">Total Orders</p>
             <p className="text-xl lg:text-2xl font-bold mt-1 lg:mt-2 text-green-800">
               {stats.totalOrders}
             </p>
           </div>
           
-          <div className="bg-purple-50 p-4 rounded-lg border border-purple-200">
+          <div className="bg-purple-50 p-4  border border-purple-200">
             <p className="text-sm text-purple-600 font-medium">This Month's Revenue</p>
             <p className="text-2xl font-bold mt-2 text-purple-800">{formatCurrency(stats.monthlyRevenue)}</p>
             <p className="text-xs text-gray-500 mt-1 font-semibold">Total: {formatCurrency(stats.totalRevenue)}</p>
           </div>
           
-         <div className="bg-orange-50 p-4 rounded-lg border">
+         <div className="bg-orange-50 p-4  border">
             <p className="text-sm text-orange-600">Total Customers</p>
             {/* FIX: Displays the correct, backend-calculated count */}
             <p className="text-2xl font-bold mt-2">{stats.totalUsers}</p>
@@ -455,7 +455,7 @@ const AdminDashboardContent = ({ onViewDetails }) => {
               <MobileOrderCard key={order._id} order={order} onViewDetails={onViewDetails} />
             ))
           ) : (
-            <div className="bg-white border border-gray-200 rounded-lg p-6 text-center">
+            <div className="bg-white border border-gray-200  p-6 text-center">
               <Package className="h-12 w-12 text-gray-300 mx-auto mb-3" />
               <p className="text-gray-500 text-sm">No recent orders found</p>
             </div>
@@ -463,7 +463,7 @@ const AdminDashboardContent = ({ onViewDetails }) => {
         </div>
 
         {/* Table View - For tablets, laptops and desktops */}
-        <div className="hidden sm:block bg-white overflow-hidden shadow-sm rounded-lg mb-6">
+        <div className="hidden sm:block bg-white overflow-hidden shadow-sm  mb-6">
           <div className="overflow-x-auto">
             <table className="w-full divide-y-2 divide-gray-200 min-w-[600px]">
               <thead className="bg-gray-50">
@@ -531,7 +531,7 @@ const AdminDashboardContent = ({ onViewDetails }) => {
                           </span>
                         </td>
                         <td className="px-3 lg:px-4 xl:px-6 py-3 lg:py-4">
-                          <span className={`px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${getStatusColor(orderStatus)}`}>
+                          <span className={`px-2 py-1 inline-flex text-xs leading-5 font-semibold  ${getStatusColor(orderStatus)}`}>
                             {orderStatus.charAt(0).toUpperCase() + orderStatus.slice(1)}
                           </span>
                         </td>
@@ -585,7 +585,7 @@ const AdminDashboardContent = ({ onViewDetails }) => {
             popularProducts.map((product) => (
               <div 
                 key={product._id} 
-                className="bg-white rounded-lg border border-gray-200 overflow-hidden shadow-sm hover:shadow-md transition-shadow cursor-pointer"
+                className="bg-white  border border-gray-200 overflow-hidden shadow-sm hover:shadow-md transition-shadow cursor-pointer"
                 onClick={() => {
                   if (frontendUrl && product._id) {
                     window.open(`${frontendUrl}/product/${product._id}`, '_blank');
@@ -635,21 +635,21 @@ const AdminDashboardContent = ({ onViewDetails }) => {
         </div>
         
         {/* <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-4 xl:gap-6">
-          <div className="bg-gradient-to-r from-blue-50 to-blue-100 rounded-lg p-3 lg:p-4 xl:p-6 shadow-sm border border-blue-200">
+          <div className="bg-gradient-to-r from-blue-50 to-blue-100  p-3 lg:p-4 xl:p-6 shadow-sm border border-blue-200">
             <p className="text-xs lg:text-sm text-blue-600 font-medium">Total Customers</p>
             <p className="text-xl lg:text-2xl font-bold mt-1 lg:mt-2 text-blue-800">
               {dashboardStats.totalCustomers}
             </p>
           </div>
           
-          <div className="bg-gradient-to-r from-green-50 to-green-100 rounded-lg p-3 lg:p-4 xl:p-6 shadow-sm border border-green-200">
+          <div className="bg-gradient-to-r from-green-50 to-green-100  p-3 lg:p-4 xl:p-6 shadow-sm border border-green-200">
             <p className="text-xs lg:text-sm text-green-600 font-medium">Total Orders</p>
             <p className="text-xl lg:text-2xl font-bold mt-1 lg:mt-2 text-green-800">
               {dashboardStats.totalOrders}
             </p>
           </div>
           
-          <div className="bg-gradient-to-r from-purple-50 to-purple-100 rounded-lg p-3 lg:p-4 xl:p-6 shadow-sm border border-purple-200">
+          <div className="bg-gradient-to-r from-purple-50 to-purple-100  p-3 lg:p-4 xl:p-6 shadow-sm border border-purple-200">
             <p className="text-xs lg:text-sm text-purple-600 font-medium">Total Revenue</p>
             <p className="text-xl lg:text-2xl font-bold mt-1 lg:mt-2 text-purple-800">
               {formatCurrency(dashboardStats.totalRevenue)}

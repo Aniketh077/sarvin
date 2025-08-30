@@ -42,14 +42,14 @@ const StatsCards = ({ stats }) => {
       {cardData.map((card, index) => {
         const Icon = card.icon;
         return (
-          <div key={index} className="bg-white rounded-lg sm:rounded-xl p-3 sm:p-6 shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
+          <div key={index} className="bg-white  sm: p-3 sm:p-6 shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
             <div className="flex items-center justify-between">
               <div className="min-w-0">
                 <p className="text-xs sm:text-sm font-medium text-gray-600 truncate">{card.title}</p>
                 <p className="text-lg sm:text-2xl font-bold text-gray-900 mt-1">{card.value}</p>
               </div>
               <div
-                className="p-2 sm:p-3 rounded-lg flex-shrink-0"
+                className="p-2 sm:p-3  flex-shrink-0"
                 style={{ backgroundColor: card.lightBgColor }}
               >
                 <Icon

@@ -16,60 +16,56 @@ const Pagination = ({
   const indexOfFirstItem = (currentPage - 1) * itemsPerPage + 1;
   const indexOfLastItem = Math.min(currentPage * itemsPerPage, totalItems);
 
-  // Helper function to get visible pages for desktop
-  const getDesktopVisiblePages = () => {
-    // FIX: Guard against totalPages being undefined or 0
-    if (!totalPages) return [];
+  const getPageNumbers = () => {
+    const pages = [];
+    const maxPagesToShow = 5; // The maximum number of page links to show
+    const halfPages = Math.floor(maxPagesToShow / 2);
 
-    const delta = 2;
-    const range = [];
-    const rangeWithDots = [];
-
-    range.push(1); // Always show the first page
-
-    if (currentPage > delta + 2) {
-      rangeWithDots.push(1, '...');
-    } else {
-      for (let i = 2; i < currentPage - delta; i++) {
-          if (i > 1) range.push(i);
+    if (totalPages <= maxPagesToShow) {
+      // If total pages is small, show all pages
+      for (let i = 1; i <= totalPages; i++) {
+        pages.push(i);
       }
-    }
-
-    for (let i = Math.max(2, currentPage - delta); i <= Math.min(totalPages - 1, currentPage + delta); i++) {
-        range.push(i);
-    }
-    
-    if (currentPage < totalPages - delta - 1) {
-        rangeWithDots.push('...', totalPages);
     } else {
-        for (let i = currentPage + delta + 1; i < totalPages; i++) {
-             range.push(i);
-        }
-    }
-    
-    if (totalPages > 1) {
-        range.push(totalPages);
-    }
+      // Always add the first page
+      pages.push(1);
 
-    // This logic ensures that we don't have duplicate page numbers
-    const uniquePages = [...new Set(range)]; 
-    let lastPage = 0;
-    for (const page of uniquePages) {
-        if (lastPage) {
-            if (page - lastPage === 2) {
-                rangeWithDots.push(lastPage + 1);
-            } else if (page - lastPage !== 1) {
-                rangeWithDots.push('...');
-            }
-        }
-        rangeWithDots.push(page);
-        lastPage = page;
-    }
+      // Add "..." if current page is far from the start
+      let start = Math.max(2, currentPage - halfPages);
+      if (start > 2) {
+        pages.push('...');
+      }
 
-    return rangeWithDots;
+      // Determine the end of the middle range
+      let end = Math.min(totalPages - 1, currentPage + halfPages);
+      
+      // Adjust start if end is near the totalPages
+      if (end === totalPages - 1 && (end - start + 1) < maxPagesToShow - 2) {
+        start = end - (maxPagesToShow - 3);
+      }
+      
+      // Adjust end if start is near the beginning
+      if (start === 2 && (end - start + 1) < maxPagesToShow - 2) {
+        end = start + (maxPagesToShow - 3);
+      }
+      
+      // Add the middle page numbers
+      for (let i = start; i <= end; i++) {
+        pages.push(i);
+      }
+      
+      // Add "..." if current page is far from the end
+      if (end < totalPages - 1) {
+        pages.push('...');
+      }
+
+      // Always add the last page
+      pages.push(totalPages);
+    }
+    return pages;
   };
   
-  const desktopPages = getDesktopVisiblePages();
+  const pageNumbers = getPageNumbers();
 
   return (
     <div className="flex flex-col sm:flex-row justify-between items-center mt-6 gap-y-4">
@@ -83,20 +79,20 @@ const Pagination = ({
         <button
           onClick={() => onPageChange(currentPage - 1)}
           disabled={currentPage === 1}
-          className="inline-flex items-center px-3 py-2 border rounded-md text-sm font-medium transition-colors bg-white hover:bg-gray-50 disabled:opacity-50"
+          className="inline-flex items-center px-3 py-2 border  text-sm font-medium transition-colors bg-white hover:bg-gray-50 disabled:opacity-50"
         >
           <ChevronLeft className="h-4 w-4" />
         </button>
         
-        {/* FIX: Check if desktopPages exists before mapping */}
-        {desktopPages && desktopPages.map((page, index) => (
+        {/* Render page numbers using pageNumbers array */}
+        {pageNumbers.map((page, index) => (
           page === '...' ? (
             <span key={index} className="px-3 py-2 text-sm">...</span>
           ) : (
             <button
-              key={page}
+              key={`page-${page}-${index}`}
               onClick={() => onPageChange(page)}
-              className={`inline-flex items-center px-4 py-2 border rounded-md text-sm font-medium transition-colors ${
+              className={`inline-flex items-center justify-center h-9 w-9 border text-sm font-medium transition-colors ${
                 currentPage === page
                   ? 'bg-[#2A4365] text-white border-[#2A4365]'
                   : 'bg-white text-gray-700 hover:bg-gray-50'
@@ -110,7 +106,7 @@ const Pagination = ({
         <button
           onClick={() => onPageChange(currentPage + 1)}
           disabled={currentPage === totalPages}
-          className="inline-flex items-center px-3 py-2 border rounded-md text-sm font-medium transition-colors bg-white hover:bg-gray-50 disabled:opacity-50"
+          className="inline-flex items-center px-3 py-2 border  text-sm font-medium transition-colors bg-white hover:bg-gray-50 disabled:opacity-50"
         >
           <ChevronRight className="h-4 w-4" />
         </button>

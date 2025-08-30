@@ -18,7 +18,7 @@ const OrderTimeline = ({ order }) => {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-sm overflow-hidden">
+    <div className="bg-white  shadow-sm overflow-hidden">
       <div className="px-6 py-4 border-b border-gray-100">
         <h2 className="text-lg font-semibold flex items-center">
           <Calendar className="h-5 w-5 mr-2" />
@@ -28,7 +28,7 @@ const OrderTimeline = ({ order }) => {
       <div className="p-6">
         <div className="space-y-4">
           <div className="flex items-start">
-            <div className="flex-shrink-0 w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+            <div className="flex-shrink-0 w-8 h-8 bg-green-100  flex items-center justify-center">
               <CheckCircle className="h-4 w-4 text-green-600" />
             </div>
             <div className="ml-4">
@@ -41,7 +41,7 @@ const OrderTimeline = ({ order }) => {
 
           {getStatusTimestamp('processing') && (
             <div className="flex items-start">
-              <div className="flex-shrink-0 w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+              <div className="flex-shrink-0 w-8 h-8 bg-blue-100  flex items-center justify-center">
                 <Clock className="h-4 w-4 text-blue-600" />
               </div>
               <div className="ml-4">
@@ -57,7 +57,7 @@ const OrderTimeline = ({ order }) => {
 
           {getStatusTimestamp('shipped') && (
             <div className="flex items-start">
-              <div className="flex-shrink-0 w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+              <div className="flex-shrink-0 w-8 h-8 bg-blue-100  flex items-center justify-center">
                 <Truck className="h-4 w-4 text-blue-600" />
               </div>
               <div className="ml-4">
@@ -73,7 +73,7 @@ const OrderTimeline = ({ order }) => {
 
           {getStatusTimestamp('delivered') && (
             <div className="flex items-start">
-              <div className="flex-shrink-0 w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+              <div className="flex-shrink-0 w-8 h-8 bg-green-100  flex items-center justify-center">
                 <CheckCircle className="h-4 w-4 text-green-600" />
               </div>
               <div className="ml-4">

@@ -23,7 +23,7 @@ const DevelopmentBanner = () => {
         </div>
         <button
           onClick={() => setIsVisible(false)}
-          className="ml-4 p-1 hover:bg-white/20 rounded-full transition-colors duration-200 flex-shrink-0"
+          className="ml-4 p-1 hover:bg-white/20  transition-colors duration-200 flex-shrink-0"
           aria-label="Close banner"
         >
           <X className="h-4 w-4" />

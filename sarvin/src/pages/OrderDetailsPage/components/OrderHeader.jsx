@@ -58,7 +58,7 @@ const OrderHeader = ({ order }) => {
       </div>
       <div className="mt-4 sm:mt-0">
         <span
-          className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium border ${getStatusColor(
+          className={`inline-flex items-center px-3 py-1  text-sm font-medium border ${getStatusColor(
             order.orderStatus
           )}`}
         >

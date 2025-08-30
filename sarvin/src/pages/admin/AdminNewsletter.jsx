@@ -76,13 +76,13 @@ const AdminNewsletter = () => {
     return (
       <div className="p-4 sm:p-6">
         <div className="animate-pulse">
-          <div className="h-6 sm:h-8 bg-gray-200 rounded w-1/2 sm:w-1/4 mb-6"></div>
+          <div className="h-6 sm:h-8 bg-gray-200  w-1/2 sm:w-1/4 mb-6"></div>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
             {[...Array(3)].map((_, i) => (
-              <div key={i} className="bg-gray-200 rounded-lg h-20 sm:h-24"></div>
+              <div key={i} className="bg-gray-200  h-20 sm:h-24"></div>
             ))}
           </div>
-          <div className="bg-gray-200 rounded h-64"></div>
+          <div className="bg-gray-200  h-64"></div>
         </div>
       </div>
     );
@@ -97,9 +97,9 @@ const AdminNewsletter = () => {
           
           {/* Stats Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
-            <div className="bg-white border border-gray-200 rounded-lg p-4 sm:p-6 shadow-sm">
+            <div className="bg-white border border-gray-200  p-4 sm:p-6 shadow-sm">
               <div className="flex items-center">
-                <div className="p-2 sm:p-3 bg-blue-50 rounded-lg mr-3 sm:mr-4">
+                <div className="p-2 sm:p-3 bg-blue-50  mr-3 sm:mr-4">
                   <Users className="h-5 w-5 sm:h-6 sm:w-6" style={{color: '#2A4365'}} />
                 </div>
                 <div>
@@ -109,9 +109,9 @@ const AdminNewsletter = () => {
               </div>
             </div>
             
-            <div className="bg-white border border-gray-200 rounded-lg p-4 sm:p-6 shadow-sm">
+            <div className="bg-white border border-gray-200  p-4 sm:p-6 shadow-sm">
               <div className="flex items-center">
-                <div className="p-2 sm:p-3 bg-orange-50 rounded-lg mr-3 sm:mr-4">
+                <div className="p-2 sm:p-3 bg-orange-50  mr-3 sm:mr-4">
                   <Mail className="h-5 w-5 sm:h-6 sm:w-6" style={{color: '#C87941'}} />
                 </div>
                 <div>
@@ -121,9 +121,9 @@ const AdminNewsletter = () => {
               </div>
             </div>
             
-            <div className="bg-white border border-gray-200 rounded-lg p-4 sm:p-6 shadow-sm sm:col-span-1 col-span-1">
+            <div className="bg-white border border-gray-200  p-4 sm:p-6 shadow-sm sm:col-span-1 col-span-1">
               <div className="flex items-center">
-                <div className="p-2 sm:p-3 bg-gray-100 rounded-lg mr-3 sm:mr-4">
+                <div className="p-2 sm:p-3 bg-gray-100  mr-3 sm:mr-4">
                   <Calendar className="h-5 w-5 sm:h-6 sm:w-6 text-gray-600" />
                 </div>
                 <div>
@@ -141,7 +141,7 @@ const AdminNewsletter = () => {
               <input
                 type="text"
                 placeholder="Search subscribers..."
-                className="w-full pl-10 pr-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:border-transparent text-sm sm:text-base"
+                className="w-full pl-10 pr-4 py-2 sm:py-3 border border-gray-300  focus:ring-2 focus:border-transparent text-sm sm:text-base"
                 style={{"--tw-ring-color": "#2A4365"}}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
@@ -160,7 +160,7 @@ const AdminNewsletter = () => {
         </div>
 
         {/* Subscribers Table - Desktop */}
-        <div className="hidden sm:block bg-white overflow-hidden shadow-sm rounded-lg border border-gray-200">
+        <div className="hidden sm:block bg-white overflow-hidden shadow-sm  border border-gray-200">
           <table className="min-w-full divide-y divide-gray-200">
             <thead style={{backgroundColor: '#f8fafc'}}>
               <tr>
@@ -194,13 +194,13 @@ const AdminNewsletter = () => {
                       {formatDate(subscriber.subscriptionDate)}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
-                      <span className="px-3 py-1 text-xs font-medium rounded-full" style={{backgroundColor: '#f0f4f8', color: '#2A4365'}}>
+                      <span className="px-3 py-1 text-xs font-medium " style={{backgroundColor: '#f0f4f8', color: '#2A4365'}}>
                         {subscriber.source || 'website'}
                       </span>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <span
-                        className={`px-3 py-1 inline-flex text-xs font-semibold rounded-full ${
+                        className={`px-3 py-1 inline-flex text-xs font-semibold  ${
                           subscriber.isActive
                             ? 'bg-green-100 text-green-800'
                             : 'bg-red-100 text-red-800'
@@ -234,7 +234,7 @@ const AdminNewsletter = () => {
         <div className="sm:hidden space-y-4">
           {currentSubscribers.length > 0 ? (
             currentSubscribers.map((subscriber) => (
-              <div key={subscriber._id} className="bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
+              <div key={subscriber._id} className="bg-white border border-gray-200  p-4 shadow-sm">
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex items-center flex-1 min-w-0">
                     <Mail className="h-4 w-4 text-gray-400 mr-2 flex-shrink-0" />
@@ -243,7 +243,7 @@ const AdminNewsletter = () => {
                     </span>
                   </div>
                   <span
-                    className={`px-2 py-1 text-xs font-semibold rounded-full flex-shrink-0 ml-2 ${
+                    className={`px-2 py-1 text-xs font-semibold flex-shrink-0 ml-2 ${
                       subscriber.isActive
                         ? 'bg-green-100 text-green-800'
                         : 'bg-red-100 text-red-800'
@@ -259,7 +259,7 @@ const AdminNewsletter = () => {
                   </div>
                   <div className="flex justify-between">
                     <span className="text-gray-500">Source:</span>
-                    <span className="px-2 py-1 text-xs font-medium rounded-full" style={{backgroundColor: '#f0f4f8', color: '#2A4365'}}>
+                    <span className="px-2 py-1 text-xs font-medium " style={{backgroundColor: '#f0f4f8', color: '#2A4365'}}>
                       {subscriber.source || 'website'}
                     </span>
                   </div>
@@ -267,7 +267,7 @@ const AdminNewsletter = () => {
               </div>
             ))
           ) : (
-            <div className="bg-white border border-gray-200 rounded-lg p-8 text-center">
+            <div className="bg-white border border-gray-200  p-8 text-center">
               <Mail className="h-12 w-12 text-gray-300 mx-auto mb-3" />
               <p className="text-lg font-medium text-gray-900 mb-1">
                 {searchTerm ? 'No subscribers found' : 'No subscribers yet'}
@@ -327,7 +327,7 @@ const AdminNewsletter = () => {
                 >
                   Previous
                 </Button>
-                <span className="text-sm text-gray-700 px-4 py-2 border border-gray-300 rounded bg-white">
+                <span className="text-sm text-gray-700 px-4 py-2 border border-gray-300  bg-white">
                   Page {currentPage} of {totalPages}
                 </span>
                 <Button

@@ -111,7 +111,7 @@ const EmailVerificationPage = () => {
   return (
     <div className="min-h-screen pt-20 pb-16 flex flex-col justify-center">
       <div className="container mx-auto px-4">
-        <div className="max-w-md mx-auto bg-white rounded-lg shadow-sm overflow-hidden">
+        <div className="max-w-md mx-auto bg-white  shadow-sm overflow-hidden">
           <div className="p-6 sm:p-8">
             <div className="text-center mb-8">
               <h1 className="text-2xl font-bold mb-2">Verify Your Email</h1>
@@ -124,7 +124,7 @@ const EmailVerificationPage = () => {
 
             {isVerifying && (
               <div className="text-center mb-6">
-                <div className="inline-flex items-center px-4 py-2 bg-blue-50 rounded-md">
+                <div className="inline-flex items-center px-4 py-2 bg-blue-50 ">
                   <RefreshCw className="w-4 h-4 mr-2 animate-spin text-blue-600" />
                   <span className="text-blue-600">Verifying...</span>
                 </div>
@@ -133,7 +133,7 @@ const EmailVerificationPage = () => {
 
             {verificationComplete && (
               <div className="text-center mb-6">
-                <div className="inline-flex items-center px-4 py-2 bg-green-50 rounded-md">
+                <div className="inline-flex items-center px-4 py-2 bg-green-50 ">
                   <CheckCircle className="w-4 h-4 mr-2 text-green-600" />
                   <span className="text-green-600">Email verified successfully!</span>
                 </div>

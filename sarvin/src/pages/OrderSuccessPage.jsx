@@ -23,9 +23,9 @@ const OrderSuccessPage= () => {
     <div className="min-h-screen pt-20 pb-16 bg-gray-50">
       <div className="container mx-auto px-4">
         <div className="max-w-2xl mx-auto">
-          <div className="bg-white rounded-lg shadow-sm p-8 text-center">
+          <div className="bg-white  shadow-sm p-8 text-center">
             {/* Success Icon */}
-            <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+            <div className="w-20 h-20 bg-green-100  flex items-center justify-center mx-auto mb-6">
               <CheckCircle className="h-12 w-12 text-green-600" />
             </div>
             
@@ -38,7 +38,7 @@ const OrderSuccessPage= () => {
             </p>
             
             {/* Order Details */}
-            <div className="bg-gray-50 rounded-lg p-6 mb-8">
+            <div className="bg-gray-50  p-6 mb-8">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-left">
                 <div>
                   <p className="text-sm text-gray-500">Order ID</p>
@@ -54,7 +54,7 @@ const OrderSuccessPage= () => {
                 </div>
                 <div>
                   <p className="text-sm text-gray-500">Payment Status</p>
-                  <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                  <span className="inline-flex items-center px-2.5 py-0.5  text-xs font-medium bg-green-100 text-green-800">
                     Paid
                   </span>
                 </div>
@@ -69,19 +69,19 @@ const OrderSuccessPage= () => {
               </h2>
               <div className="space-y-3 text-gray-600">
                 <div className="flex items-start">
-                  <div className="w-6 h-6 bg-[#2A4365] text-white rounded-full flex items-center justify-center text-sm font-semibold mr-3 mt-0.5">
+                  <div className="w-6 h-6 bg-[#2A4365] text-white  flex items-center justify-center text-sm font-semibold mr-3 mt-0.5">
                     1
                   </div>
                   <p>We'll send you an order confirmation email with tracking details</p>
                 </div>
                 <div className="flex items-start">
-                  <div className="w-6 h-6 bg-[#2A4365] text-white rounded-full flex items-center justify-center text-sm font-semibold mr-3 mt-0.5">
+                  <div className="w-6 h-6 bg-[#2A4365] text-white  flex items-center justify-center text-sm font-semibold mr-3 mt-0.5">
                     2
                   </div>
                   <p>Your order will be processed and prepared for shipping</p>
                 </div>
                 <div className="flex items-start">
-                  <div className="w-6 h-6 bg-[#2A4365] text-white rounded-full flex items-center justify-center text-sm font-semibold mr-3 mt-0.5">
+                  <div className="w-6 h-6 bg-[#2A4365] text-white  flex items-center justify-center text-sm font-semibold mr-3 mt-0.5">
                     3
                   </div>
                   <p>You'll receive tracking information once your order ships</p>

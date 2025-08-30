@@ -10,10 +10,6 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
-const truncateText = (text, maxLength) => {
-  if (!text) return "";
-  return text.length > maxLength ? text.slice(0, maxLength) + "..." : text;
-};
 
 const ProductCard = ({ product, viewMode = "grid" }) => {
   const { addToCart, isInCart, getItemQuantity } = useCart();
@@ -49,17 +45,17 @@ const ProductCard = ({ product, viewMode = "grid" }) => {
 
   if (viewMode === "list") {
     return (
-      <div className="group relative flex flex-col md:flex-row bg-white rounded-lg border border-gray-200 overflow-hidden shadow-sm hover:shadow-md transition-all">
+      <div className="group relative flex flex-col md:flex-row bg-white  border border-gray-200 overflow-hidden shadow-sm hover:shadow-md transition-all">
         {/* Success/Error indicators */}
         {showSuccess && (
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20 bg-[#C87941] text-white px-4 py-2 rounded-lg flex items-center">
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20 bg-[#C87941] text-white px-4 py-2  flex items-center">
             <CheckCircle size={16} className="mr-2" />
             Added to cart!
           </div>
         )}
 
         {error && (
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20 bg-red-500 text-white px-4 py-2 rounded-lg flex items-center max-w-xs text-sm">
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20 bg-red-500 text-white px-4 py-2  flex items-center max-w-xs text-sm">
             <AlertCircle size={16} className="mr-2 flex-shrink-0" />
             {error}
           </div>
@@ -104,7 +100,7 @@ const ProductCard = ({ product, viewMode = "grid" }) => {
               {product.type?.name || product.collection?.name}
             </p>
             <Link to={`/product/${productId}`}>
-              <h3 className="text-lg font-medium mb-2 group-hover:text-[#2A4365]">
+              <h3 className="text-md font-medium mb-2 group-hover:text-[#2A4365] line-clamp-3">
                 {product.name}
               </h3>
             </Link>
@@ -200,7 +196,7 @@ const ProductCard = ({ product, viewMode = "grid" }) => {
 
   // Default grid view
   return (
-    <div className="group relative overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm transition-all duration-300 hover:shadow-md">
+    <div className="group relative overflow-hidden  border border-gray-200 bg-white shadow-sm transition-all duration-300 hover:shadow-md">
       {product.discountPrice &&
         Math.round(
           ((product.price - product.discountPrice) / product.price) * 100
@@ -221,14 +217,14 @@ const ProductCard = ({ product, viewMode = "grid" }) => {
 
       {/* Success/Error indicators */}
       {showSuccess && (
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20 bg-[#C87941] text-white px-4 py-2 rounded-lg flex items-center">
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20 bg-[#C87941] text-white px-4 py-2  flex items-center">
           <CheckCircle size={16} className="mr-2" />
           Added to cart!
         </div>
       )}
 
       {error && (
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20 bg-red-500 text-white px-4 py-2 rounded-lg flex items-center max-w-xs text-sm">
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20 bg-red-500 text-white px-4 py-2  flex items-center max-w-xs text-sm">
           <AlertCircle size={16} className="mr-2 flex-shrink-0" />
           {error}
         </div>
@@ -247,9 +243,9 @@ const ProductCard = ({ product, viewMode = "grid" }) => {
           <div className="mb-1 text-sm text-gray-500">
             {product.type?.name || product.type}
           </div>
-          <h3 className="mb-2 text-base font-medium line-clamp-2 group-hover:text-[#2A4365]">
-            {truncateText(product.name, 25)}
-          </h3>
+          <h3 className="text-md font-medium mb-2 group-hover:text-[#2A4365] line-clamp-3">
+                {product.name}
+              </h3>
 
           <div className="mb-3 flex items-center">
             <div className="flex items-center">

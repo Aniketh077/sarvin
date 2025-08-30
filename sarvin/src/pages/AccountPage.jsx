@@ -148,10 +148,10 @@ const AccountPage = () => {
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
             {/* Sidebar */}
             <div className="lg:col-span-1">
-              <div className="bg-white rounded-lg shadow-sm p-4 lg:p-6">
+              <div className="bg-white  shadow-sm p-4 lg:p-6">
                 {/* Profile Header */}
                 <div className="flex flex-col items-center text-center mb-6">
-                  <div className="h-20 w-20 rounded-full bg-gradient-to-br from-[#2A4365] to-[#324e76] flex items-center justify-center mb-3 shadow-lg">
+                  <div className="h-20 w-20  bg-gradient-to-br from-[#2A4365] to-[#324e76] flex items-center justify-center mb-3 shadow-lg">
                     <span className="text-white font-bold text-2xl">
                       {user?.name?.charAt(0)?.toUpperCase() || 'U'}
                     </span>
@@ -169,7 +169,7 @@ const AccountPage = () => {
                 <nav className="space-y-2">
                   <button
                     onClick={() => setActiveTab('profile')}
-                    className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 ${
+                    className={`w-full flex items-center space-x-3 px-4 py-3  transition-all duration-200 ${
                       activeTab === 'profile' 
                         ? 'text-[#2A4365] bg-blue-50 border-l-4 border-[#2A4365] shadow-sm' 
                         : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
@@ -180,7 +180,7 @@ const AccountPage = () => {
                   </button>
                   <button
                     onClick={() => setActiveTab('security')}
-                    className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 ${
+                    className={`w-full flex items-center space-x-3 px-4 py-3  transition-all duration-200 ${
                       activeTab === 'security' 
                         ? 'text-[#2A4365] bg-blue-50 border-l-4 border-[#2A4365] shadow-sm' 
                         : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
@@ -191,13 +191,13 @@ const AccountPage = () => {
                   </button>
                   <button
                     onClick={() => navigate('/orders')}
-                    className="w-full flex items-center space-x-3 px-4 py-3 text-gray-600 rounded-lg hover:bg-gray-50 hover:text-gray-900 transition-all duration-200"
+                    className="w-full flex items-center space-x-3 px-4 py-3 text-gray-600  hover:bg-gray-50 hover:text-gray-900 transition-all duration-200"
                   >
                     <Package className="h-5 w-5 flex-shrink-0" />
                     <span className="font-medium">Orders</span>
                   </button>
                   {/* <button
-                    className="w-full flex items-center space-x-3 px-4 py-3 text-gray-600 rounded-lg hover:bg-gray-50 hover:text-gray-900 transition-all duration-200"
+                    className="w-full flex items-center space-x-3 px-4 py-3 text-gray-600  hover:bg-gray-50 hover:text-gray-900 transition-all duration-200"
                   >
                     <Settings className="h-5 w-5 flex-shrink-0" />
                     <span className="font-medium">Settings</span>
@@ -205,7 +205,7 @@ const AccountPage = () => {
                   <div className="pt-4 border-t border-gray-200">
                     <button
                       onClick={handleLogout}
-                      className="w-full flex items-center space-x-3 px-4 py-3 text-red-600 rounded-lg hover:bg-red-50 hover:text-red-700 transition-all duration-200"
+                      className="w-full flex items-center space-x-3 px-4 py-3 text-red-600  hover:bg-red-50 hover:text-red-700 transition-all duration-200"
                     >
                       <LogOut className="h-5 w-5 flex-shrink-0" />
                       <span className="font-medium">Logout</span>
@@ -218,7 +218,7 @@ const AccountPage = () => {
             {/* Main Content */}
             <div className="lg:col-span-3">
               {activeTab === 'profile' && (
-                <div className="bg-white rounded-lg shadow-sm overflow-hidden">
+                <div className="bg-white  shadow-sm overflow-hidden">
                   <div className="p-4 sm:p-6 border-b border-gray-200">
                     <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center space-y-3 sm:space-y-0">
                       <div>
@@ -330,7 +330,7 @@ const AccountPage = () => {
               )}
 
               {activeTab === 'security' && (
-                <div className="bg-white rounded-lg shadow-sm overflow-hidden">
+                <div className="bg-white  shadow-sm overflow-hidden">
                   <div className="p-6 border-b border-gray-200">
                     <h2 className="text-xl font-semibold">Security Settings</h2>
                     <p className="text-gray-600 mt-1">Manage your account security and password</p>
@@ -339,7 +339,7 @@ const AccountPage = () => {
                   <div className="p-6">
                     <div className="space-y-6">
                       {/* Password Section */}
-                      <div className="border border-gray-200 rounded-lg p-4">
+                      <div className="border border-gray-200  p-4">
                         <div className="flex items-center justify-between mb-4">
                           <div>
                             <h3 className="text-lg font-medium">Password</h3>
@@ -366,7 +366,7 @@ const AccountPage = () => {
                       </div>
 
                       {/* Account Information */}
-                      <div className="border border-gray-200 rounded-lg p-4">
+                      <div className="border border-gray-200  p-4">
                         <div className="flex items-center justify-between mb-4">
                           <div>
                             <h3 className="text-lg font-medium">Account Information</h3>

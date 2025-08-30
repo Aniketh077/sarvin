@@ -25,7 +25,7 @@ const SubmissionsTable = ({
   const secondaryColor = '#C87941';
 
   return (
-    <div className="bg-white rounded-lg sm:rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+    <div className="bg-white  sm: shadow-sm border border-gray-200 overflow-hidden">
       {/* Mobile Card View */}
       <div className="block sm:hidden">
         {submissions.length > 0 ? (
@@ -34,7 +34,7 @@ const SubmissionsTable = ({
               <div key={submission._id} className="p-4">
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex items-center space-x-3">
-                    <div className="h-8 w-8 rounded-full bg-gray-200 flex items-center justify-center flex-shrink-0">
+                    <div className="h-8 w-8  bg-gray-200 flex items-center justify-center flex-shrink-0">
                       <User className="h-4 w-4 text-gray-400" />
                     </div>
                     <div className="min-w-0">
@@ -70,13 +70,13 @@ const SubmissionsTable = ({
                   <p className="text-sm text-gray-900 font-medium truncate">{submission.subject}</p>
                   
                   <div className="flex flex-wrap gap-1">
-                    <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getStatusColor(submission.status)}`}>
+                    <span className={`inline-flex px-2 py-1 text-xs font-semibold  ${getStatusColor(submission.status)}`}>
                       {submission.status || 'pending'}
                     </span>
-                    <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getPriorityColor(submission.priority)}`}>
+                    <span className={`inline-flex px-2 py-1 text-xs font-semibold  ${getPriorityColor(submission.priority)}`}>
                       {submission.priority || 'medium'}
                     </span>
-                    <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getDepartmentColor(submission.department)}`}>
+                    <span className={`inline-flex px-2 py-1 text-xs font-semibold  ${getDepartmentColor(submission.department)}`}>
                       {submission.department || 'general'}
                     </span>
                   </div>
@@ -171,7 +171,7 @@ const SubmissionsTable = ({
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="flex items-center">
                       <div className="flex-shrink-0 h-10 w-10">
-                        <div className="h-10 w-10 rounded-full bg-gray-200 flex items-center justify-center">
+                        <div className="h-10 w-10  bg-gray-200 flex items-center justify-center">
                           <User className="h-5 w-5 text-gray-400" />
                         </div>
                       </div>
@@ -197,7 +197,7 @@ const SubmissionsTable = ({
                       {submission.subject}
                     </div>
                     <div className="mt-1">
-                      <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getDepartmentColor(submission.department)}`}>
+                      <span className={`inline-flex px-2 py-1 text-xs font-semibold  ${getDepartmentColor(submission.department)}`}>
                         {submission.department || 'general'}
                       </span>
                     </div>
@@ -208,12 +208,12 @@ const SubmissionsTable = ({
                     </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getStatusColor(submission.status)}`}>
+                    <span className={`inline-flex px-2 py-1 text-xs font-semibold  ${getStatusColor(submission.status)}`}>
                       {submission.status || 'pending'}
                     </span>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getPriorityColor(submission.priority)}`}>
+                    <span className={`inline-flex px-2 py-1 text-xs font-semibold  ${getPriorityColor(submission.priority)}`}>
                       {submission.priority || 'medium'}
                     </span>
                   </td>
@@ -273,7 +273,7 @@ const SubmissionsTable = ({
             <button
               onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
               disabled={currentPage === 1}
-              className="px-3 py-1 text-sm border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              className="px-3 py-1 text-sm border border-gray-300  hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             >
               Previous
             </button>
@@ -283,7 +283,7 @@ const SubmissionsTable = ({
             <button
               onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
               disabled={currentPage === totalPages}
-              className="px-3 py-1 text-sm border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              className="px-3 py-1 text-sm border border-gray-300  hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             >
               Next
             </button>

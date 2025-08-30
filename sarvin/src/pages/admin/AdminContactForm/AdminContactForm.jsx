@@ -179,7 +179,7 @@ const AdminContactForm = () => {
           <div className="h-8 bg-gray-200 rounded w-1/4 mb-6"></div>
           <div className="grid grid-cols-1 sm:grid-cols-4 gap-6 mb-8">
             {[...Array(4)].map((_, i) => (
-              <div key={i} className="bg-gray-200 rounded-lg h-24"></div>
+              <div key={i} className="bg-gray-200  h-24"></div>
             ))}
           </div>
         </div>
@@ -197,7 +197,7 @@ const AdminContactForm = () => {
         </div>
         <button
           onClick={handleRefresh}
-          className="flex items-center px-4 py-2 text-white rounded-lg hover:opacity-90 transition-colors"
+          className="flex items-center px-4 py-2 text-white  hover:opacity-90 transition-colors"
           style={{ backgroundColor: '#2A4365' }}
         >
           <RefreshCw className="h-4 w-4 mr-2" />

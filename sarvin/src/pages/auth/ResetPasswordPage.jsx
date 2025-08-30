@@ -124,10 +124,10 @@ useEffect(() => {
     return (
       <div className="min-h-screen pt-20 pb-16 flex flex-col justify-center">
         <div className="container mx-auto px-4">
-          <div className="max-w-md mx-auto bg-white rounded-lg shadow-sm overflow-hidden">
+          <div className="max-w-md mx-auto bg-white  shadow-sm overflow-hidden">
             <div className="p-6 sm:p-8">
               <div className="text-center">
-                <div className="mx-auto w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mb-4">
+                <div className="mx-auto w-16 h-16 bg-red-100  flex items-center justify-center mb-4">
                   <AlertCircle className="w-8 h-8 text-red-600" />
                 </div>
                 <h1 className="text-2xl font-bold mb-2">Invalid Reset Link</h1>
@@ -150,10 +150,10 @@ useEffect(() => {
   return (
     <div className="min-h-screen pt-20 pb-16 flex flex-col justify-center">
       <div className="container mx-auto px-4">
-        <div className="max-w-md mx-auto bg-white rounded-lg shadow-sm overflow-hidden">
+        <div className="max-w-md mx-auto bg-white  shadow-sm overflow-hidden">
           <div className="p-6 sm:p-8">
             <div className="text-center mb-8">
-              <div className="mx-auto w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4">
+              <div className="mx-auto w-16 h-16 bg-blue-100  flex items-center justify-center mb-4">
                 <Lock className="w-8 h-8 text-blue-600" />
               </div>
               <h1 className="text-2xl font-bold mb-2">
@@ -169,7 +169,7 @@ useEffect(() => {
 
             {resetComplete ? (
               <div className="text-center">
-                <div className="bg-green-50 border border-green-200 rounded-md p-4 mb-6">
+                <div className="bg-green-50 border border-green-200  p-4 mb-6">
                   <CheckCircle className="w-6 h-6 text-green-600 mx-auto mb-2" />
                   <p className="text-green-800 font-medium">Success!</p>
                   <p className="text-green-700 text-sm mt-1">

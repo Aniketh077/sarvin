@@ -41,7 +41,7 @@ const getStatusClass = (status) => {
     
     return (
       <div 
-        className="bg-white border border-gray-200 rounded-lg p-4 mb-3 hover:shadow-md transition-shadow cursor-pointer"
+        className="bg-white border border-gray-200  p-4 mb-3 hover:shadow-md transition-shadow cursor-pointer"
         onClick={() => onViewOrder(order._id)}
       >
         {/* Header */}
@@ -54,7 +54,7 @@ const getStatusClass = (status) => {
               {order.user?.name || order.shippingAddress?.fullName || 'N/A'}
             </p>
           </div>
-          <span className={`px-2 py-1 text-xs font-semibold rounded-full ${getStatusClass(orderStatus)}`}>
+          <span className={`px-2 py-1 text-xs font-semibold  ${getStatusClass(orderStatus)}`}>
             {orderStatus.charAt(0).toUpperCase() + orderStatus.slice(1)}
           </span>
         </div>
@@ -112,7 +112,7 @@ const getStatusClass = (status) => {
       </div>
 
       {/* Desktop/Tablet View - Table */}
-      <div className="hidden md:block bg-white overflow-hidden shadow-sm rounded-lg mb-6">
+      <div className="hidden md:block bg-white overflow-hidden shadow-sm  mb-6">
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead className="bg-gray-50">
@@ -146,7 +146,7 @@ const getStatusClass = (status) => {
                     </td>
                     <td className="p-4 font-semibold">{formatCurrency(orderTotal)}</td>
                     <td className="p-4">
-                      <span className={`px-2 py-1 text-xs font-semibold rounded-full ${getStatusClass(orderStatus)}`}>
+                      <span className={`px-2 py-1 text-xs font-semibold  ${getStatusClass(orderStatus)}`}>
                         {orderStatus.charAt(0).toUpperCase() + orderStatus.slice(1)}
                       </span>
                     </td>

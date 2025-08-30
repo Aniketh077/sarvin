@@ -38,7 +38,7 @@ const BenefitsSection = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {benefits.map((benefit, index) => (
             <div key={index} className="text-center group">
-              <div className="bg-gradient-to-br from-[#EBF5FF] to-[#DBEAFE] w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
+              <div className="bg-gradient-to-br from-[#EBF5FF] to-[#DBEAFE] w-20 h-20  flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
                 <benefit.icon className="h-10 w-10 text-[#2A4365]" />
               </div>
               <h3 className="text-xl font-semibold mb-3">{benefit.title}</h3>

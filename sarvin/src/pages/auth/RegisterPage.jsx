@@ -135,7 +135,7 @@ const RegisterPage = () => {
   return (
     <div className="min-h-screen pt-20 pb-16 flex flex-col justify-center">
       <div className="container mx-auto px-4">
-        <div className="max-w-md mx-auto bg-white rounded-lg shadow-sm overflow-hidden">
+        <div className="max-w-md mx-auto bg-white  shadow-sm overflow-hidden">
           <div className="p-6 sm:p-8">
             <div className="text-center mb-8">
               <h1 className="text-2xl font-bold mb-2">Create Account</h1>
@@ -225,15 +225,15 @@ const RegisterPage = () => {
                   <p className="text-gray-600 mb-2">Password strength:</p>
                   <div className="space-y-1">
                     <div className={`flex items-center ${formData.password.length >= 6 ? 'text-green-600' : 'text-gray-400'}`}>
-                      <div className={`w-2 h-2 rounded-full mr-2 ${formData.password.length >= 6 ? 'bg-green-600' : 'bg-gray-300'}`} />
+                      <div className={`w-2 h-2  mr-2 ${formData.password.length >= 6 ? 'bg-green-600' : 'bg-gray-300'}`} />
                       <span className="text-xs">At least 6 characters</span>
                     </div>
                     <div className={`flex items-center ${/(?=.*[a-z])(?=.*[A-Z])/.test(formData.password) ? 'text-green-600' : 'text-gray-400'}`}>
-                      <div className={`w-2 h-2 rounded-full mr-2 ${/(?=.*[a-z])(?=.*[A-Z])/.test(formData.password) ? 'bg-green-600' : 'bg-gray-300'}`} />
+                      <div className={`w-2 h-2  mr-2 ${/(?=.*[a-z])(?=.*[A-Z])/.test(formData.password) ? 'bg-green-600' : 'bg-gray-300'}`} />
                       <span className="text-xs">Upper and lowercase letters</span>
                     </div>
                     <div className={`flex items-center ${/(?=.*\d)/.test(formData.password) ? 'text-green-600' : 'text-gray-400'}`}>
-                      <div className={`w-2 h-2 rounded-full mr-2 ${/(?=.*\d)/.test(formData.password) ? 'bg-green-600' : 'bg-gray-300'}`} />
+                      <div className={`w-2 h-2  mr-2 ${/(?=.*\d)/.test(formData.password) ? 'bg-green-600' : 'bg-gray-300'}`} />
                       <span className="text-xs">At least one number</span>
                     </div>
                   </div>

@@ -61,7 +61,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
       <button
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
-        className="p-2 rounded-md border border-gray-300 disabled:opacity-50 hover:bg-gray-50"
+        className="p-2  border border-gray-300 disabled:opacity-50 hover:bg-gray-50"
       >
         <ChevronLeft size={16} />
       </button>
@@ -69,7 +69,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
         <>
           <button
             onClick={() => onPageChange(1)}
-            className="px-3 py-2 rounded-md border border-gray-300 hover:bg-gray-50"
+            className="px-3 py-2  border border-gray-300 hover:bg-gray-50"
           >
             1
           </button>
@@ -80,7 +80,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
         <button
           key={pageNum}
           onClick={() => onPageChange(pageNum)}
-          className={`px-3 py-2 rounded-md border ${
+          className={`px-3 py-2  border ${
             pageNum === currentPage
               ? "bg-[#2A4365] text-white border-[#2A4365]"
               : "border-gray-300 hover:bg-gray-50"
@@ -94,7 +94,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
           {endPage < totalPages - 1 && <span className="px-2">...</span>}
           <button
             onClick={() => onPageChange(totalPages)}
-            className="px-3 py-2 rounded-md border border-gray-300 hover:bg-gray-50"
+            className="px-3 py-2  border border-gray-300 hover:bg-gray-50"
           >
             {totalPages}
           </button>
@@ -103,7 +103,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
       <button
         onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
-        className="p-2 rounded-md border border-gray-300 disabled:opacity-50 hover:bg-gray-50"
+        className="p-2  border border-gray-300 disabled:opacity-50 hover:bg-gray-50"
       >
         <ChevronRight size={16} />
       </button>
@@ -155,9 +155,11 @@ const SearchPage = () => {
     { label: "Above 20000", value: "20000+" },
   ];
   const burnerTypeOptions = [
+    { label: "1 Burner", value: "1" },
     { label: "2 Burners", value: "2" },
     { label: "3 Burners", value: "3" },
     { label: "4 Burners", value: "4" },
+    { label: "5 Burners", value: "5" }, 
   ];
   const ignitionTypeOptions = [
     { label: "Auto Ignition", value: "Auto Ignition" },
@@ -339,7 +341,7 @@ const SearchPage = () => {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search for any Kitchen Appliances etc..."
-                className="w-full rounded-lg border border-gray-300 pl-4 pr-12 py-3 text-lg focus:border-[#2A4365] focus:outline-none focus:ring-1 focus:ring-[#2A4365]"
+                className="w-full  border border-gray-300 pl-4 pr-12 py-3 text-lg focus:border-[#2A4365] focus:outline-none focus:ring-1 focus:ring-[#2A4365]"
               />
               <button
                 type="submit"
@@ -356,7 +358,7 @@ const SearchPage = () => {
           <>
             {/* Header */}
             <div
-          className="py-10 px-6 rounded-lg mb-8 text-white"
+          className="py-10 px-6  mb-8 text-white"
           style={getHeaderStyle()}
         >
               <div className="text-center">
@@ -368,7 +370,7 @@ const SearchPage = () => {
             </div>
 
             {/* Filter Bar */}
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 bg-white p-4 rounded-md shadow-sm relative z-20">
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 bg-white p-4  shadow-sm relative z-20">
               <div className="flex items-center mb-4 md:mb-0">
                 <Button
                   variant="ghost"
@@ -396,7 +398,7 @@ const SearchPage = () => {
             <div className="flex flex-col md:flex-row">
               {/* Filters Sidebar */}
               <div className={`w-full sm:w-64 md:w-56 lg:w-60 xl:w-72 mb-6 md:mb-0 md:mr-6 ${isFilterVisible ? "block" : "hidden md:block"}`}>
-                <div className="sticky top-24 bg-white rounded-md shadow-lg border p-5">
+                <div className="sticky top-24 bg-white  shadow-lg border p-5">
                     <div className="flex justify-between items-center mb-4">
                         <h3 className="font-bold text-xl text-[#2A4365]">Filters</h3>
                         <button
@@ -455,10 +457,10 @@ const SearchPage = () => {
               <div className="flex-1">
                 {loading && products.length === 0 ? (
                     <div className="flex items-center justify-center p-12">
-                        <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-[#2A4365]"></div>
+                        <div className="animate-spin  h-16 w-16 border-b-2 border-[#2A4365]"></div>
                     </div>
                 ) : !loading && products.length === 0 ? (
-                    <div className="bg-white p-8 rounded-lg shadow-sm text-center">
+                    <div className="bg-white p-8  shadow-sm text-center">
                         <h3 className="text-xl font-semibold mb-2">No Products Found</h3>
                         <p className="text-gray-600 mb-4">No results for "{currentQuery}". Try different search terms or filters.</p>
                         {getActiveFiltersCount() > 0 && <Button variant="primary" onClick={clearFilters}>Clear Filters</Button>}

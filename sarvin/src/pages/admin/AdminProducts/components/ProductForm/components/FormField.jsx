@@ -14,7 +14,7 @@ const FormField = ({
   min,
   step
 }) => {
-  const baseInputClasses = "w-full px-4 py-3 border border-[#E2E8F0] rounded-md focus:outline-none focus:ring-2 focus:ring-[#2A4365] focus:border-[#2A4365] transition-all duration-200 text-[#2A4365] placeholder-gray-400";
+  const baseInputClasses = "w-full px-4 py-3 border border-[#E2E8F0]  focus:outline-none focus:ring-2 focus:ring-[#2A4365] focus:border-[#2A4365] transition-all duration-200 text-[#2A4365] placeholder-gray-400";
 
   const renderInput = () => {
     switch (type) {

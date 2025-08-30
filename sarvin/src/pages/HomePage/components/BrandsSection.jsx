@@ -17,10 +17,10 @@ const typesSection = ({ types }) => {
             <Link
               key={type.id}
               to={`/products?type=${encodeURIComponent(type.name)}`}
-              className="bg-white rounded-xl shadow-sm p-8 flex items-center justify-center transition-all hover:shadow-md hover:-translate-y-1 group"
+              className="bg-white  shadow-sm p-8 flex items-center justify-center transition-all hover:shadow-md hover:-translate-y-1 group"
             >
               <div className="text-center">
-                <div className="w-16 h-16 mx-auto mb-3 bg-gray-100 rounded-full flex items-center justify-center group-hover:bg-[#EBF5FF] transition-colors">
+                <div className="w-16 h-16 mx-auto mb-3 bg-gray-100  flex items-center justify-center group-hover:bg-[#EBF5FF] transition-colors">
                   <span className="text-2xl font-bold text-[#2A4365]">
                     {type.name.charAt(0)}
                   </span>

@@ -55,7 +55,7 @@ const ToastContainer = () => {
             key={toast.id}
             className={`
               ${styles.bg} ${styles.border} ${styles.text}
-              border rounded-lg p-4 shadow-lg min-w-80 max-w-md
+              border  p-4 shadow-lg min-w-80 max-w-md
               transform transition-all duration-300 ease-in-out
               animate-slide-in-right
             `}
@@ -70,7 +70,7 @@ const ToastContainer = () => {
               <button
                 onClick={() => removeToast(toast.id)}
                 className={`
-                  ml-3 flex-shrink-0 p-1 rounded-full
+                  ml-3 flex-shrink-0 p-1 
                   hover:bg-black hover:bg-opacity-10
                   transition-colors duration-200
                   ${styles.iconColor}

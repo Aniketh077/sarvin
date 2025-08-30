@@ -112,7 +112,7 @@ const AboutPage = () => {
                 <img
   src="https://images.pexels.com/photos/3637728/pexels-photo-3637728.jpeg"
   alt="About US"
-  className="rounded-lg shadow-lg h-96 w-full object-cover"
+  className=" shadow-lg h-96 w-full object-cover"
 />
               </div>
             </div>
@@ -160,7 +160,7 @@ const AboutPage = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {values.map((value, index) => (
-              <div key={index} className="bg-white p-8 rounded-lg shadow-sm text-center hover:shadow-md transition-shadow">
+              <div key={index} className="bg-white p-8  shadow-sm text-center hover:shadow-md transition-shadow">
                 <div className="bg-[#EBF5FF] w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
                   <value.icon className="h-8 w-8 text-[#2A4365]" />
                 </div>

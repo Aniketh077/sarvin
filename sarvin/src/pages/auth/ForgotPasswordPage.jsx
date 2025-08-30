@@ -72,7 +72,7 @@ const ForgotPasswordPage = () => {
   return (
     <div className="min-h-screen pt-20 pb-16 flex flex-col justify-center">
       <div className="container mx-auto px-4">
-        <div className="max-w-md mx-auto bg-white rounded-lg shadow-sm overflow-hidden">
+        <div className="max-w-md mx-auto bg-white  overflow-hidden">
           <div className="p-6 sm:p-8">
             <div className="text-center mb-8">
               <h1 className="text-2xl font-bold mb-2">
@@ -112,7 +112,7 @@ const ForgotPasswordPage = () => {
             ) : (
               <div className="space-y-6">
                 <div className="text-center">
-                  <div className="bg-green-50 border border-green-200 rounded-md p-4 mb-4">
+                  <div className="bg-green-50 border border-green-200  p-4 mb-4">
                     <CheckCircle className="w-6 h-6 text-green-600 mx-auto mb-2" />
                     <p className="text-green-800 font-medium">Reset link sent!</p>
                     <p className="text-green-700 text-sm mt-1">

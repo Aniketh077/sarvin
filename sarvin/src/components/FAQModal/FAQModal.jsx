@@ -63,7 +63,7 @@ const FAQModal = ({ isOpen, onClose }) => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 modal-backdrop bg-black bg-opacity-50">
-      <div className="bg-white rounded-lg shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-hidden flex flex-col">
+      <div className="bg-white  shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-hidden flex flex-col">
         {/* Header */}
         <div className="bg-gradient-to-r from-[#2A4365] to-[#1A365D] text-white p-6 flex-shrink-0">
           <div className="flex items-center justify-between">
@@ -75,7 +75,7 @@ const FAQModal = ({ isOpen, onClose }) => {
             </div>
             <button
               onClick={onClose}
-              className="p-2 hover:bg-white/10 rounded-full transition-colors"
+              className="p-2 hover:bg-white/10  transition-colors"
             >
               <X className="h-6 w-6" />
             </button>
@@ -91,7 +91,7 @@ const FAQModal = ({ isOpen, onClose }) => {
               placeholder="Search FAQs..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2A4365] focus:border-transparent"
+              className="w-full pl-10 pr-4 py-3 border border-gray-300  focus:outline-none focus:ring-2 focus:ring-[#2A4365] focus:border-transparent"
             />
           </div>
           {searchTerm && (
@@ -117,7 +117,7 @@ const FAQModal = ({ isOpen, onClose }) => {
                 {filteredFAQs.map(faq => (
                   <div 
                     key={faq.id} 
-                    className={`border border-gray-200 rounded-md overflow-hidden transition-all duration-200  cursor-pointer ${
+                    className={`border border-gray-200  overflow-hidden transition-all duration-200  cursor-pointer ${
                       expandedItem === faq.id ? 'ring-2 ring-[#2A4365] ring-opacity-20' : ''
                     }`}
                     onClick={() => toggleExpanded(faq.id)}

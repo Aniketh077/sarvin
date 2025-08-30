@@ -100,11 +100,11 @@ const AutoVerifyPage = () => {
   return (
     <div className="min-h-screen pt-20 pb-16 flex flex-col justify-center bg-gray-50">
       <div className="container mx-auto px-4">
-        <div className="max-w-md mx-auto bg-white rounded-lg shadow-sm overflow-hidden">
+        <div className="max-w-md mx-auto bg-white  shadow-sm overflow-hidden">
           <div className="p-6 sm:p-8 text-center">
             {status === 'verifying' && (
               <>
-                <div className="mx-auto w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4">
+                <div className="mx-auto w-16 h-16 bg-blue-100  flex items-center justify-center mb-4">
                   <RefreshCw className="w-8 h-8 text-blue-600 animate-spin" />
                 </div>
                 <h1 className="text-2xl font-bold mb-2">Verifying Your Email</h1>
@@ -114,7 +114,7 @@ const AutoVerifyPage = () => {
 
             {status === 'success' && (
               <>
-                <div className="mx-auto w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4">
+                <div className="mx-auto w-16 h-16 bg-green-100  flex items-center justify-center mb-4">
                   <CheckCircle className="w-8 h-8 text-green-600" />
                 </div>
                 <h1 className="text-2xl font-bold mb-2 text-green-600">Email Verified!</h1>
@@ -126,7 +126,7 @@ const AutoVerifyPage = () => {
                 </p>
                 <button
                   onClick={handleGoToLogin}
-                  className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors"
+                  className="bg-blue-600 text-white px-4 py-2  hover:bg-blue-700 transition-colors"
                 >
                   Go to Login Now
                 </button>
@@ -135,7 +135,7 @@ const AutoVerifyPage = () => {
 
             {status === 'error' && (
               <>
-                <div className="mx-auto w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mb-4">
+                <div className="mx-auto w-16 h-16 bg-red-100  flex items-center justify-center mb-4">
                   <AlertCircle className="w-8 h-8 text-red-600" />
                 </div>
                 <h1 className="text-2xl font-bold mb-2 text-red-600">Verification Failed</h1>
@@ -145,13 +145,13 @@ const AutoVerifyPage = () => {
                 <div className="space-y-2">
                   <button
                     onClick={handleTryAgain}
-                    className="w-full bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors"
+                    className="w-full bg-blue-600 text-white px-4 py-2  hover:bg-blue-700 transition-colors"
                   >
                     Try Again
                   </button>
                   <button
                     onClick={handleGoToLogin}
-                    className="w-full bg-gray-600 text-white px-4 py-2 rounded-md hover:bg-gray-700 transition-colors"
+                    className="w-full bg-gray-600 text-white px-4 py-2  hover:bg-gray-700 transition-colors"
                   >
                     Go to Login
                   </button>

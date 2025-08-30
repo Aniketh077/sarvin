@@ -265,7 +265,7 @@ const AdminProducts = () => {
         </div>
 
         
-        <div className="bg-white overflow-hidden shadow-sm rounded-lg mb-6">
+        <div className="bg-white overflow-hidden shadow-sm  mb-6">
           <div className="overflow-x-auto">
             <ProductsTable 
               products={products} 

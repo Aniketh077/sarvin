@@ -3,7 +3,7 @@ import { MapPin, User, Phone } from "lucide-react";
 
 const ShippingAddress = ({ address }) => {
   return (
-    <div className="bg-white rounded-lg shadow-sm overflow-hidden">
+    <div className="bg-white  shadow-sm overflow-hidden">
       <div className="px-6 py-4 border-b border-gray-100">
         <h2 className="text-lg font-semibold flex items-center">
           <MapPin className="h-5 w-5 mr-2" />

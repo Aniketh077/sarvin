@@ -4,7 +4,7 @@ function newsletterSubscriptionTemplate(subscriberData) {
       <!-- Header -->
       <div style="background: linear-gradient(135deg, #094275 0%, #0c5089 100%); padding: 40px 30px; text-align: center;">
         <h1 style="color: #ffffff; margin: 0; font-size: 24px; font-weight: 600; letter-spacing: -0.5px;">
-          SARVIN ELECTRONICS
+          SARVIN APPLIANCES
         </h1>
         <p style="color: #ffffff; margin: 8px 0 0 0; font-size: 13px; opacity: 0.9;">
           Administrative Notification
@@ -61,7 +61,7 @@ function newsletterSubscriptionTemplate(subscriberData) {
       <!-- Footer -->
       <div style="background-color: #f9fafb; padding: 24px 30px; border-top: 1px solid #e5e7eb;">
         <p style="color: #6b7280; font-size: 11px; margin: 0; text-align: center; line-height: 1.5;">
-          This is an automated system notification from Sarvin Electronics Newsletter Management System.<br>
+          This is an automated system notification from Sarvin Appliances Newsletter Management System.<br>
           Generated on ${new Date().toLocaleDateString()} at ${new Date().toLocaleTimeString()}
         </p>
       </div>
@@ -75,7 +75,7 @@ function welcomeNewsletterTemplate(subscriberData) {
       <!-- Header -->
       <div style="background: linear-gradient(135deg, #094275 0%, #0c5089 100%); padding: 40px 30px; text-align: center;">
         <h1 style="color: #ffffff; margin: 0; font-size: 24px; font-weight: 600; letter-spacing: -0.5px;">
-          SARVIN ELECTRONICS
+          SARVIN APPLIANCES
         </h1>
         <p style="color: #ffffff; margin: 8px 0 0 0; font-size: 13px; opacity: 0.9;">
           Welcome to Our Community
@@ -85,7 +85,7 @@ function welcomeNewsletterTemplate(subscriberData) {
       <!-- Main Content -->
       <div style="padding: 30px 25px;">
         <h2 style="color: #094275; font-size: 22px; font-weight: 600; margin: 0 0 18px 0; text-align: center;">
-          Welcome to Sarvin Electronics!
+          Welcome to Sarvin Appliances!
         </h2>
         
         <div style="text-align: center; margin-bottom: 30px;">
@@ -95,7 +95,7 @@ function welcomeNewsletterTemplate(subscriberData) {
         <!-- Welcome Message -->
         <div style="background-color: #f8fafc; padding: 28px; border-radius: 10px; margin: 24px 0; text-align: center;">
           <p style="color: #374151; font-size: 15px; line-height: 1.6; margin: 0 0 16px 0;">
-            Thank you for subscribing to our newsletter! We're excited to have you as part of the Sarvin Electronics family.
+            Thank you for subscribing to our newsletter! We're excited to have you as part of the Sarvin Appliances family.
           </p>
           <p style="color: #6b7280; font-size: 14px; line-height: 1.6; margin: 0;">
             You'll now receive exclusive updates, special offers, and valuable insights delivered straight to your inbox.
@@ -119,12 +119,12 @@ function welcomeNewsletterTemplate(subscriberData) {
         </p>
         <p style="color: #374151; font-size: 12px; margin: 0; font-weight: 500;">
           Best regards,<br>
-          <span style="color: #094275; font-weight: 600;">The Sarvin Electronics Team</span>
+          <span style="color: #094275; font-weight: 600;">The Sarvin Appliances Team</span>
         </p>
         
         <div style="margin-top: 20px; padding-top: 16px; border-top: 1px solid #e5e7eb;">
           <p style="color: #9ca3af; font-size: 10px; margin: 0;">
-            © ${new Date().getFullYear()} Sarvin Electronics. All rights reserved.
+            © ${new Date().getFullYear()} Sarvin Appliances. All rights reserved.
           </p>
         </div>
       </div>

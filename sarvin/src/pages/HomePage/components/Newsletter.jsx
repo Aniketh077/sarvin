@@ -40,14 +40,14 @@ const handleSubmit = async (e) => {
     value={email}
     onChange={(e) => setEmail(e.target.value)}
     placeholder="Enter your email address"
-    className="flex-1 px-6 py-4 text-gray-900 my-2 sm:my-0 rounded-l-lg sm:rounded-r-none rounded-r-lg focus:outline-none focus:ring-2 focus:ring-[#C87941]"
+    className="flex-1 px-6 py-4 text-gray-900 my-2 sm:my-0  focus:outline-none focus:ring-2 focus:ring-[#C87941]"
     required
     disabled={newsletterSubscribing}
   />
   <button
     type="submit"
     disabled={newsletterSubscribing}
-    className="bg-[#C87941] hover:bg-[#B86931] px-8 py-4 rounded-r-lg sm:rounded-l-none rounded-l-lg font-semibold transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+    className="bg-[#C87941] hover:bg-[#B86931] px-8 py-4   font-semibold transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
   >
     {newsletterSubscribing ? 'Subscribing...' : 'Subscribe'}
   </button>

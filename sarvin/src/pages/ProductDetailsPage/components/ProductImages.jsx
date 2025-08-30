@@ -25,7 +25,7 @@ const ProductImages = ({ product, activeImage, setActiveImage }) => {
 
   return (
     <div className="p-6">
-      <div className="relative mb-4 aspect-square rounded-lg overflow-hidden">
+      <div className="relative mb-4 aspect-square  overflow-hidden">
         <img
           src={productImages[activeImage] || product.image}
           alt={product.name}
@@ -55,7 +55,7 @@ const ProductImages = ({ product, activeImage, setActiveImage }) => {
             <button
               key={index}
               onClick={() => setActiveImage(index)}
-              className={`flex-shrink-0 w-20 h-20 border-2 rounded-md overflow-hidden ${
+              className={`flex-shrink-0 w-20 h-20 border-2  overflow-hidden ${
                 activeImage === index ? 'border-[#2A4365]' : 'border-gray-200'
               }`}
             >

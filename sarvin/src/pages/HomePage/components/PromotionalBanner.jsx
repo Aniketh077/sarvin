@@ -18,7 +18,7 @@ const PromotionalBanner = () => {
       
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-4xl mx-auto text-center text-white">
-          <div className="inline-block bg-[#C87941] text-white px-4 py-2 rounded-full text-sm font-semibold mb-4">
+          <div className="inline-block bg-[#C87941] text-white px-4 py-2  text-sm font-semibold mb-4">
             Limited Time Offer
           </div>
           <h2 className="text-4xl md:text-5xl font-bold mb-4">Special Seasonal Sale</h2>

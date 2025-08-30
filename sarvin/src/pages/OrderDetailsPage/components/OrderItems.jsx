@@ -41,7 +41,7 @@ const OrderItems = ({ items, orderStatus, onWriteReview, orderId }) => {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-sm overflow-hidden">
+    <div className="bg-white  shadow-sm overflow-hidden">
       <div className="px-6 py-4 border-b border-gray-100">
         <h2 className="text-lg font-semibold flex items-center">
           <Package className="h-5 w-5 mr-2" />
@@ -62,7 +62,7 @@ const OrderItems = ({ items, orderStatus, onWriteReview, orderId }) => {
               className="p-6"
             >
               <div className="flex items-start">
-                <div className="h-20 w-20 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+                <div className="h-20 w-20 flex-shrink-0 overflow-hidden  border border-gray-200">
                   <img
                     src={
                       item.product.image ||

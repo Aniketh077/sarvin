@@ -61,7 +61,7 @@ const HeroSlider = () => {
           {slides.map((_, index) => (
             <button
               key={index}
-              className={`h-2 w-8 rounded-full transition-all ${
+              className={`h-2 w-8  transition-all ${
                 activeSlide === index ? "bg-[#C87941] w-12" : "bg-white/50"
               }`}
               onClick={() => setActiveSlide(index)}
@@ -76,13 +76,13 @@ const HeroSlider = () => {
               prev === 0 ? slides.length - 1 : prev - 1
             )
           }
-          className="absolute left-4 top-1/2 transform -translate-y-1/2 z-30 bg-white/20 hover:bg-white/30 text-white p-3 rounded-full transition-all"
+          className="absolute left-4 top-1/2 transform -translate-y-1/2 z-30 bg-white/20 hover:bg-white/30 text-white p-3  transition-all"
         >
           <ChevronRight className="h-6 w-6 rotate-180" />
         </button>
         <button
           onClick={() => setActiveSlide((prev) => (prev + 1) % slides.length)}
-          className="absolute right-4 top-1/2 transform -translate-y-1/2 z-30 bg-white/20 hover:bg-white/30 text-white p-3 rounded-full transition-all"
+          className="absolute right-4 top-1/2 transform -translate-y-1/2 z-30 bg-white/20 hover:bg-white/30 text-white p-3  transition-all"
         >
           <ChevronRight className="h-6 w-6" />
         </button> */}

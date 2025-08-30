@@ -15,7 +15,7 @@ const StatsSection = () => {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           {stats.map((stat, index) => (
             <div key={index} className="text-center">
-              <div className="bg-[#EBF5FF] w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="bg-[#EBF5FF] w-16 h-16  flex items-center justify-center mx-auto mb-4">
                 <stat.icon className="h-8 w-8 text-[#2A4365]" />
               </div>
               <div className="text-3xl font-bold text-[#2A4365] mb-2">{stat.value}</div>

@@ -75,7 +75,7 @@ const OrdersPage = () => {
       <div className="min-h-screen pt-20 pb-16">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <div className="bg-red-50 border border-red-200 rounded-lg p-6 text-center">
+            <div className="bg-red-50 border border-red-200  p-6 text-center">
               <AlertCircle className="h-12 w-12 text-red-500 mx-auto mb-4" />
               <h2 className="text-xl font-semibold text-red-800 mb-2">Error Loading Orders</h2>
               <p className="text-red-600 mb-4">{error}</p>
@@ -104,7 +104,7 @@ const OrdersPage = () => {
           </div>
 
           {!orders || orders.length === 0 ? (
-            <div className="bg-white rounded-lg shadow-sm p-8 text-center">
+            <div className="bg-white  shadow-sm p-8 text-center">
               <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gray-100 flex items-center justify-center">
                 <Package className="h-8 w-8 text-gray-400" />
               </div>
@@ -120,7 +120,7 @@ const OrdersPage = () => {
             <div className="space-y-6">
               {orders.map((order) => (
                 <div key={order._id}
-                  className="bg-white rounded-lg shadow-sm overflow-hidden transition-shadow duration-200">
+                  className="bg-white  shadow-sm overflow-hidden transition-shadow duration-200">
                   <div className="p-6 border-b border-gray-100 cursor-pointer hover:bg-gray-50" onClick={() => navigate(`/orders/${order._id}`)}>
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between">
                       <div>
@@ -153,7 +153,7 @@ const OrdersPage = () => {
                       if (!item.product) {
                         return (
                           <div key={`${order._id}-${index}`} className="flex items-center py-4 border-b border-gray-100 last:border-0">
-                            <div className="h-20 w-20 flex-shrink-0 overflow-hidden rounded-md border border-gray-200 bg-gray-100 flex items-center justify-center">
+                            <div className="h-20 w-20 flex-shrink-0 overflow-hidden rder-gray-200 bg-gray-100 flex items-center justify-center">
                               <AlertCircle className="h-8 w-8 text-gray-400" />
                             </div>
                             <div className="ml-6 flex-1">
@@ -169,7 +169,7 @@ const OrdersPage = () => {
                       // Otherwise, render the product as normal, with a clickable image
                       return (
                         <div key={item.product._id} className="flex items-center py-4 border-b border-gray-100 last:border-0">
-                          <div className="h-20 w-20 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+                          <div className="h-20 w-20 flex-shrink-0 overflow-hidden rder-gray-200">
                             <img
                               src={getProductImage(item)}
                               alt={getProductName(item)}

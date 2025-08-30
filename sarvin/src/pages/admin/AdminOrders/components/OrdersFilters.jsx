@@ -33,7 +33,7 @@ const OrdersFilters = ({ searchQuery, statusFilter, onSearch, onStatusFilter }) 
           <button
             key={button.value}
             onClick={() => onStatusFilter(button.value)}
-            className={`px-3 py-2 rounded-full text-sm font-medium transition-colors ${
+            className={`px-3 py-2  text-sm font-medium transition-colors ${
               statusFilter === button.value
                 ? button.className
                 : button.hoverClass || 'bg-gray-100 text-gray-700 hover:bg-gray-200'

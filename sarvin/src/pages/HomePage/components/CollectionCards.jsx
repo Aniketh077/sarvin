@@ -36,7 +36,7 @@ const CollectionCards = () => {
           {collections.map((collection) => (
             <div
               key={collection.title}
-              className={`relative ${collection.bgColor} rounded-lg shadow-lg overflow-hidden flex flex-col lg:flex-row lg:h-[360px]`}
+              className={`relative ${collection.bgColor}  shadow-lg overflow-hidden flex flex-col lg:flex-row lg:h-[360px]`}
             >
               <div className="p-8 text-white w-full lg:w-1/2 flex flex-col justify-center z-10 order-2 lg:order-1">
                 <h3 className="text-4xl font-bold mb-4">{collection.title}</h3>

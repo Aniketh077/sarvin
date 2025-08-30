@@ -19,7 +19,7 @@ const ReviewStatusIndicator = ({ hasReviewed, userReview }) => {
   };
 
   return (
-    <div className="mt-2 p-2 bg-green-50 rounded-md border border-green-200">
+    <div className="mt-2 p-2 bg-green-50  border border-green-200">
       <div className="flex items-center justify-between">
         <div className="flex items-center text-sm text-green-600">
           <CheckCircle className="h-4 w-4 mr-1" />

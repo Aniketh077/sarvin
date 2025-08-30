@@ -62,7 +62,7 @@ class EmailService {
   async sendNewsletterSubscriptionNotification(subscriberData) {
     return this.sendRawEmail(
       this.adminEmail,
-      'New Newsletter Subscription - Sarvin Electronics',
+      'New Newsletter Subscription - Sarvin Appliances',
       newsletterSubscriptionTemplate(subscriberData)
     );
   }
@@ -76,7 +76,7 @@ class EmailService {
 
     await this.sendRawEmail(
       contactData.email,
-      'Thank you for contacting Sarvin Electronics',
+      'Thank you for contacting Sarvin Appliances',
       customerContactFormTemplate(contactData)
     );
   }
@@ -84,7 +84,7 @@ class EmailService {
   async sendWelcomeEmailToSubscriber(subscriberData) {
     return this.sendRawEmail(
       subscriberData.email,
-      'Welcome to Sarvin Electronics Newsletter!',
+      'Welcome to Sarvin Appliances Newsletter!',
       welcomeNewsletterTemplate(subscriberData)
     );
   }

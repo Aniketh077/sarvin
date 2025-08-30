@@ -63,7 +63,7 @@ const ImageManager = ({ images, onChange }) => {
       </p>
       
       <div className="mb-4">
-        <label className="flex items-center px-4 py-2 bg-[#2A4365] text-white rounded-md hover:bg-[#1A365D] transition-all duration-200 text-sm cursor-pointer disabled:opacity-50">
+        <label className="flex items-center px-4 py-2 bg-[#2A4365] text-white  hover:bg-[#1A365D] transition-all duration-200 text-sm cursor-pointer disabled:opacity-50">
           {isUploading ? 'Uploading...' : 'Upload Images'}
           <input
             type="file"
@@ -80,7 +80,7 @@ const ImageManager = ({ images, onChange }) => {
         {images.filter(img => img.trim()).map((image, index) => (
           <div key={index} className="flex items-start space-x-3">
             <div className="flex-1 flex items-center space-x-3">
-              <div className="w-12 h-12 rounded-md overflow-hidden border border-[#E2E8F0] flex-shrink-0">
+              <div className="w-12 h-12  overflow-hidden border border-[#E2E8F0] flex-shrink-0">
                 <img 
                   src={image} 
                   alt={`Preview ${index + 1}`}
@@ -99,7 +99,7 @@ const ImageManager = ({ images, onChange }) => {
                 value={image}
                 onChange={(e) => updateImage(index, e.target.value)}
                 placeholder="https://example.com/image.jpg"
-                className="flex-1 px-4 py-3 border border-[#E2E8F0] rounded-md focus:outline-none focus:ring-2 focus:ring-[#2A4365] focus:border-[#2A4365] transition-all duration-200 text-[#2A4365] placeholder-gray-400"
+                className="flex-1 px-4 py-3 border border-[#E2E8F0]  focus:outline-none focus:ring-2 focus:ring-[#2A4365] focus:border-[#2A4365] transition-all duration-200 text-[#2A4365] placeholder-gray-400"
                 disabled={isUploading}
               />
             </div>
@@ -107,7 +107,7 @@ const ImageManager = ({ images, onChange }) => {
               type="button"
               onClick={() => removeImage(index)}
               disabled={isUploading}
-              className="p-2 text-[#C87941] hover:text-[#A0522D] hover:bg-[#FEF5E7] rounded-md transition-all duration-200 mt-3 flex-shrink-0 disabled:opacity-50"
+              className="p-2 text-[#C87941] hover:text-[#A0522D] hover:bg-[#FEF5E7]  transition-all duration-200 mt-3 flex-shrink-0 disabled:opacity-50"
             >
               <X className="h-5 w-5" />
             </button>
@@ -120,7 +120,7 @@ const ImageManager = ({ images, onChange }) => {
             value={newImage}
             onChange={(e) => setNewImage(e.target.value)}
             placeholder="Add image URL manually"
-            className="flex-1 px-4 py-3 border border-[#E2E8F0] rounded-md focus:outline-none focus:ring-2 focus:ring-[#2A4365] focus:border-[#2A4365] transition-all duration-200 text-[#2A4365] placeholder-gray-400"
+            className="flex-1 px-4 py-3 border border-[#E2E8F0]  focus:outline-none focus:ring-2 focus:ring-[#2A4365] focus:border-[#2A4365] transition-all duration-200 text-[#2A4365] placeholder-gray-400"
             onKeyPress={(e) => {
               if (e.key === 'Enter') {
                 e.preventDefault();
@@ -133,7 +133,7 @@ const ImageManager = ({ images, onChange }) => {
             type="button"
             onClick={addImage}
             disabled={isUploading || !newImage.trim()}
-            className="px-6 py-3 bg-[#2A4365] text-white rounded-md hover:bg-[#1A365D] transition-all duration-200 font-medium disabled:opacity-50"
+            className="px-6 py-3 bg-[#2A4365] text-white  hover:bg-[#1A365D] transition-all duration-200 font-medium disabled:opacity-50"
           >
             Add
           </button>
@@ -142,10 +142,10 @@ const ImageManager = ({ images, onChange }) => {
 
       {/* Upload Status Messages */}
       {isUploading && (
-        <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-md">
+        <div className="mt-4 p-3 bg-blue-50 border border-blue-200 ">
           <div className="flex items-center justify-between">
             <div className="flex items-center">
-              <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-600 mr-2"></div>
+              <div className="animate-spin  h-4 w-4 border-b-2 border-blue-600 mr-2"></div>
               <span className="text-sm text-blue-700">
                 Uploading images... {getOverallProgress()}%
               </span>
@@ -155,9 +155,9 @@ const ImageManager = ({ images, onChange }) => {
             </span>
           </div>
           {/* Progress bar in the status message */}
-          <div className="mt-2 w-full bg-blue-200 rounded-full h-2">
+          <div className="mt-2 w-full bg-blue-200  h-2">
             <div 
-              className="bg-blue-600 h-2 rounded-full transition-all duration-300 ease-out"
+              className="bg-blue-600 h-2  transition-all duration-300 ease-out"
               style={{ width: `${getOverallProgress()}%` }}
             ></div>
           </div>

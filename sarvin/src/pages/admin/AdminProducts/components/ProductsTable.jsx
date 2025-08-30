@@ -130,7 +130,7 @@ const ProductTableRow = ({ product, onEdit, onDelete, onProductClick, isDesktop 
       </td>
       <td className="px-4 lg:px-6 py-4 whitespace-nowrap">
         <span
-          className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
+          className={`px-2 inline-flex text-xs leading-5 font-semibold  ${
             product.stock > 5
               ? 'bg-green-100 text-green-800'
               : product.stock > 0
@@ -188,7 +188,7 @@ const ProductCard = ({ product, onEdit, onDelete, onProductClick }) => {
 
   return (
     <div 
-      className="bg-white border border-gray-200 rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow cursor-pointer"
+      className="bg-white border border-gray-200  p-4 shadow-sm hover:shadow-md transition-shadow cursor-pointer"
       onClick={handleCardClick}
     >
       {/* Product Header */}
@@ -197,7 +197,7 @@ const ProductCard = ({ product, onEdit, onDelete, onProductClick }) => {
           <DriveImage
             src={product.image}
             alt={product.name}
-            className="h-16 w-16 object-cover rounded-lg"
+            className="h-16 w-16 object-cover "
             onError={(e) => {
               e.target.src = 'https://via.placeholder.com/64x64?text=No+Image';
             }}
@@ -240,7 +240,7 @@ const ProductCard = ({ product, onEdit, onDelete, onProductClick }) => {
       {/* Status and Actions */}
       <div className="flex items-center justify-between">
         <span
-          className={`px-2 py-1 text-xs font-semibold rounded-full ${
+          className={`px-2 py-1 text-xs font-semibold  ${
             product.stock > 5
               ? 'bg-green-100 text-green-800'
               : product.stock > 0

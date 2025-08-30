@@ -169,7 +169,7 @@ const CheckoutPage = () => {
     return (
       <div className="min-h-screen pt-20 pb-16">
         <div className="container mx-auto px-4">
-          <div className="max-w-2xl mx-auto bg-white rounded-lg shadow-sm p-8 mt-12 text-center">
+          <div className="max-w-2xl mx-auto bg-white  shadow-sm p-8 mt-12 text-center">
             <ShoppingBag className="h-16 w-16 text-gray-400 mx-auto mb-4" />
             <h1 className="text-2xl font-bold mb-4">Your cart is empty</h1>
             <p className="text-gray-600 mb-8">Add some products to your cart before checkout.</p>
@@ -203,7 +203,7 @@ const CheckoutPage = () => {
 
           {paymentError && (
             <div className="mb-6 max-w-4xl mx-auto">
-              <div className="bg-red-50 border border-red-200 rounded-lg p-4 flex items-start">
+              <div className="bg-red-50 border border-red-200  p-4 flex items-start">
                 <AlertCircle className="h-5 w-5 text-red-500 mt-0.5 mr-3 flex-shrink-0" />
                 <div>
                   <h3 className="text-red-800 font-medium">Payment Error</h3>
@@ -216,7 +216,7 @@ const CheckoutPage = () => {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Shipping Information */}
             <div className="lg:col-span-2">
-              <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
+              <div className="bg-white  shadow-sm p-6 mb-6">
                 <div className="flex items-center mb-6">
                   <MapPin className="h-6 w-6 text-[#2A4365] mr-2" />
                   <h2 className="text-xl font-semibold">Shipping Address</h2>
@@ -234,7 +234,7 @@ const CheckoutPage = () => {
                         name="fullName"
                         value={shippingAddress.fullName}
                         onChange={handleInputChange}
-                        className={`w-full pl-10 pr-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                        className={`w-full pl-10 pr-3 py-2 border  focus:outline-none focus:ring-2 focus:ring-blue-500 ${
                           errors.fullName ? 'border-red-500' : 'border-gray-300'
                         }`}
                         placeholder="Enter your full name"
@@ -256,7 +256,7 @@ const CheckoutPage = () => {
                         name="email"
                         value={shippingAddress.email}
                         onChange={handleInputChange}
-                        className={`w-full pl-10 pr-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                        className={`w-full pl-10 pr-3 py-2 border  focus:outline-none focus:ring-2 focus:ring-blue-500 ${
                           errors.email ? 'border-red-500' : 'border-gray-300'
                         }`}
                         placeholder="Enter your email"
@@ -278,7 +278,7 @@ const CheckoutPage = () => {
                         name="phone"
                         value={shippingAddress.phone}
                         onChange={handleInputChange}
-                        className={`w-full pl-10 pr-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                        className={`w-full pl-10 pr-3 py-2 border  focus:outline-none focus:ring-2 focus:ring-blue-500 ${
                           errors.phone ? 'border-red-500' : 'border-gray-300'
                         }`}
                         placeholder="10-digit mobile number"
@@ -298,7 +298,7 @@ const CheckoutPage = () => {
                       name="pincode"
                       value={shippingAddress.pincode}
                       onChange={handleInputChange}
-                      className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                      className={`w-full px-3 py-2 border  focus:outline-none focus:ring-2 focus:ring-blue-500 ${
                         errors.pincode ? 'border-red-500' : 'border-gray-300'
                       }`}
                       placeholder="6-digit pincode"
@@ -318,7 +318,7 @@ const CheckoutPage = () => {
                     name="address"
                     value={shippingAddress.address}
                     onChange={handleInputChange}
-                    className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                    className={`w-full px-3 py-2 border  focus:outline-none focus:ring-2 focus:ring-blue-500 ${
                       errors.address ? 'border-red-500' : 'border-gray-300'
                     }`}
                     placeholder="House no, Building, Street, Area"
@@ -338,7 +338,7 @@ const CheckoutPage = () => {
                       name="city"
                       value={shippingAddress.city}
                       onChange={handleInputChange}
-                      className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                      className={`w-full px-3 py-2 border  focus:outline-none focus:ring-2 focus:ring-blue-500 ${
                         errors.city ? 'border-red-500' : 'border-gray-300'
                       }`}
                       placeholder="Enter city"
@@ -357,7 +357,7 @@ const CheckoutPage = () => {
                       name="state"
                       value={shippingAddress.state}
                       onChange={handleInputChange}
-                      className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                      className={`w-full px-3 py-2 border  focus:outline-none focus:ring-2 focus:ring-blue-500 ${
                         errors.state ? 'border-red-500' : 'border-gray-300'
                       }`}
                       placeholder="Enter state"
@@ -372,7 +372,7 @@ const CheckoutPage = () => {
 
             {/* Order Summary */}
             <div className="lg:col-span-1">
-              <div className="bg-white rounded-lg shadow-sm p-6 sticky top-24">
+              <div className="bg-white  shadow-sm p-6 sticky top-24">
                 <h2 className="text-xl font-semibold mb-6">Order Summary</h2>
 
                 <div className="space-y-4 mb-6">
@@ -439,7 +439,7 @@ const CheckoutPage = () => {
       {/* Processing Overlay */}
       {showProcessingOverlay && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg p-8 max-w-md mx-4 text-center">
+          <div className="bg-white  p-8 max-w-md mx-4 text-center">
             <div className="mb-6">
               <Loader2 className="h-12 w-12 text-blue-600 mx-auto animate-spin" />
             </div>

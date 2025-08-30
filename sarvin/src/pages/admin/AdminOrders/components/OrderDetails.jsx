@@ -491,7 +491,7 @@ const OrderDetails = ({ order, onClose, onUpdateStatus, statusUpdateLoading}) =>
             <div className="flex items-center min-w-0 flex-1">
               <button
                 onClick={onClose}
-                className="mr-2 sm:mr-4 p-2 rounded-lg text-gray-600 hover:text-white hover:bg-[#2A4365] transition-colors flex-shrink-0"
+                className="mr-2 sm:mr-4 p-2  text-gray-600 hover:text-white hover:bg-[#2A4365] transition-colors flex-shrink-0"
               >
                 <ChevronLeft className="h-5 w-5" />
               </button>
@@ -503,7 +503,7 @@ const OrderDetails = ({ order, onClose, onUpdateStatus, statusUpdateLoading}) =>
               </div>
             </div>
             <div className="flex items-center space-x-2 sm:space-x-3 flex-shrink-0">
-              <span className={`px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium border ${getStatusClass(getOrderStatus(order))}`}>
+              <span className={`px-2 sm:px-3 py-1  text-xs sm:text-sm font-medium border ${getStatusClass(getOrderStatus(order))}`}>
                 {getOrderStatus(order).charAt(0).toUpperCase() + getOrderStatus(order).slice(1)}
               </span>
               <span className="text-lg sm:text-xl font-bold text-[#C87941]">
@@ -526,7 +526,7 @@ const OrderDetails = ({ order, onClose, onUpdateStatus, statusUpdateLoading}) =>
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-3 sm:gap-6 p-3 sm:p-6">
             {/* Order Information */}
             <div className="md:col-span-1 flex">
-              <div className="bg-gradient-to-br from-[#2A4365] to-[#2A4365]/80 rounded-lg p-4 sm:p-6 text-white w-full flex flex-col">
+              <div className="bg-gradient-to-br from-[#2A4365] to-[#2A4365]/80  p-4 sm:p-6 text-white w-full flex flex-col">
                 <div className="flex items-center mb-3 sm:mb-4">
                   <Package className="h-5 w-5 sm:h-6 sm:w-6 mr-2" />
                   <h2 className="text-base sm:text-lg font-semibold">Order Information</h2>
@@ -556,7 +556,7 @@ const OrderDetails = ({ order, onClose, onUpdateStatus, statusUpdateLoading}) =>
 
             {/* Customer Information */}
             <div className="md:col-span-1 flex">
-              <div className="bg-gradient-to-br from-[#C87941] to-[#C87941]/90 rounded-lg p-4 sm:p-6 text-white w-full flex flex-col">
+              <div className="bg-gradient-to-br from-[#C87941] to-[#C87941]/90  p-4 sm:p-6 text-white w-full flex flex-col">
                 <div className="flex items-center mb-3 sm:mb-4">
                   <User className="h-5 w-5 sm:h-6 sm:w-6 mr-2" />
                   <h2 className="text-base sm:text-lg font-semibold">Customer Information</h2>
@@ -586,7 +586,7 @@ const OrderDetails = ({ order, onClose, onUpdateStatus, statusUpdateLoading}) =>
 
             {/* Shipping Address */}
             <div className="md:col-span-1 flex">
-              <div className="bg-white border-2 border-[#2A4365] rounded-lg p-4 sm:p-6 w-full flex flex-col">
+              <div className="bg-white border-2 border-[#2A4365]  p-4 sm:p-6 w-full flex flex-col">
                 <div className="flex items-center mb-3 sm:mb-4">
                   <MapPin className="h-5 w-5 sm:h-6 sm:w-6 mr-2 text-[#2A4365]" />
                   <h2 className="text-base sm:text-lg font-semibold text-[#2A4365]">Shipping Address</h2>
@@ -610,7 +610,7 @@ const OrderDetails = ({ order, onClose, onUpdateStatus, statusUpdateLoading}) =>
 
             {/* Status Update */}
             <div className="md:col-span-1 flex">
-              <div className="bg-white border-2 border-[#C87941] rounded-lg p-4 sm:p-6 w-full flex flex-col">
+              <div className="bg-white border-2 border-[#C87941]  p-4 sm:p-6 w-full flex flex-col">
                 <div className="flex items-center mb-3 sm:mb-4">
                   <CreditCard className="h-5 w-5 sm:h-6 sm:w-6 mr-2 text-[#C87941]" />
                   <h2 className="text-base sm:text-lg font-semibold text-[#C87941]">Update Status</h2>
@@ -620,7 +620,7 @@ const OrderDetails = ({ order, onClose, onUpdateStatus, statusUpdateLoading}) =>
                     <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-2">
                       Current Status
                     </label>
-                    <span className={`inline-flex px-2 sm:px-3 py-1 text-xs sm:text-sm font-medium rounded-full border ${getStatusClass(getOrderStatus(order))}`}>
+                    <span className={`inline-flex px-2 sm:px-3 py-1 text-xs sm:text-sm font-medium  border ${getStatusClass(getOrderStatus(order))}`}>
                       {getOrderStatus(order).charAt(0).toUpperCase() + getOrderStatus(order).slice(1)}
                     </span>
                   </div>
@@ -633,7 +633,7 @@ const OrderDetails = ({ order, onClose, onUpdateStatus, statusUpdateLoading}) =>
     type="button"
     onClick={() => setStatusDropdownOpen(!statusDropdownOpen)}
     disabled={statusUpdateLoading}
-    className="w-full px-3 sm:px-4 py-2 sm:py-3 border-2 border-[#C87941]/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C87941] focus:border-[#C87941] bg-white text-gray-800 font-medium transition-all duration-200 text-sm sm:text-base flex items-center justify-between hover:border-[#C87941]/50 disabled:opacity-50 disabled:cursor-not-allowed"
+    className="w-full px-3 sm:px-4 py-2 sm:py-3 border-2 border-[#C87941]/30  focus:outline-none focus:ring-2 focus:ring-[#C87941] focus:border-[#C87941] bg-white text-gray-800 font-medium transition-all duration-200 text-sm sm:text-base flex items-center justify-between hover:border-[#C87941]/50 disabled:opacity-50 disabled:cursor-not-allowed"
   >
     <span className="capitalize">
       {selectedStatus.charAt(0).toUpperCase() + selectedStatus.slice(1)}
@@ -654,7 +654,7 @@ const OrderDetails = ({ order, onClose, onUpdateStatus, statusUpdateLoading}) =>
       ></div>
       
       {/* Dropdown */}
-      <div className="absolute top-full left-0 right-0 mt-2 bg-white border-2 border-[#C87941]/30 rounded-lg shadow-lg z-20 overflow-hidden">
+      <div className="absolute top-full left-0 right-0 mt-2 bg-white border-2 border-[#C87941]/30  shadow-lg z-20 overflow-hidden">
         {['processing', 'shipped', 'delivered', 'cancelled'].map((status) => (
           <button
             key={status}
@@ -694,7 +694,7 @@ const OrderDetails = ({ order, onClose, onUpdateStatus, statusUpdateLoading}) =>
 
           {/* Order Items Table */}
           <div className="px-3 sm:px-6 pb-6">
-            <div className="bg-white border-2 border-[#2A4365] rounded-lg overflow-hidden">
+            <div className="bg-white border-2 border-[#2A4365]  overflow-hidden">
               <div className="bg-[#2A4365] px-4 sm:px-6 py-3 sm:py-4">
                 <h2 className="text-base sm:text-lg font-semibold text-white flex items-center">
                   <FileText className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
@@ -718,25 +718,25 @@ const OrderDetails = ({ order, onClose, onUpdateStatus, statusUpdateLoading}) =>
                         <div className="flex items-start space-x-3">
                           {productImage ? (
                             <div 
-                              className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center flex-shrink-0 cursor-pointer"
+                              className="w-12 h-12 bg-gray-100  flex items-center justify-center flex-shrink-0 cursor-pointer"
                               onClick={() => handleProductImageClick(item)}
                             >
                               <img 
                                 src={productImage} 
                                 alt={productName} 
-                                className="w-10 h-10 rounded-lg object-cover"
+                                className="w-10 h-10  object-cover"
                                 onError={(e) => {
                                   e.target.style.display = 'none';
                                   e.target.nextSibling.style.display = 'flex';
                                 }}
                               />
-                              <div className="w-10 h-10 rounded-lg bg-gray-200 flex items-center justify-center text-gray-500 text-xs" style={{display: 'none'}}>
+                              <div className="w-10 h-10  bg-gray-200 flex items-center justify-center text-gray-500 text-xs" style={{display: 'none'}}>
                                 No Image
                               </div>
                             </div>
                           ) : (
                             <div 
-                              className="w-12 h-12 bg-gray-200 rounded-lg flex items-center justify-center flex-shrink-0 cursor-pointer"
+                              className="w-12 h-12 bg-gray-200  flex items-center justify-center flex-shrink-0 cursor-pointer"
                               onClick={() => handleProductImageClick(item)}
                             >
                               <span className="text-gray-500 text-xs text-center">No Image</span>
@@ -836,25 +836,25 @@ const OrderDetails = ({ order, onClose, onUpdateStatus, statusUpdateLoading}) =>
                             <div className="flex items-center">
                               {productImage ? (
                                 <div 
-                                  className="w-12 h-12 sm:w-16 sm:h-16 bg-gray-100 rounded-lg flex items-center justify-center mr-3 sm:mr-4 flex-shrink-0 cursor-pointer"
+                                  className="w-12 h-12 sm:w-16 sm:h-16 bg-gray-100  flex items-center justify-center mr-3 sm:mr-4 flex-shrink-0 cursor-pointer"
                                   onClick={() => handleProductImageClick(item)}
                                 >
                                   <img 
                                     src={productImage} 
                                     alt={productName} 
-                                    className="w-10 h-10 sm:w-14 sm:h-14 rounded-lg object-cover"
+                                    className="w-10 h-10 sm:w-14 sm:h-14  object-cover"
                                     onError={(e) => {
                                       e.target.style.display = 'none';
                                       e.target.nextSibling.style.display = 'flex';
                                     }}
                                   />
-                                  <div className="w-10 h-10 sm:w-14 sm:h-14 rounded-lg bg-gray-200 flex items-center justify-center text-gray-500 text-xs" style={{display: 'none'}}>
+                                  <div className="w-10 h-10 sm:w-14 sm:h-14  bg-gray-200 flex items-center justify-center text-gray-500 text-xs" style={{display: 'none'}}>
                                     No Image
                                   </div>
                                 </div>
                               ) : (
                                 <div 
-                                  className="w-12 h-12 sm:w-16 sm:h-16 bg-gray-200 rounded-lg flex items-center justify-center mr-3 sm:mr-4 flex-shrink-0 cursor-pointer"
+                                  className="w-12 h-12 sm:w-16 sm:h-16 bg-gray-200  flex items-center justify-center mr-3 sm:mr-4 flex-shrink-0 cursor-pointer"
                                   onClick={() => handleProductImageClick(item)}
                                 >
                                   <span className="text-gray-500 text-xs text-center">No Image</span>
@@ -869,7 +869,7 @@ const OrderDetails = ({ order, onClose, onUpdateStatus, statusUpdateLoading}) =>
                             </div>
                           </td>
                           <td className="px-4 sm:px-6 py-4 text-center">
-                            <span className="inline-flex items-center px-2 sm:px-3 py-1 rounded-full text-sm font-medium text-[#2A4365]">
+                            <span className="inline-flex items-center px-2 sm:px-3 py-1  text-sm font-medium text-[#2A4365]">
                               {quantity}
                             </span>
                           </td>
@@ -890,7 +890,7 @@ const OrderDetails = ({ order, onClose, onUpdateStatus, statusUpdateLoading}) =>
                     <tr className="text-gray-800">
                       <td className="px-4 sm:px-6 py-4 text-sm font-bold text-gray-700">TOTAL</td>
                       <td className="px-4 sm:px-6 py-4 text-center">
-                        <span className="inline-flex items-center px-2 sm:px-3 py-1 rounded-full text-sm font-bold text-[#2A4365]">
+                        <span className="inline-flex items-center px-2 sm:px-3 py-1  text-sm font-bold text-[#2A4365]">
                           {totals.totalQuantity}
                         </span>
                       </td>
@@ -925,19 +925,19 @@ const OrderDetails = ({ order, onClose, onUpdateStatus, statusUpdateLoading}) =>
 
         {/* Action Buttons - Hidden in print */}
         <div className="px-3 sm:px-6 pb-6 no-print">
-          <div className="bg-white border-2 border-gray-200 rounded-lg p-4 sm:p-6">
+          <div className="bg-white border-2 border-gray-200  p-4 sm:p-6">
             <h2 className="text-base sm:text-lg font-semibold text-gray-800 mb-4">Order Actions</h2>
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
               <button
                 onClick={handlePrintOrder}
-                className="flex items-center justify-center px-3 sm:px-4 py-2 bg-[#2A4365] text-white rounded-lg hover:bg-[#2A4365]/90 transition-colors text-sm sm:text-base"
+                className="flex items-center justify-center px-3 sm:px-4 py-2 bg-[#2A4365] text-white  hover:bg-[#2A4365]/90 transition-colors text-sm sm:text-base"
               >
                 <Printer className="h-4 w-4 mr-1 sm:mr-2" />
                 Print
               </button>
               <button
                 onClick={handleExportOrder}
-                className="flex items-center justify-center px-3 sm:px-4 py-2 bg-[#C87941] text-white rounded-lg hover:bg-[#C87941]/90 transition-colors text-sm sm:text-base"
+                className="flex items-center justify-center px-3 sm:px-4 py-2 bg-[#C87941] text-white  hover:bg-[#C87941]/90 transition-colors text-sm sm:text-base"
               >
                 <Download className="h-4 w-4 mr-1 sm:mr-2" />
                 Export
@@ -945,7 +945,7 @@ const OrderDetails = ({ order, onClose, onUpdateStatus, statusUpdateLoading}) =>
               {order.user?.email && (
                 <button
                   onClick={handleEmailCustomer}
-                  className="flex items-center justify-center px-3 sm:px-4 py-2 border-2 border-[#2A4365] text-[#2A4365] rounded-lg hover:bg-[#2A4365] hover:text-white transition-colors text-sm sm:text-base"
+                  className="flex items-center justify-center px-3 sm:px-4 py-2 border-2 border-[#2A4365] text-[#2A4365]  hover:bg-[#2A4365] hover:text-white transition-colors text-sm sm:text-base"
                 >
                   <Mail className="h-4 w-4 mr-1 sm:mr-2" />
                   Email
@@ -955,7 +955,7 @@ const OrderDetails = ({ order, onClose, onUpdateStatus, statusUpdateLoading}) =>
                 <button
                   onClick={handleCancelOrder}
                   disabled={statusUpdateLoading}
-                  className="flex items-center justify-center px-3 sm:px-4 py-2 border-2 border-red-500 text-red-500 rounded-lg hover:bg-red-500 hover:text-white transition-colors disabled:opacity-50 text-sm sm:text-base"
+                  className="flex items-center justify-center px-3 sm:px-4 py-2 border-2 border-red-500 text-red-500  hover:bg-red-500 hover:text-white transition-colors disabled:opacity-50 text-sm sm:text-base"
                 >
                   <X className="h-4 w-4 mr-1 sm:mr-2" />
                   Cancel

@@ -51,18 +51,18 @@ const SpecificationManager = ({ specifications, onChange }) => {
               type="text"
               value={key}
               readOnly
-              className="w-full sm:flex-1 px-4 py-3 border border-[#E2E8F0] rounded-md bg-[#F7FAFC] text-[#2A4365]"
+              className="w-full sm:flex-1 px-4 py-3 border border-[#E2E8F0]  bg-[#F7FAFC] text-[#2A4365]"
             />
             <input
               type="text"
               value={value}
               onChange={(e) => updateSpecification(key, e.target.value)}
-              className="w-full sm:flex-1 px-4 py-3 border border-[#E2E8F0] rounded-md focus:outline-none focus:ring-2 focus:ring-[#2A4365] focus:border-[#2A4365] transition-all duration-200 text-[#2A4365]"
+              className="w-full sm:flex-1 px-4 py-3 border border-[#E2E8F0]  focus:outline-none focus:ring-2 focus:ring-[#2A4365] focus:border-[#2A4365] transition-all duration-200 text-[#2A4365]"
             />
             <button
               type="button"
               onClick={() => removeSpecification(key)}
-              className="self-center sm:self-auto p-2 text-[#C87941] hover:text-[#A0522D] hover:bg-[#FEF5E7] rounded-md transition-all duration-200"
+              className="self-center sm:self-auto p-2 text-[#C87941] hover:text-[#A0522D] hover:bg-[#FEF5E7]  transition-all duration-200"
             >
               <X className="h-5 w-5" />
             </button>
@@ -75,7 +75,7 @@ const SpecificationManager = ({ specifications, onChange }) => {
             onChange={(e) => setNewSpecKey(e.target.value)}
             onKeyPress={handleKeyPress}
             placeholder="Specification name"
-            className="w-full sm:flex-1 px-4 py-3 border border-[#E2E8F0] rounded-md focus:outline-none focus:ring-2 focus:ring-[#2A4365] focus:border-[#2A4365] transition-all duration-200 text-[#2A4365] placeholder-gray-400"
+            className="w-full sm:flex-1 px-4 py-3 border border-[#E2E8F0]  focus:outline-none focus:ring-2 focus:ring-[#2A4365] focus:border-[#2A4365] transition-all duration-200 text-[#2A4365] placeholder-gray-400"
           />
           <input
             type="text"
@@ -83,12 +83,12 @@ const SpecificationManager = ({ specifications, onChange }) => {
             onChange={(e) => setNewSpecValue(e.target.value)}
             onKeyPress={handleKeyPress}
             placeholder="Specification value"
-            className="w-full sm:flex-1 px-4 py-3 border border-[#E2E8F0] rounded-md focus:outline-none focus:ring-2 focus:ring-[#2A4365] focus:border-[#2A4365] transition-all duration-200 text-[#2A4365] placeholder-gray-400"
+            className="w-full sm:flex-1 px-4 py-3 border border-[#E2E8F0]  focus:outline-none focus:ring-2 focus:ring-[#2A4365] focus:border-[#2A4365] transition-all duration-200 text-[#2A4365] placeholder-gray-400"
           />
           <button
             type="button"
             onClick={addSpecification}
-            className="self-center sm:self-auto px-6 py-3 bg-[#2A4365] text-white rounded-md hover:bg-[#1A365D] transition-all duration-200 font-medium"
+            className="self-center sm:self-auto px-6 py-3 bg-[#2A4365] text-white  hover:bg-[#1A365D] transition-all duration-200 font-medium"
           >
             Add
           </button>

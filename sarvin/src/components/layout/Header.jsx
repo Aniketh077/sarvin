@@ -125,9 +125,11 @@ const Header = () => {
       { name: "Glass Gas Stove", path: "/products?type=Glass+Gas+Stove" },
     ],
     burners: [
+      { name: "1 Burner", path: "/products?burners=1" },
       { name: "2 Burner", path: "/products?burners=2" },
       { name: "3 Burner", path: "/products?burners=3" },
       { name: "4 Burner", path: "/products?burners=4" },
+      { name: "5 Burner", path: "/products?burners=5" },
     ],
     images: [
       {
@@ -183,7 +185,7 @@ const Header = () => {
           Cooking Appliances
           <ChevronDown className="ml-1 h-3 w-3 relative top-[3px]" />
         </Link>
-        <div className="absolute left-[-6rem] top-full mt-2 bg-white shadow-lg rounded-md p-6 z-50 transition-all duration-300 transform opacity-0 invisible group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 translate-y-2" style={{ minWidth: "800px" }}>
+        <div className="absolute left-[-6rem] top-full mt-2 bg-white shadow-lg  p-6 z-50 transition-all duration-300 transform opacity-0 invisible group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 translate-y-2" style={{ minWidth: "800px" }}>
           <div className="flex justify-between items-start space-x-8">
             <div className="flex space-x-12">
               <div>
@@ -206,7 +208,7 @@ const Header = () => {
             <div className="flex space-x-6 pl-8 border-l border-gray-200">
               {cookingAppliancesMenu.images.map((image) => (
                 <Link to={image.path} key={image.name} className="block text-center hover:opacity-90 transition-opacity">
-                  <div className="w-44 h-44 flex items-center justify-center rounded-md overflow-hidden">
+                  <div className="w-44 h-44 flex items-center justify-center  overflow-hidden">
                     <img src={image.src} alt={image.alt} className="w-full h-full object-contain" />
                   </div>
                   <p className="text-sm font-medium text-gray-800 mt-2">{image.name}</p>
@@ -220,7 +222,7 @@ const Header = () => {
         <Link to="/products/small-appliances" className="text-sm font-medium transition-colors hover:text-[#C87941] text-[#01364a] flex items-center">
           Small Appliances <ChevronDown className="ml-1 h-3 w-3 relative top-[3px]" />
         </Link>
-        <div className="absolute left-[-6rem] top-full mt-2 bg-white shadow-lg rounded-md p-6 z-50 transition-all duration-300 transform opacity-0 invisible group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 translate-y-2" style={{ minWidth: "600px" }}>
+        <div className="absolute left-[-6rem] top-full mt-2 bg-white shadow-lg  p-6 z-50 transition-all duration-300 transform opacity-0 invisible group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 translate-y-2" style={{ minWidth: "600px" }}>
           <div className="flex justify-between items-start space-x-8">
             <div>
               <h4 className="font-semibold text-sm mb-2 text-[#01364a]">Types</h4>
@@ -233,7 +235,7 @@ const Header = () => {
             <div className="flex space-x-6 pl-8 border-l border-gray-200">
               {smallAppliancesMenu.images.map((image) => (
                 <Link to={image.path} key={image.name} className="block text-center hover:opacity-90 transition-opacity">
-                  <div className="w-44 h-44 flex items-center justify-center rounded-md overflow-hidden">
+                  <div className="w-44 h-44 flex items-center justify-center  overflow-hidden">
                     <img src={image.src} alt={image.alt} className="w-full h-full object-contain" />
                   </div>
                   <p className="text-sm font-medium text-[#01364a] mt-2">{image.name}</p>
@@ -271,7 +273,7 @@ const Header = () => {
              {/* Desktop Left Content */}
              <div className="hidden lg:flex items-center space-x-4">
                 {isScrolled && (
-                    <button onClick={toggleScrolledNav} className="p-2 -ml-2 rounded-full hover:bg-gray-100" aria-label="Open navigation menu">
+                    <button onClick={toggleScrolledNav} className="p-2 -ml-2  hover:bg-gray-100" aria-label="Open navigation menu">
                         {isScrolledNavOpen ? <X className="h-6 w-6 text-[#01364a]" /> : <Menu className="h-6 w-6 text-[#01364a]" />}
                     </button>
                 )}
@@ -291,9 +293,9 @@ const Header = () => {
                         placeholder="What are you looking for?"
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
-                        className="w-full h-11 border border-gray-300 rounded-md pl-4 pr-12 text-sm focus:outline-none focus:ring-2 focus:ring-[#01364a]"
+                        className="w-full h-11 border border-gray-300  pl-4 pr-12 text-sm focus:outline-none focus:ring-2 focus:ring-[#01364a]"
                     />
-                    <button type="submit" className="absolute right-0 top-0 h-full w-12 flex items-center justify-center bg-[#01364a] hover:bg-opacity-90 rounded-r-md" aria-label="Search">
+                    <button type="submit" className="absolute right-0 top-0 h-full w-12 flex items-center justify-center bg-[#01364a] hover:bg-opacity-90 " aria-label="Search">
                         <Search className="h-5 w-5 text-white" />
                     </button>
                 </form>
@@ -327,7 +329,7 @@ const Header = () => {
                     {/* {isAuthenticated && <ChevronDown className="h-4 w-4 ml-1" />} */}
                 </button>
                 {isProfileMenuOpen && (
-                    <div className="absolute right-0 mt-2 w-48 rounded-md bg-white py-2 shadow-lg border border-gray-100 z-30">
+                    <div className="absolute right-0 mt-2 w-48  bg-white py-2 shadow-lg border border-gray-100 z-30">
                         {isAuthenticated ? (
                             <>
                                 <div className="border-b border-gray-100 px-4 py-2">
@@ -377,7 +379,7 @@ const Header = () => {
                    placeholder="Search products..."
                    value={searchQuery}
                    onChange={(e) => setSearchQuery(e.target.value)}
-                   className="w-full rounded-md border border-gray-300 pl-3 pr-10 py-3 text-sm focus:border-[#C87941] focus:outline-none focus:ring-1 focus:ring-[#C87941]"
+                   className="w-full  border border-gray-300 pl-3 pr-10 py-3 text-sm focus:border-[#C87941] focus:outline-none focus:ring-1 focus:ring-[#C87941]"
                  />
                  <button
                    type="submit"
@@ -387,7 +389,7 @@ const Header = () => {
                  </button>
                </div>
              </form>
-             <ul className="divide-y divide-gray-100 rounded-lg bg-white border border-gray-200 max-h-fit overflow-y-auto">
+             <ul className="divide-y divide-gray-100  bg-white border border-gray-200 max-h-fit overflow-y-auto">
                <li>
                  <Link
                    to="/"
