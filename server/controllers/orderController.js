@@ -233,7 +233,7 @@ const order = new Order({
     // Populate order for response
     const populatedOrder = await Order.findById(createdOrder._id)
       .populate('user', 'name email')
-      .populate('items.product', 'name image price');
+      .populate('items.product', 'name image price slug');
 
     console.log('Order verification completed successfully');
 
@@ -340,12 +340,12 @@ const getOrderById = async (req, res) => {
 if (/^[0-9a-fA-F]{24}$/.test(req.params.id)) {
   order = await Order.findById(req.params.id)
     .populate('user', 'name email')
-    .populate('items.product', 'name image price');
+    .populate('items.product', 'name image price slug');
 }
 if (!order) {
   order = await Order.findOne({ orderId: req.params.id })
     .populate('user', 'name email')
-    .populate('items.product', 'name image price');
+    .populate('items.product', 'name image price slug');
 }
 
 if (!order) {
@@ -454,7 +454,7 @@ const getOrders = async (req, res) => {
     const [orders, totalOrders] = await Promise.all([
       Order.find(query)
         .populate('user', 'name email')
-        .populate('items.product', 'name image') 
+         .populate('items.product', 'name image slug') 
         .sort({ createdAt: -1 })
         .skip(skip)
         .limit(limit),
@@ -497,7 +497,7 @@ const updateOrderStatus = async (req, res) => {
     const populatedOrder = await Order.findById(updatedOrder._id)
       .populate('statusHistory.updatedBy', 'name email')
       .populate('user', 'name email')
-      .populate('items.product', 'name image price'); 
+      .populate('items.product', 'name image price slug'); 
     
     res.json(populatedOrder);
   } catch (error) {

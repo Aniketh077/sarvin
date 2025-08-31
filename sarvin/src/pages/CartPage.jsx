@@ -87,12 +87,12 @@ const CartPage = () => {
               <ul className="divide-y divide-gray-100">
                 {cart.items.map((item) => (
                   <li
-                    key={item.product.id || item.product._id}
+                    key={item.product._id}
                     className="p-6 flex flex-col sm:flex-row"
                   >
                     <div className="sm:w-1/4 mb-4 sm:mb-0">
                       <Link
-                        to={`/product/${item.product.id || item.product._id}`}
+                        to={`/product/${item.product.slug || item.product._id}`}
                       >
                         <img
                           src={item.product.image}
@@ -105,7 +105,7 @@ const CartPage = () => {
                     <div className="sm:w-2/4 flex flex-col justify-between">
                       <div>
                         <Link
-                          to={`/product/${item.product.id || item.product._id}`}
+                           to={`/product/${item.product.slug || item.product._id}`}
                           className="hover:text-[#2A4365]"
                         >
                           <h3 className="font-medium mb-1">

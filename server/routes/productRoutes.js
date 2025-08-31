@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { 
   getProducts, 
-  getProductById, 
+  getProductByIdentifier,
   createProduct, 
   updateProduct, 
   deleteProduct,
@@ -40,10 +40,10 @@ router.route('/')
 
 router.get('/collections', getCollectionsWithTypes);
 
-router.post('/:id/rate', protect, rateProduct);
+router.post('/:identifier/rate', protect, rateProduct);
 
-router.route('/:id')
-  .get(getProductById)
+router.route('/:identifier')
+  .get(getProductByIdentifier)
   .put(protect, admin, updateProduct)
   .delete(protect, admin, deleteProduct);
 

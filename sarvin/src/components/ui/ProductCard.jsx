@@ -17,6 +17,8 @@ const ProductCard = ({ product, viewMode = "grid" }) => {
   const [showSuccess, setShowSuccess] = useState(false);
   const [error, setError] = useState(null);
 
+  const productIdentifier = product.slug || product._id;
+
   const handleAddToCart = async (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -82,7 +84,7 @@ const ProductCard = ({ product, viewMode = "grid" }) => {
 
         {/* Image Section */}
         <div className="md:w-1/3 h-60 md:h-auto relative overflow-hidden ">
-          <Link to={`/product/${productId}`} className="block h-full">
+          <Link to={`/product/${productIdentifier}`} className="block h-full">
             <img
               src={
                 product.image || product.images[0] || "/placeholder-image.jpg"
@@ -97,9 +99,9 @@ const ProductCard = ({ product, viewMode = "grid" }) => {
         <div className="p-6 flex-1 flex flex-col">
           <div>
             <p className="text-sm text-gray-500 mb-1">
-              {product.type?.name || product.collection?.name}
+              {product.type?.name || product.productCollection?.name}
             </p>
-            <Link to={`/product/${productId}`}>
+            <Link to={`/product/${productIdentifier}`}>
               <h3 className="text-md font-medium mb-2 group-hover:text-[#2A4365] line-clamp-3">
                 {product.name}
               </h3>
@@ -230,7 +232,7 @@ const ProductCard = ({ product, viewMode = "grid" }) => {
         </div>
       )}
 
-      <Link to={`/product/${productId}`} className="block">
+      <Link to={`/product/${productIdentifier}`} className="block">
         <div className="relative h-60 overflow-hidden  p-4">
           <img
             src={product.image}

@@ -17,6 +17,11 @@ export const getProductById = async (id) => {
   return response.data;
 };
 
+export const getProductBySlug = async (slug) => {
+  const response = await axios.get(`${API_URL}/slug/${slug}`);
+  return response.data;
+};
+
 export const createProduct = async (productData, token) => {
   const config = {
     headers: { Authorization: `Bearer ${token}` }
@@ -108,6 +113,7 @@ export const getNewArrivals = async () => {
 export const productAPI = {
   getProducts,
   getProductById,
+  getProductBySlug,
   createProduct,
   updateProduct,
   rateProduct,

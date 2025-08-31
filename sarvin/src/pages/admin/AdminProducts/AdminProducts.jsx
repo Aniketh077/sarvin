@@ -90,12 +90,12 @@ const AdminProducts = () => {
     setCurrentPage(page);
   };
 
-  const handleProductClick = (productId) => {
+  const handleProductClick = (productSlug) => {
     const frontendUrl = import.meta.env.VITE_FRONTEND_URL;
     if (frontendUrl) {
-      window.open(`${frontendUrl}/product/${productId}`, '_blank');
+      window.open(`${frontendUrl}/product/${productSlug}`, '_blank');
     } else {
-      navigate(`/product/${productId}`);
+      navigate(`/product/${productSlug}`);
     }
   };
   
@@ -209,7 +209,7 @@ const AdminProducts = () => {
       setConfirmationModal({
         isOpen: true,
         message: `Product "${payload.name}" has been ${isEditMode ? 'updated' : 'created'} successfully!`,
-        productId: result._id || result.id,
+        product: result,
         isEditMode
       });
 

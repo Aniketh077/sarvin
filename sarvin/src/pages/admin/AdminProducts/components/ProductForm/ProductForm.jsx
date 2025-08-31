@@ -21,7 +21,7 @@ const ProductForm = ({ onClose, onSave, product, types }) => {
     description: product?.description || '',
     price: product?.price !== undefined ? product.price : '',
     discountPrice: product?.discountPrice || null,
-    collection: product?.collection || 'Small Appliances',
+    productCollection: product?.productCollection || 'Small Appliances',
     warranty: product?.warranty || '',
     burners: product?.burners || '',
     ignitionType: product?.ignitionType || '',
@@ -138,10 +138,10 @@ const ProductForm = ({ onClose, onSave, product, types }) => {
   };
 
   useEffect(() => {
-    if (formData.collection !== 'Cooking Appliances') {
+    if (formData.productCollection !== 'Cooking Appliances') {
       setFormData(prev => ({ ...prev, burners: '', ignitionType: '' }));
     }
-  }, [formData.collection]);
+  }, [formData.productCollection]);
 
   const resetTypeState = () => {
     setShowNewType(false);
@@ -231,10 +231,10 @@ const ProductForm = ({ onClose, onSave, product, types }) => {
             <div className="px-2 sm:px-8 py-4 sm:py-6 max-h-[70vh] overflow-y-auto product-form-scrollbar text-xs sm:text-sm">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 mb-4 sm:mb-6">
                 <FormField label="Product Name" name="name" value={formData.name} onChange={handleChange} required />
-                <FormField label="Product Collection" name="collection" value={formData.collection} onChange={handleChange} type="select" options={collectionOptions} required />
+                <FormField label="Product Collection" name="productCollection" value={formData.productCollection} onChange={handleChange} type="select" options={collectionOptions} required />
               </div>
 
-              {formData.collection === 'Cooking Appliances' && (
+              {formData.productCollection === 'Cooking Appliances' && (
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6 p-4 bg-gray-50  border mb-6">
                       <FormField label="Number of Burners" name="burners" value={formData.burners} onChange={handleChange} type="select" options={burnerOptions}  />
                       <FormField label="Ignition Type" name="ignitionType" value={formData.ignitionType} onChange={handleChange} type="select" options={ignitionOptions} />

@@ -5,13 +5,13 @@ const ProductConfirmationModal = ({
   isOpen, 
   onClose, 
   message, 
-  productId, 
+  product, 
   isEditMode = false 
 }) => {
   const handleViewProduct = () => {
     const frontendUrl = import.meta.env.VITE_FRONTEND_URL;
-    if (frontendUrl && productId) {
-      window.open(`${frontendUrl}/product/${productId}`, '_blank');
+    if (frontendUrl && product && product.slug) {
+      window.open(`${frontendUrl}/product/${product.slug}`, '_blank');
     }
     onClose();
   };
@@ -74,16 +74,16 @@ const ProductConfirmationModal = ({
                 OK
               </button>
               
-              {productId && (
-                <button
-                  type="button"
-                  onClick={handleViewProduct}
-                  className="px-6 py-2.5 bg-[#A0522D] text-white  hover:from-[#A0522D] hover:to-[#C87941] transition-all duration-200 font-medium flex items-center justify-center space-x-2 shadow-lg"
-                >
-                  <Eye className="h-4 w-4" />
-                  <span>View Product</span>
-                </button>
-              )}
+              {product && product.slug && (
+          <button
+            type="button"
+            onClick={handleViewProduct}
+            className="px-6 py-2.5 bg-[#A0522D] text-white  hover:from-[#A0522D] hover:to-[#C87941] transition-all duration-200 font-medium flex items-center justify-center space-x-2 shadow-lg"
+          >
+            <Eye className="h-4 w-4" />
+            <span>View Product</span>
+          </button>
+        )}
             </div>
           </div>
         </div>

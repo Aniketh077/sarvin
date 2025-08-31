@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const slugify = require('slugify');
+const crypto = require('crypto'); 
 
 const productSchema = new mongoose.Schema({
   productCode: {  
@@ -9,11 +11,12 @@ const productSchema = new mongoose.Schema({
     trim: true,
     index: true
   },
-  name: { type: String, required: true,index: true},
+  name: { type: String, required: true, index: true },
+  slug: { type: String, unique: true, index: true },
   description: { type: String, required: false },
   price: { type: Number, required: true,index: true },
   discountPrice: Number,
-  collection: {
+  productCollection: {
     type: String,
     required: false,
     index: true,
@@ -52,17 +55,25 @@ const productSchema = new mongoose.Schema({
 });
 
 productSchema.pre('save', function(next) {
+  if (this.isNew) {
+    const baseSlug = slugify(this.name, { lower: true, strict: true });
+    const truncatedSlug = baseSlug.substring(0, 75).replace(/-+$/, ''); 
+
+    const uniqueSuffix = crypto.randomBytes(4).toString('hex');
+    
+    this.slug = `${truncatedSlug}-${uniqueSuffix}`;
+  }
+
   if (!this.productCode && this.isNew) {
     const timestamp = Date.now().toString().slice(-6);
     this.productCode = `PROD-${timestamp}`;
   }
-  if (this.collection !== 'Cooking Appliances') {
+  if (this.productCollection !== 'Cooking Appliances') {
     this.burners = undefined;
     this.ignitionType = undefined;
   }
   next();
 });
-
 productSchema.virtual('displayId').get(function() {
   return this.productCode || this._id.toString();
 });

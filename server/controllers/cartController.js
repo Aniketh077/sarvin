@@ -35,11 +35,12 @@ const getCart = async (req, res) => {
         product: {
           _id: product._id,
           name: product.name,
+          slug: product.slug,
           image: product.image,
           price: product.price,
           discountPrice: product.discountPrice,
           type: product.type?.name || '',
-          collection: product.collection || '', 
+          productCollection: product.productCollection || '', 
           stock: product.stock
         },
         quantity: item.quantity,
@@ -109,33 +110,41 @@ const addToCart = async (req, res) => {
       item => item.productId._id.toString() === productId
     );
 
+    const cleanProductObject = {
+      _id: addedItem.productId._id,
+      name: addedItem.productId.name,
+      slug: addedItem.productId.slug, 
+      image: addedItem.productId.image,
+      price: addedItem.productId.price,
+      discountPrice: addedItem.productId.discountPrice,
+      type: addedItem.productId.type?.name || '',
+      productCollection: addedItem.productId.productCollection || '',
+      stock: addedItem.productId.stock
+    };
+
     const cartSummary = updatedUser.cart.items.reduce((acc, item) => {
       const price = item.productId.discountPrice || item.productId.price;
       acc.subtotal += price * item.quantity;
       acc.itemCount += item.quantity;
       return acc;
     }, { subtotal: 0, itemCount: 0 });
+    
+    // Correctly calculate total items in cart
+    const totalItemCount = updatedUser.cart.items.reduce((total, item) => total + item.quantity, 0);
+
 
     res.status(201).json({
       message: 'Item added to cart successfully',
       item: {
         _id: addedItem._id,
-        product: {
-          _id: addedItem.productId._id,
-          name: addedItem.productId.name,
-          image: addedItem.productId.image,
-          price: addedItem.productId.price,
-          discountPrice: addedItem.productId.discountPrice,
-          type: addedItem.productId.type?.name || '',
-          collection: addedItem.productId.collection || '', 
-          stock: addedItem.productId.stock
-        },
+        // Use the clean object here
+        product: cleanProductObject, 
         quantity: addedItem.quantity,
         addedAt: addedItem.addedAt
       },
       cartSummary: {
         subtotal: cartSummary.subtotal,
-        itemCount: cartSummary.itemCount,
+        itemCount: totalItemCount, 
         totalItems: updatedUser.cart.items.length
       }
     });

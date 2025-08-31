@@ -25,7 +25,7 @@ function orderConfirmationTemplate(order, user) {
       <tr>
         <td style="padding: 20px; border-bottom: 1px solid #ddd; vertical-align: top;">
           <div class="product-info" style="display: flex; align-items: flex-start; gap: 20px;">
-            <a href="${process.env.FRONTEND_URL}/product/${item.product._id}" style="display: block;">
+            <a href="${process.env.FRONTEND_URL}/product/${item.product.slug || item.product._id}" style="display: block;">
               <img src="${item.product.image}" alt="${item.product.name}" 
                    style="width: 80px; height: 80px; object-fit: cover; border: 1px solid #ddd;">
             </a>
@@ -470,7 +470,7 @@ function orderAdminNotificationTemplate(order, user) {
       <tr>
         <td style="padding: 20px; border-bottom: 1px solid #ddd; vertical-align: top;">
           <div class="product-info" style="display: flex; align-items: flex-start; gap: 20px;">
-            <a href="${process.env.FRONTEND_URL}/product/${item.product._id}" style="display: block;">
+            <a href="${process.env.FRONTEND_URL}/product/${item.product.slug || item.product._id}" style="display: block;">
               <img src="${item.product.image}" alt="${item.product.name}" 
                    style="width: 80px; height: 80px; object-fit: cover; border: 1px solid #ddd;">
             </a>

@@ -15,7 +15,7 @@ import ErrorMessage from './components/ErrorMessage';
 import { Helmet } from 'react-helmet-async'; 
 
 const ProductDetailPage = () => {
-  const { id } = useParams();
+  const { identifier } = useParams();
   const dispatch = useDispatch();
   const { product, loading, error } = useSelector(state => state.products);
   const [quantity, setQuantity] = useState(1);
@@ -30,10 +30,10 @@ const ProductDetailPage = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    if (id) {
-      dispatch(fetchProductDetails(id));
+    if (identifier) { 
+      dispatch(fetchProductDetails(identifier)); 
     }
-  }, [id, dispatch]);
+  }, [identifier, dispatch]);
 
   useEffect(() => {
      if (product && product.collection){
@@ -66,7 +66,7 @@ const ProductDetailPage = () => {
         discountPrice: product.discountPrice,
         image: product.image,
         stock: product.stock,
-        collection: product.collection,
+        productCollection: product.productCollection,
         type: product.type?.name || product.type
       };
       addToCart(cartProduct, quantity);
@@ -97,7 +97,7 @@ const ProductDetailPage = () => {
     return <ErrorMessage error="Product not found" />;
   }
 
-  const collectionName = product.collection || 'Unknown';
+  const collectionName = product.productCollection || 'Unknown';
 
   return (
     <>

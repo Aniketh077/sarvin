@@ -8,7 +8,7 @@ import {
   ChevronLeft,
   ChevronRight,
   ChevronDown,
-  Check
+  Check,
 } from "lucide-react";
 import {
   fetchProducts,
@@ -47,7 +47,7 @@ const FilterCheckbox = ({ label, value, checked, onChange, count }) => (
       value={value}
       checked={checked}
       onChange={onChange}
-      className="sr-only peer" 
+      className="sr-only peer"
     />
     <span
       className={`
@@ -204,15 +204,16 @@ const ProductsPage = () => {
     dispatch(fetchCollections());
   }, [dispatch]);
 
-  const relevantTypes = useMemo(() => {
-    if (decodedCollectionName && collections.length > 0) {
-      const currentCollection = collections.find(
-        (c) => c.name.toLowerCase() === decodedCollectionName.toLowerCase()
-      );
-      return currentCollection ? currentCollection.types : [];
-    }
-    return types;
-  }, [decodedCollectionName, collections, types]);
+const relevantTypes = useMemo(() => {
+  if (decodedCollectionName && collections.length > 0) {
+    const currentCollection = collections.find(
+      // Add a check here to make sure c.name is not null
+      (c) => c.name && c.name.toLowerCase() === decodedCollectionName.toLowerCase()
+    );
+    return currentCollection ? currentCollection.types : [];
+  }
+  return types;
+}, [decodedCollectionName, collections, types]);
 
   // Sync URL params to local UI state
   useEffect(() => {
@@ -239,7 +240,10 @@ const ProductsPage = () => {
       sortBy: params.get("sortBy") || "featured",
     };
 
-    if (collectionName) filters.collection = collectionName;
+    if (collectionName) {
+      filters.collection = collectionName;
+    }
+
     if (params.get("q")) filters.search = params.get("q");
     if (params.get("filter") === "featured") filters.featured = true;
     if (params.get("filter") === "new") filters.newArrival = true;
@@ -370,8 +374,7 @@ const ProductsPage = () => {
     return "All Products";
   };
 
-const getHeaderStyle = () => {
-
+  const getHeaderStyle = () => {
     const backgroundColor = "#2A4365";
     const subtlePattern = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3E%3Cpath d='M-1,1 l2,-2 M0,8 l8,-8 M7,9 l2,-2' stroke='%23FFFFFF' stroke-width='0.5' stroke-opacity='0.05'/%3E%3C/svg%3E")`;
 
@@ -380,8 +383,6 @@ const getHeaderStyle = () => {
       backgroundImage: subtlePattern,
     };
   };
-
-
 
   return (
     <div className="min-h-screen pt-12 sm:pt-16 pb-16 bg-gray-50">
@@ -590,7 +591,7 @@ const getHeaderStyle = () => {
           <div className="flex-1">
             {loading && currentPage === 1 ? (
               <div className="flex items-center justify-center p-12">
-                <LoadingSpinner/>
+                <LoadingSpinner />
               </div>
             ) : products.length === 0 && !loading ? (
               <div className="bg-white p-8  shadow-sm text-center">

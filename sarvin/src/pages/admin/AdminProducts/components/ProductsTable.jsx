@@ -77,9 +77,8 @@ const ProductsTable = ({ products, onEdit, onDelete, onProductClick }) => {
 
 const ProductTableRow = ({ product, onEdit, onDelete, onProductClick, isDesktop }) => {
   const handleRowClick = (e) => {
-    // Don't trigger navigation if clicking on action buttons
     if (e.target.closest('button')) return;
-    onProductClick(product._id || product.id);
+    onProductClick(product.slug);
   };
 
   return (
@@ -112,7 +111,7 @@ const ProductTableRow = ({ product, onEdit, onDelete, onProductClick, isDesktop 
       </td>
      <td className="px-4 lg:px-6 py-4 whitespace-nowrap text-sm text-gray-500">
         <div className="max-w-24 lg:max-w-32 truncate">
-          {product.collection || 'N/A'} 
+         {product.productCollection || 'N/A'}
         </div>
       </td>
       <td className="px-4 lg:px-6 py-4 whitespace-nowrap">
@@ -146,7 +145,7 @@ const ProductTableRow = ({ product, onEdit, onDelete, onProductClick, isDesktop 
           <button
             onClick={(e) => {
               e.stopPropagation();
-              onProductClick(product._id || product.id);
+              onProductClick(product.slug);
             }}
             className="text-blue-600 hover:text-blue-800 p-1"
             title="View Product"
@@ -211,7 +210,7 @@ const ProductCard = ({ product, onEdit, onDelete, onProductClick }) => {
             {typeof product.type === 'object' ? product.type?.name : product.type}
           </p>
           <p className="text-xs text-gray-500 truncate">
-            {product.collection || 'N/A'} 
+            {product.productCollection || 'N/A'}  
           </p>
         </div>
       </div>

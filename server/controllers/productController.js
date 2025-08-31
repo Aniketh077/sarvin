@@ -1,5 +1,7 @@
 const Product = require('../models/Product');
-
+const mongoose = require('mongoose');
+const slugify = require('slugify'); 
+const crypto = require('crypto'); 
 const Type = require('../models/Type');
 const Order = require('../models/Order');
 const { deleteFromS3, extractS3KeyFromUrl } = require('../utils/s3Upload');
@@ -10,7 +12,7 @@ const { deleteFromS3, extractS3KeyFromUrl } = require('../utils/s3Upload');
 const getProducts = async (req, res) => {
   try {
     const {
-      collection, 
+      collection,
       featured,
       newArrival,
       bestSeller, 
@@ -31,7 +33,7 @@ const getProducts = async (req, res) => {
     // Collection filter
     if (collection) {
       const collectionName = decodeURIComponent(collection).replace(/-/g, ' ');
-      query.collection = { $regex: new RegExp(`^${collectionName}$`, 'i') };
+      query.productCollection = { $regex: new RegExp(`^${collectionName}$`, 'i') };
     }
 
     // Featured, new arrival, and best seller filters
@@ -200,23 +202,34 @@ const getProducts = async (req, res) => {
 };
 
 
-// @desc    Get single product
-// @route   GET /api/products/:id
-const getProductById = async (req, res) => {
+const getProductByIdentifier = async (req, res) => {
   try {
-    const product = await Product.findById(req.params.id)
+    const { identifier } = req.params;
+    let product;
+
+    // First, try to find by the slug
+    product = await Product.findOne({ slug: identifier })
       .populate('type', 'name logo')
       .populate('reviews.user', 'name');
+
+    // If no product is found by slug AND the identifier looks like a valid ID, try finding by ID
+    if (!product && mongoose.Types.ObjectId.isValid(identifier)) {
+      product = await Product.findById(identifier)
+        .populate('type', 'name logo')
+        .populate('reviews.user', 'name');
+    }
 
     if (!product) {
       return res.status(404).json({ message: 'Product not found' });
     }
-
+    
     res.json(product);
   } catch (error) {
+    console.error('Get product by identifier error:', error);
     res.status(500).json({ message: 'Server error' });
   }
 };
+
 
 // @desc    Create a product (Admin only)
 // @route   POST /api/products
@@ -235,6 +248,13 @@ const createProduct = async (req, res) => {
       }
     } else {
       return res.status(400).json({ message: 'Type is required' });
+    }
+
+    if (!productData.slug && productData.name) {
+      const baseSlug = slugify(productData.name, { lower: true, strict: true });
+      const truncatedSlug = baseSlug.substring(0, 75);
+      const uniqueSuffix = crypto.randomBytes(4).toString('hex');
+      productData.slug = `${truncatedSlug}-${uniqueSuffix}`;
     }
 
     const product = new Product(productData);
@@ -272,7 +292,7 @@ const getCollectionsWithTypes = async (req, res) => {
       {
         $group: {
           _id: {
-            collection: '$collection',
+            collection: '$productCollection',
             typeId: '$typeDetails._id',
             typeName: '$typeDetails.name'
           }
@@ -317,19 +337,17 @@ const getCollectionsWithTypes = async (req, res) => {
 // @route   PUT /api/products/:id  
 const updateProduct = async (req, res) => {
   try {
-    const existingProduct = await Product.findById(req.params.id);
-    if (!existingProduct) {
+    const { identifier } = req.params; // Get the identifier from the route
+    
+    const productToUpdate = await Product.findById(identifier);
+    if (!productToUpdate) {
       return res.status(404).json({ message: 'Product not found' });
     }
 
-    if (!req.body.images) {
-      req.body.images = existingProduct.images;
-    }
-
+    // Handle image deletion logic before updating
     if (req.body.images && Array.isArray(req.body.images)) {
-      const oldImages = existingProduct.images || [];
+      const oldImages = productToUpdate.images || [];
       const newImages = req.body.images;
-
       const imagesToDelete = oldImages.filter(oldImg => !newImages.includes(oldImg));
 
       for (const imageUrl of imagesToDelete) {
@@ -340,12 +358,12 @@ const updateProduct = async (req, res) => {
       }
     }
 
-    const product = await Product.findByIdAndUpdate(req.params.id, req.body, {
+    const updatedProduct = await Product.findByIdAndUpdate(identifier, req.body, {
       new: true,
       runValidators: true
     }).populate('type', 'name logo');
 
-    res.json(product);
+    res.json(updatedProduct);
   } catch (error) {
     res.status(500).json({ message: 'Server error', error: error.message });
   }
@@ -355,6 +373,7 @@ const updateProduct = async (req, res) => {
 const rateProduct = async (req, res) => {
   try {
     const { rating, comment, orderId } = req.body;
+    const { identifier } = req.params; // Get the correct parameter from the URL
 
     if (!rating || rating < 1 || rating > 5) {
       return res.status(400).json({ message: 'Rating must be between 1 and 5' });
@@ -373,12 +392,14 @@ const rateProduct = async (req, res) => {
       return res.status(400).json({ message: 'Can only rate products from delivered orders' });
     }
 
-    const orderItem = order.items.find(item => item.product.toString() === req.params.id);
+    // CORRECTED: Use 'identifier' to find the item in the order
+    const orderItem = order.items.find(item => item.product.toString() === identifier);
     if (!orderItem) {
       return res.status(400).json({ message: 'Product not found in this order' });
     }
 
-    const product = await Product.findById(req.params.id);
+    // CORRECTED: Use 'identifier' to find the product
+    const product = await Product.findById(identifier);
     if (!product) {
       return res.status(404).json({ message: 'Product not found' });
     }
@@ -407,7 +428,7 @@ const rateProduct = async (req, res) => {
 
     await product.save();
 
-    const updatedProduct = await Product.findById(req.params.id)
+    const updatedProduct = await Product.findById(identifier)
       .populate('reviews.user', 'name')
       .populate('type', 'name logo');
 
@@ -422,12 +443,14 @@ const rateProduct = async (req, res) => {
 // @route   DELETE /api/products/:id
 const deleteProduct = async (req, res) => {
   try {
-    const product = await Product.findById(req.params.id);
+    const { identifier } = req.params; // Get the identifier from the route
 
+    const product = await Product.findById(identifier);
     if (!product) {
       return res.status(404).json({ message: 'Product not found' });
     }
 
+    // Handle image deletion from S3
     if (product.images && Array.isArray(product.images)) {
       for (const imageUrl of product.images) {
         const s3Key = extractS3KeyFromUrl(imageUrl);
@@ -436,8 +459,9 @@ const deleteProduct = async (req, res) => {
         }
       }
     }
+    
+    await Product.findByIdAndDelete(identifier);
 
-    await Product.findByIdAndDelete(req.params.id);
     res.json({ message: 'Product removed' });
   } catch (error) {
     res.status(500).json({ message: 'Server error' });
@@ -606,7 +630,7 @@ const getNewArrivals = async (req, res) => {
 
 module.exports = {
   getProducts,
-  getProductById,
+  getProductByIdentifier,
   createProduct,
   updateProduct,
   rateProduct,
