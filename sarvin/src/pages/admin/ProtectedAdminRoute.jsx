@@ -20,7 +20,7 @@ const ProtectedAdminRoute = ({ children }) => {
 
   // Redirect to login if not authenticated
   if (!isAuthenticated || !user) {
-    return <Navigate to="/login" replace />;
+    return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
   // Show access denied if not admin

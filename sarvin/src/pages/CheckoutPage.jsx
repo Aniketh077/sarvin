@@ -1,5 +1,5 @@
 import React, { useState , useEffect} from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,useLocation } from 'react-router-dom';
 import { CreditCard, MapPin, User, Phone, Mail, ShoppingBag, ArrowLeft, AlertCircle, Loader2 } from 'lucide-react';
 import { useCart } from '../contexts/CartContext';
 import { useAuth } from '../contexts/AuthContext';
@@ -9,19 +9,20 @@ import Button from '../components/ui/Button';
 
 const CheckoutPage = () => {
   const { cart, clearCart } = useCart();
-  const { user } = useAuth();
+  const { user, isAuthenticated } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
 
-  const [shippingAddress, setShippingAddress] = useState({
-    fullName: user?.name || '',
-    email: user?.email || '',
-    phone: user?.phoneNumber || '',
-    address: user?.address || '',
-    city: user?.city || '', 
-    state: user?.state || '',
-    pincode: user?.pincode || '',
+ const [shippingAddress, setShippingAddress] = useState({
+    fullName: '',
+    email: '',
+    phone: '',
+    address: '',
+    city: '',
+    state: '',
+    pincode: '',
     country: 'India',
-  });
+});
 
   const [isProcessing, setIsProcessing] = useState(false);
   const [showProcessingOverlay, setShowProcessingOverlay] = useState(false);
@@ -32,20 +33,23 @@ const CheckoutPage = () => {
   const total = subtotal; 
 
   useEffect(() => {
-    if (user) {
-      setShippingAddress((prev) => ({
-        ...prev,
-        fullName: user.name || '',
-        email: user.email || '',
-        phone: user.phoneNumber || '',
-        address: user.address || '',
-        city: user.city || '',
-        state: user.state || '',
-        pincode: user.pincode || '',
-        country: 'India',
-      }));
-    }
-  }, [user]);
+        const savedGuestData = sessionStorage.getItem('checkoutFormData');
+        if (savedGuestData) {
+            setShippingAddress(JSON.parse(savedGuestData));
+            sessionStorage.removeItem('checkoutFormData');
+        } else if (isAuthenticated && user) {
+            setShippingAddress((prev) => ({
+                ...prev,
+                fullName: user.name || '',
+                email: user.email || '',
+                phone: user.phoneNumber || '',
+                address: user.address || '',
+                city: user.city || '',
+                state: user.state || '',
+                pincode: user.pincode || '',
+            }));
+        }
+    }, [user, isAuthenticated]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -98,11 +102,21 @@ const CheckoutPage = () => {
     setIsProcessing(true);
     setPaymentError('');
 
+    if (!isAuthenticated) {
+      sessionStorage.setItem('checkoutFormData', JSON.stringify(shippingAddress));
+      navigate('/login', { state: { from: location } });
+      return; 
+    }
+
+
+    setIsProcessing(true);
+    setPaymentError('');
+
     try {
       // Prepare order data
       const orderData = {
         items: cart.items.map(item => ({
-          product: item.product.id || item.product._id,
+          product:  item.product._id,
           quantity: item.quantity,
           price: item.product.discountPrice || item.product.price
         })),
@@ -424,7 +438,7 @@ const CheckoutPage = () => {
                     disabled={isProcessing}
                     leftIcon={<CreditCard className="h-5 w-5" />}
                   >
-                    {isProcessing ? 'Processing...' : 'Pay with Razorpay'}
+                     {isProcessing ? 'Processing...' : isAuthenticated ? 'Pay with Razorpay' : 'Login to Pay'}
                   </Button>
                   <p className="text-xs text-gray-500 mt-3 text-center">
                     Secure payment powered by Razorpay

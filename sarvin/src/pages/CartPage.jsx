@@ -22,11 +22,7 @@ const CartPage = () => {
   const total = subtotal;
 
   const handleCheckout = () => {
-    if (!isAuthenticated) {
-      navigate("/login", { state: { from: { pathname: "/checkout" } } });
-    } else {
-      navigate("/checkout");
-    }
+    navigate("/checkout");
   };
 
   if (cart.items.length === 0) {
