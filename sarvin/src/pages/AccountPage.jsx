@@ -152,6 +152,7 @@ const AccountPage = () => {
                 {/* Profile Header */}
                 <div className="flex flex-col items-center text-center mb-6">
                   <div className="h-20 w-20  bg-gradient-to-br from-[#2A4365] to-[#324e76] flex items-center justify-center mb-3 shadow-lg">
+                  </div>
                   <div className="h-20 w-20  bg-gradient-to-br from-[#16A34A] to-[#15803D] flex items-center justify-center mb-3 shadow-lg">
                     <span className="text-white font-bold text-2xl">
                       {user?.name?.charAt(0)?.toUpperCase() || 'U'}
