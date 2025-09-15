@@ -102,20 +102,20 @@ const ProductDetailPage = () => {
   return (
     <>
      <Helmet>
-        <title>{`${product.name} - Sarvin India`}</title>
+        <title>{`${product.name} - EcoTrade`}</title>
         <meta name="description" content={product.description.substring(0, 160)} />
 
         {/* --- Open Graph / Facebook / WhatsApp Meta Tags --- */}
         <meta property="og:type" content="website" />
         <meta property="og:url" content={window.location.href} />
-        <meta property="og:title" content={`${product.name} - Sarvin India`} />
+        <meta property="og:title" content={`${product.name} - EcoTrade`} />
         <meta property="og:description" content={product.description.substring(0, 160)} />
         <meta property="og:image" content={product.image} />
 
         {/* --- Twitter Card Meta Tags --- */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:url" content={window.location.href} />
-        <meta name="twitter:title" content={`${product.name} - Sarvin India`} />
+        <meta name="twitter:title" content={`${product.name} - EcoTrade`} />
         <meta name="twitter:description" content={product.description.substring(0, 160)} />
         <meta name="twitter:image" content={product.image} />
       </Helmet>

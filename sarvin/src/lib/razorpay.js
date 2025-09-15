@@ -97,7 +97,7 @@ export const initiateRazorpayPayment = async (amount, userDetails, onSuccess, on
       key: import.meta.env.VITE_RAZORPAY_KEY_ID,
       amount: razorpayOrder.amount,
       currency: razorpayOrder.currency,
-      name: 'Sarvin ',
+      name: 'EcoTrade',
       description: 'Order Payment',
       order_id: razorpayOrder.id,
       handler: function(response) {
@@ -115,7 +115,7 @@ export const initiateRazorpayPayment = async (amount, userDetails, onSuccess, on
         contact: userDetails.contact
       },
       theme: {
-        color: '#2A4365'
+        color: '#16A34A'
       },
       modal: {
         ondismiss: function() {

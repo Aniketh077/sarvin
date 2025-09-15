@@ -248,7 +248,7 @@ const CheckoutPage = () => {
                         name="fullName"
                         value={shippingAddress.fullName}
                         onChange={handleInputChange}
-                        className={`w-full pl-10 pr-3 py-2 border  focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                        className={`w-full pl-10 pr-3 py-2 border  focus:outline-none focus:ring-2 focus:ring-[#16A34A] ${
                           errors.fullName ? 'border-red-500' : 'border-gray-300'
                         }`}
                         placeholder="Enter your full name"
@@ -270,7 +270,7 @@ const CheckoutPage = () => {
                         name="email"
                         value={shippingAddress.email}
                         onChange={handleInputChange}
-                        className={`w-full pl-10 pr-3 py-2 border  focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                        className={`w-full pl-10 pr-3 py-2 border  focus:outline-none focus:ring-2 focus:ring-[#16A34A] ${
                           errors.email ? 'border-red-500' : 'border-gray-300'
                         }`}
                         placeholder="Enter your email"
@@ -292,7 +292,7 @@ const CheckoutPage = () => {
                         name="phone"
                         value={shippingAddress.phone}
                         onChange={handleInputChange}
-                        className={`w-full pl-10 pr-3 py-2 border  focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                        className={`w-full pl-10 pr-3 py-2 border  focus:outline-none focus:ring-2 focus:ring-[#16A34A] ${
                           errors.phone ? 'border-red-500' : 'border-gray-300'
                         }`}
                         placeholder="10-digit mobile number"
@@ -312,7 +312,7 @@ const CheckoutPage = () => {
                       name="pincode"
                       value={shippingAddress.pincode}
                       onChange={handleInputChange}
-                      className={`w-full px-3 py-2 border  focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                      className={`w-full px-3 py-2 border  focus:outline-none focus:ring-2 focus:ring-[#16A34A] ${
                         errors.pincode ? 'border-red-500' : 'border-gray-300'
                       }`}
                       placeholder="6-digit pincode"
@@ -332,7 +332,7 @@ const CheckoutPage = () => {
                     name="address"
                     value={shippingAddress.address}
                     onChange={handleInputChange}
-                    className={`w-full px-3 py-2 border  focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                    className={`w-full px-3 py-2 border  focus:outline-none focus:ring-2 focus:ring-[#16A34A] ${
                       errors.address ? 'border-red-500' : 'border-gray-300'
                     }`}
                     placeholder="House no, Building, Street, Area"
@@ -352,7 +352,7 @@ const CheckoutPage = () => {
                       name="city"
                       value={shippingAddress.city}
                       onChange={handleInputChange}
-                      className={`w-full px-3 py-2 border  focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                      className={`w-full px-3 py-2 border  focus:outline-none focus:ring-2 focus:ring-[#16A34A] ${
                         errors.city ? 'border-red-500' : 'border-gray-300'
                       }`}
                       placeholder="Enter city"
@@ -371,7 +371,7 @@ const CheckoutPage = () => {
                       name="state"
                       value={shippingAddress.state}
                       onChange={handleInputChange}
-                      className={`w-full px-3 py-2 border  focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                      className={`w-full px-3 py-2 border  focus:outline-none focus:ring-2 focus:ring-[#16A34A] ${
                         errors.state ? 'border-red-500' : 'border-gray-300'
                       }`}
                       placeholder="Enter state"

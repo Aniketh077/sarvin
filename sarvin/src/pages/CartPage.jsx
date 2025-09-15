@@ -209,7 +209,7 @@ const CartPage = () => {
               <div className="p-6 border-t border-gray-100">
                 <Link
                   to="/products"
-                  className="flex items-center text-[#2A4365] hover:text-[#C87941] text-sm font-medium"
+                  className="flex items-center text-[#16A34A] hover:text-[#22C55E] text-sm font-medium"
                 >
                   <ArrowLeft className="h-4 w-4 mr-1" />
                   Continue Shopping

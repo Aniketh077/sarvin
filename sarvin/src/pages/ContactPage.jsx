@@ -100,7 +100,7 @@ const ContactPage = () => {
   };
 
   const handleSendEmail = () => {
-    window.open('mailto:sarvinhomeappl@gmail.com');
+    window.open('mailto:info@ecotrade.com');
   };
 
   const handleLiveChat = () => {
@@ -128,7 +128,7 @@ const ContactPage = () => {
     {
       icon: Mail,
       title: 'Email Us',
-      details: ['sarvinhomeappl@gmail.com', 'We reply within 24 hours'],
+      details: ['info@ecotrade.com', 'We reply within 24 hours'],
       action: 'Send Email',
       onClick: handleSendEmail
     },

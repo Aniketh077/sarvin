@@ -108,7 +108,7 @@ const ProductInfo = ({
         {product.description.length > 150 && (
           <button
             onClick={() => setIsDescriptionExpanded(!isDescriptionExpanded)}
-            className="text-[#2A4365] text-sm font-medium hover:text-[#C87941] mt-1"
+            className="text-[#16A34A] text-sm font-medium hover:text-[#22C55E] mt-1"
           >
             {isDescriptionExpanded ? "Show less" : "Read more"}
           </button>
@@ -216,11 +216,11 @@ const ProductInfo = ({
       {/* Benefits */}
       <div className="space-y-3 mb-6 border-t border-gray-100 pt-4">
         <div className="flex items-center">
-          <TruckIcon className="h-5 w-5 text-[#2A4365] mr-3" />
+          <TruckIcon className="h-5 w-5 text-[#16A34A] mr-3" />
           <span className="text-sm">Free shipping on orders across India.</span>
         </div>
         <div className="flex items-center">
-          <ShieldCheck className="h-5 w-5 text-[#2A4365] mr-3" />
+          <ShieldCheck className="h-5 w-5 text-[#16A34A] mr-3" />
           <span className="text-sm">
             {(product.warranty && product.warranty) || "1 year"} warranty
           </span>

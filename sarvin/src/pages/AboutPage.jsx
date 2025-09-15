@@ -58,10 +58,10 @@ const AboutPage = () => {
   return (
     <div className="min-h-screen pt-8 pb-16">
       {/* Hero Section */}
-      <section className="py-20 bg-gradient-to-r from-[#2A4365] to-[#1A365D] text-white">
+      <section className="py-20 bg-gradient-to-r from-[#16A34A] to-[#15803D] text-white">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-5xl md:text-6xl font-bold mb-6">About Sarvin</h1>
+            <h1 className="text-5xl md:text-6xl font-bold mb-6">About EcoTrade</h1>
             <p className="text-xl md:text-2xl text-gray-200 mb-8">
               Transforming homes across India with premium appliances and exceptional service
             </p>
@@ -86,7 +86,8 @@ const AboutPage = () => {
             {stats.map((stat, index) => (
               <div key={index} className="text-center">
                 <div className="text-4xl md:text-5xl font-bold text-[#2A4365] mb-2">
-                  {stat.number}
+                <div className="text-4xl md:text-5xl font-bold text-[#16A34A] mb-2">
+                  {stat.number}</div>
                 </div>
                 <div className="text-gray-600 font-medium">{stat.label}</div>
               </div>
@@ -101,10 +102,10 @@ const AboutPage = () => {
           <div className="max-w-6xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div>
-                <h2 className="text-4xl font-bold mb-6">About Us</h2>
+                <h2 className="text-4xl font-bold mb-6">Our Story</h2>
                 <div className="space-y-4 text-gray-600 text-lg">
                   <p>
-                    SARVIN is an inspiration from the needs of the discerning buyers of modern home appliances. Acknowledging the fact that quality & service are the only two parameters for acceptance of a type in the market, Sarvin is the answer to market dynamics. Renowned for its high-quality, high-performance kitchen/home/gas appliances, Sarvin clearly is the No. 1 choice of homes across India.
+                    EcoTrade is an inspiration from the needs of the discerning buyers of modern home appliances. Acknowledging the fact that quality & service are the only two parameters for acceptance in the market, EcoTrade is the answer to market dynamics. Renowned for its high-quality, high-performance kitchen/home/gas appliances, EcoTrade clearly is the No. 1 choice of homes across India.
                   </p>
                 </div>
               </div>
@@ -125,8 +126,8 @@ const AboutPage = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 text-center">
             <div>
-              <div className="bg-[#EBF5FF] w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
-                <Target className="h-10 w-10 text-[#2A4365]" />
+              <div className="bg-green-50 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+                <Target className="h-10 w-10 text-[#16A34A]" />
               </div>
               <h3 className="text-2xl font-bold mb-4">Our Mission</h3>
               <p className="text-gray-600 text-lg">
@@ -135,8 +136,8 @@ const AboutPage = () => {
               </p>
             </div>
             <div>
-              <div className="bg-[#EBF5FF] w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
-                <Globe className="h-10 w-10 text-[#2A4365]" />
+              <div className="bg-green-50 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+                <Globe className="h-10 w-10 text-[#16A34A]" />
               </div>
               <h3 className="text-2xl font-bold mb-4">Our Vision</h3>
               <p className="text-gray-600 text-lg">
@@ -161,8 +162,8 @@ const AboutPage = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {values.map((value, index) => (
               <div key={index} className="bg-white p-8  shadow-sm text-center hover:shadow-md transition-shadow">
-                <div className="bg-[#EBF5FF] w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <value.icon className="h-8 w-8 text-[#2A4365]" />
+                <div className="bg-green-50 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <value.icon className="h-8 w-8 text-[#16A34A]" />
                 </div>
                 <h3 className="text-xl font-semibold mb-4">{value.title}</h3>
                 <p className="text-gray-600">{value.description}</p>
@@ -203,10 +204,10 @@ const AboutPage = () => {
       </section> */}
 
       {/* Why Choose Us */}
-      <section className="py-16 bg-[#2A4365] text-white">
+      <section className="py-16 bg-[#16A34A] text-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-4">Why Choose Sarvin?</h2>
+            <h2 className="text-4xl font-bold mb-4">Why Choose EcoTrade?</h2>
             <p className="text-gray-200 text-lg max-w-2xl mx-auto">
               We're more than just an appliance store - we're your trusted partner in creating the perfect home
             </p>
@@ -254,7 +255,7 @@ const AboutPage = () => {
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-4xl font-bold mb-4">Ready to Transform Your Home?</h2>
             <p className="text-gray-600 text-lg mb-8">
-              Join thousands of satisfied customers who have made Sarvin their trusted appliance partner
+              Join thousands of satisfied customers who have made EcoTrade their trusted appliance partner
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/products">

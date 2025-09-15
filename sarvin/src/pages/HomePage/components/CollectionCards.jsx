@@ -6,7 +6,7 @@ const CollectionCards = () => {
   const collections = [
     {
       title: "Small Appliances",
-      bgColor: "bg-[#2A4365]",
+      bgColor: "bg-[#16A34A]",
       imageUrl: "/assets/Small_Appliances.png",
       exploreUrl: "/products/small-appliances",
       types: [
@@ -16,7 +16,7 @@ const CollectionCards = () => {
     },
     {
       title: "Cooking Appliances",
-      bgColor: "bg-[#C87941]",
+      bgColor: "bg-[#22C55E]",
       imageUrl: "/assets/Cooking_Appliances.png",
       exploreUrl: "/products/cooking-appliances",
       types: [

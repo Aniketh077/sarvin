@@ -267,7 +267,7 @@ const Header = () => {
              </button>
              {/* MOBILE LOGO MOVED HERE */}
              <Link to="/" className="lg:hidden flex items-center flex-shrink-0">
-                <img src="/sarvinindia.jpeg" alt="Sarvin" className="h-12 w-auto object-contain" style={{ maxWidth: "130px" }} />
+                <img src="/ecotrade.jpeg" alt="EcoTrade" className="h-12 w-auto object-contain" style={{ maxWidth: "130px" }} />
              </Link>
              {/* Desktop Left Content */}
              <div className="hidden lg:flex items-center space-x-4">
@@ -277,7 +277,7 @@ const Header = () => {
                     </button>
                 )}
                 <Link to="/" className="flex items-center flex-shrink-0">
-                    <img src="/sarvinindia.jpeg" alt="Sarvin" className="h-12 w-auto object-contain" style={{ maxWidth: "130px" }} />
+                    <img src="/ecotrade.jpeg" alt="EcoTrade" className="h-12 w-auto object-contain" style={{ maxWidth: "130px" }} />
                 </Link>
              </div>
           </div>
@@ -304,26 +304,26 @@ const Header = () => {
           {/* === RIGHT SECTION: Icons & Desktop Contact === */}
           <div className="flex items-center justify-end space-x-2 md:space-x-4 lg:w-auto flex-1">
            <div className="hidden lg:block text-right">
-  <p className="text-sm font-semibold text-[#01364a] whitespace-nowrap">
+  <p className="text-sm font-semibold text-[#15803D] whitespace-nowrap">
     <a href="tel:9310979906" className="flex items-center justify-end hover:underline">
       <Phone Width={3} className="h-3 w-3 mr-1 mt-1 " />
       <span>9310979906 (sales & service)</span>
     </a>
   </p>
-  <p className="text-xs text-[#01374ae1]">Mon - Sat  | 9am - 6pm</p>
+  <p className="text-xs text-[#15803D]">Mon - Sat  | 9am - 6pm</p>
 </div>
              
-             <Link to="/cart" className="relative p-2 text-[#01364a] hover:text-[#C87941]" aria-label={`Cart with ${cart.items.length} items`}>
+             <Link to="/cart" className="relative p-2 text-[#15803D] hover:text-[#22C55E]" aria-label={`Cart with ${cart.items.length} items`}>
                 <ShoppingCart className="h-6 w-6" />
                 {cart.items.length > 0 && (
-                    <span className="absolute -right-0.5 -top-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-[#C87941] text-xs font-bold text-white">
+                    <span className="absolute -right-0.5 -top-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-[#22C55E] text-xs font-bold text-white">
                         {cart.items.reduce((total, item) => total + item.quantity, 0)}
                     </span>
                 )}
              </Link>
 
              <div ref={profileMenuRef} className="relative profile-menu" onMouseEnter={handleProfileMenuEnter} onMouseLeave={handleProfileMenuLeave}>
-                <button onClick={toggleProfileMenu} className="flex items-center p-2 text-[#01364a] hover:text-[#C87941]" aria-label="User account menu">
+                <button onClick={toggleProfileMenu} className="flex items-center p-2 text-[#15803D] hover:text-[#22C55E]" aria-label="User account menu">
                     <User className="h-6 w-6" />
                     {/* {isAuthenticated && <ChevronDown className="h-4 w-4 ml-1" />} */}
                 </button>
@@ -332,9 +332,9 @@ const Header = () => {
                         {isAuthenticated ? (
                             <>
                                 <div className="border-b border-gray-100 px-4 py-2">
-                                    <p className="text-sm font-medium text-[#01364a] truncate">{user?.name}</p>
+                                    <p className="text-sm font-medium text-[#15803D] truncate">{user?.name}</p>
                                     <p className="text-xs text-gray-500 truncate">{user?.email}</p>
-                                    {isAdmin && <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-[#01364a] text-white mt-1">Admin</span>}
+                                    {isAdmin && <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-[#15803D] text-white mt-1">Admin</span>}
                                 </div>
                                 {isAdmin && <Link to="/admin" onClick={() => setIsProfileMenuOpen(false)} className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"><Settings className="mr-2 h-4 w-4" />Admin Dashboard</Link>}
                                 <Link to="/account" onClick={() => setIsProfileMenuOpen(false)} className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"><User className="mr-2 h-4 w-4" />My Account</Link>

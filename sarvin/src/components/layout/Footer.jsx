@@ -32,32 +32,32 @@ const Footer = () => {
             <div className="lg:col-span-2">
               <Link to="/" className="flex items-center mb-4">
                 <img
-                  src="/sarvinindia.jpeg"
-                  alt="Sarvin"
+                  src="/ecotrade.jpeg"
+                  alt="EcoTrade"
                   className="h-10 w-auto object-contain"
                   style={{ maxWidth: "120px" }}
                 />
               </Link>
               <p className="text-gray-300 mb-6">
-                Sarvin brings you the best in home appliances with premium
+                EcoTrade brings you the best in home appliances with premium
                 quality, innovative technology, and exceptional customer
                 service. Transform your home with our wide range of products.
               </p>
               <div className="space-y-3">
                 <div className="flex items-start">
-                  <Mail className="h-5 w-5 text-[#C87941] mt-1 mr-3" />
+                  <Mail className="h-5 w-5 text-[#22C55E] mt-1 mr-3" />
                   <a
-                    href="mailto:sarvinhomeappl@gmail.com"
-                    className="text-gray-300 hover:text-[#C87941] transition-colors"
+                    href="mailto:info@ecotrade.com"
+                    className="text-gray-300 hover:text-[#22C55E] transition-colors"
                   >
-                    sarvinhomeappl@gmail.com
+                    info@ecotrade.com
                   </a>
                 </div>
                 <div className="flex items-start">
-                  <Phone className="h-5 w-5 text-[#C87941] mt-1 mr-3" />
+                  <Phone className="h-5 w-5 text-[#22C55E] mt-1 mr-3" />
                   <a
                     href="tel:+919310979906"
-                    className="text-gray-300 hover:text-[#C87941] transition-colors"
+                    className="text-gray-300 hover:text-[#22C55E] transition-colors"
                   >
                     +91 93109 79906
                   </a>
@@ -74,7 +74,7 @@ const Footer = () => {
                 <li>
                   <Link
                     to="/"
-                    className="text-gray-300 hover:text-[#C87941] transition-colors"
+                    className="text-gray-300 hover:text-[#22C55E] transition-colors"
                   >
                     Home
                   </Link>
@@ -82,7 +82,7 @@ const Footer = () => {
                 <li>
                   <Link
                     to="/products"
-                    className="text-gray-300 hover:text-[#C87941] transition-colors"
+                    className="text-gray-300 hover:text-[#22C55E] transition-colors"
                   >
                     Shop
                   </Link>
@@ -91,7 +91,7 @@ const Footer = () => {
                 <li>
                   <Link
                     to="/about"
-                    className="text-gray-300 hover:text-[#C87941] transition-colors"
+                    className="text-gray-300 hover:text-[#22C55E] transition-colors"
                   >
                     About Us
                   </Link>
@@ -99,7 +99,7 @@ const Footer = () => {
                 <li>
                   <Link
                     to="/contact"
-                    className="text-gray-300 hover:text-[#C87941] transition-colors"
+                    className="text-gray-300 hover:text-[#22C55E] transition-colors"
                   >
                     Contact
                   </Link>
@@ -118,7 +118,7 @@ const Footer = () => {
                   <li>
                     <a
                       href="tel:+919310979906"
-                      className="text-gray-300 hover:text-[#C87941] transition-colors"
+                      className="text-gray-300 hover:text-[#22C55E] transition-colors"
                     >
                       Customer Service +91 93109 79906
                     </a>
@@ -126,7 +126,7 @@ const Footer = () => {
                   <li>
                     <button
                       onClick={handleFAQClick}
-                      className="text-gray-300 hover:text-[#C87941] transition-colors text-left"
+                      className="text-gray-300 hover:text-[#22C55E] transition-colors text-left"
                     >
                       FAQs
                     </button>
@@ -161,13 +161,13 @@ const Footer = () => {
           <div className="border-t border-gray-700 py-6">
             <div className="flex flex-col md:flex-row justify-between items-center">
               <p className="text-gray-300 text-sm mb-4 md:mb-0">
-                &copy; {new Date().getFullYear()} Sarvin Home Appliances. All
+                &copy; {new Date().getFullYear()} EcoTrade Home Appliances. All
                 rights reserved.
               </p>
               <div className="flex space-x-4">
                 <a
                   href="https://www.facebook.com/profile.php?id=100079974925586&mibextid=ZbWKwL"
-                  className="text-gray-300 hover:text-[#C87941] transition-colors"
+                  className="text-gray-300 hover:text-[#22C55E] transition-colors"
                   aria-label="Facebook"
                 >
                   <Facebook className="h-5 w-5" />
@@ -177,7 +177,7 @@ const Footer = () => {
                 </a> */}
                 <a
                   href="https://www.instagram.com/sarvinindia/"
-                  className="text-gray-300 hover:text-[#C87941] transition-colors"
+                  className="text-gray-300 hover:text-[#22C55E] transition-colors"
                   aria-label="Instagram"
                 >
                   <Instagram className="h-5 w-5" />

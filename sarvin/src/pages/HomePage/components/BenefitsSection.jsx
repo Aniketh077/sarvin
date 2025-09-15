@@ -29,7 +29,7 @@ const BenefitsSection = () => {
     <section className="py-16 bg-white">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold mb-4">Why Choose Sarvin?</h2>
+          <h2 className="text-4xl font-bold mb-4">Why Choose EcoTrade?</h2>
           <p className="text-gray-600 text-lg max-w-2xl mx-auto">
             We're committed to providing the best shopping experience
           </p>
@@ -38,8 +38,8 @@ const BenefitsSection = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {benefits.map((benefit, index) => (
             <div key={index} className="text-center group">
-              <div className="bg-gradient-to-br from-[#EBF5FF] to-[#DBEAFE] w-20 h-20  flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
-                <benefit.icon className="h-10 w-10 text-[#2A4365]" />
+              <div className="bg-gradient-to-br from-green-50 to-green-100 w-20 h-20  flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
+                <benefit.icon className="h-10 w-10 text-[#16A34A]" />
               </div>
               <h3 className="text-xl font-semibold mb-3">{benefit.title}</h3>
               <p className="text-gray-600">{benefit.description}</p>

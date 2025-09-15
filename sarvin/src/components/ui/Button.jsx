@@ -16,10 +16,10 @@ const Button = ({
   const baseStyles = 'inline-flex items-center justify-center  font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2';
   
   const variantStyles = {
-    primary: 'bg-[#2A4365] text-white hover:bg-[#1A365D] focus:ring-[#2A4365]',
-    secondary: 'bg-[#C87941] text-white hover:bg-[#B86931] focus:ring-[#C87941]',
-    outline: 'border border-[#2A4365] text-[#2A4365] bg-transparent hover:bg-[#2A4365]/10 focus:ring-[#2A4365]',
-    ghost: 'text-[#2A4365] hover:bg-[#2A4365]/10 focus:ring-[#2A4365]',
+    primary: 'bg-[#16A34A] text-white hover:bg-[#15803D] focus:ring-[#16A34A]',
+    secondary: 'bg-[#22C55E] text-white hover:bg-[#16A34A] focus:ring-[#22C55E]',
+    outline: 'border border-[#16A34A] text-[#16A34A] bg-transparent hover:bg-[#16A34A]/10 focus:ring-[#16A34A]',
+    ghost: 'text-[#16A34A] hover:bg-[#16A34A]/10 focus:ring-[#16A34A]',
     danger: 'bg-red-600 text-white hover:bg-red-700 focus:ring-red-600',
   };
   

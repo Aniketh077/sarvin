@@ -109,7 +109,7 @@ const ProductCard = ({ product, viewMode = "grid" }) => {
 
             <div className="flex items-center mb-3">
               <div className="flex items-center">
-                <Star className="mr-1 h-4 w-4 fill-[#C87941] text-[#C87941]" />
+                <Star className="mr-1 h-4 w-4 fill-[#22C55E] text-[#22C55E]" />
                 <span className="text-sm font-medium">
                   {product.rating || 0}
                 </span>
@@ -251,7 +251,7 @@ const ProductCard = ({ product, viewMode = "grid" }) => {
 
           <div className="mb-3 flex items-center">
             <div className="flex items-center">
-              <Star className="mr-1 h-4 w-4 fill-[#C87941] text-[#C87941]" />
+              <Star className="mr-1 h-4 w-4 fill-[#22C55E] text-[#22C55E]" />
               <span className="text-sm font-medium">{product.rating || 0}</span>
             </div>
             <span className="mx-2 text-gray-300">|</span>
@@ -291,7 +291,7 @@ const ProductCard = ({ product, viewMode = "grid" }) => {
 
             <div className="flex flex-col items-end">
               {itemInCart ? (
-                <div className="text-xs text-[#C87941] mb-1">
+                <div className="text-xs text-[#22C55E] mb-1">
                   In cart ({quantity})
                 </div>
               ) : null}

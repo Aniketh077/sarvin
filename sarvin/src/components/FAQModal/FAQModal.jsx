@@ -65,7 +65,7 @@ const FAQModal = ({ isOpen, onClose }) => {
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 modal-backdrop bg-black bg-opacity-50">
       <div className="bg-white  shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-hidden flex flex-col">
         {/* Header */}
-        <div className="bg-gradient-to-r from-[#2A4365] to-[#1A365D] text-white p-6 flex-shrink-0">
+        <div className="bg-gradient-to-r from-[#16A34A] to-[#15803D] text-white p-6 flex-shrink-0">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div>
@@ -91,7 +91,7 @@ const FAQModal = ({ isOpen, onClose }) => {
               placeholder="Search FAQs..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-3 border border-gray-300  focus:outline-none focus:ring-2 focus:ring-[#2A4365] focus:border-transparent"
+              className="w-full pl-10 pr-4 py-3 border border-gray-300  focus:outline-none focus:ring-2 focus:ring-[#16A34A] focus:border-transparent"
             />
           </div>
           {searchTerm && (
@@ -118,14 +118,14 @@ const FAQModal = ({ isOpen, onClose }) => {
                   <div 
                     key={faq.id} 
                     className={`border border-gray-200  overflow-hidden transition-all duration-200  cursor-pointer ${
-                      expandedItem === faq.id ? 'ring-2 ring-[#2A4365] ring-opacity-20' : ''
+                      expandedItem === faq.id ? 'ring-2 ring-[#16A34A] ring-opacity-20' : ''
                     }`}
                     onClick={() => toggleExpanded(faq.id)}
                   >
                     {/* Question */}
                     <div className={`p-4 transition-colors duration-200 ${
                       expandedItem === faq.id 
-                        ? 'bg-[#2A4365] text-white' 
+                        ? 'bg-[#16A34A] text-white' 
                         : 'hover:bg-gray-50'
                     }`}>
                       <div className="flex items-center justify-between">
