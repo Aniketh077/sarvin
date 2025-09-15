@@ -11,7 +11,7 @@ const ReviewStatusIndicator = ({ hasReviewed, userReview }) => {
         key={index}
         className={`h-4 w-4 ${
           index < rating
-            ? "text-yellow-500 fill-yellow-500"
+            ? "text-[#22C55E] fill-[#22C55E]"
             : "text-gray-300 fill-gray-300"
         }`}
       />

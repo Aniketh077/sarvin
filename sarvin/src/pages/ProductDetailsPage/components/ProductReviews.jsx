@@ -84,7 +84,7 @@ const ProductReviews = ({
           <div className="w-full lg:w-[30%] space-y-6">
             {/* Overall Rating */}
             {product.reviews && product.reviews.length > 0 && (
-              <div className="bg-gradient-to-br from-[#16A34A] to-[#15803D]  p-4 lg:p-6 text-white text-center">
+              <div className="bg-gradient-to-br from-[#2A4365] to-[#3A5A7A]  p-4 lg:p-6 text-white text-center">
                 <div className="text-3xl lg:text-4xl font-bold mb-2">
                   {formatRating(product.rating)}
                 </div>
@@ -102,19 +102,19 @@ const ProductReviews = ({
                       <div key={star} className="relative">
                         {isPartialStar ? (
                           <div className="relative">
-                            <Star className="h-4 w-4 lg:h-5 lg:w-5 text-white/30" />
+                            <Star className="h-4 w-4 lg:h-5 lg:w-5 text-white/40" />
                             <div
                               className="absolute top-0 left-0 overflow-hidden"
                               style={{ width: `${partialPercent}%` }}
                             >
-                              <Star className="h-4 w-4 lg:h-5 lg:w-5 text-[#22C55E] fill-[#22C55E]" />
+                              <Star className="h-4 w-4 lg:h-5 lg:w-5 text-[#C87941] fill-[#C87941]" />
                             </div>
                           </div>
                         ) : (
                           <Star
                             className={`h-4 w-4 lg:h-5 lg:w-5 ${
                               isFullStar
-                                ? "text-[#22C55E] fill-[#22C55E]"
+                                ? "text-[#C87941] fill-[#C87941]"
                                 : "text-white/40"
                             }`}
                           />
@@ -194,7 +194,7 @@ const ProductReviews = ({
                         >
                           <div className="flex items-start justify-between mb-3 lg:mb-4">
                             <div className="flex items-center space-x-3">
-                              <div className="w-10 h-10 lg:w-12 lg:h-12 bg-gradient-to-br from-[#2A4365] to-[#3A5A7A]  flex items-center justify-center text-white font-semibold text-base lg:text-lg">
+                              <div className="w-10 h-10 lg:w-12 lg:h-12 bg-gradient-to-br from-[#16A34A] to-[#15803D]  flex items-center justify-center text-white font-semibold text-base lg:text-lg">
                                 {(review.user?.name || "A")
                                   .charAt(0)
                                   .toUpperCase()}
@@ -207,7 +207,7 @@ const ProductReviews = ({
                                       key={star}
                                       className={`h-3 w-3 lg:h-4 lg:w-4 ${
                                         star <= review.rating
-                                          ? "text-[#C87941] fill-[#C87941]"
+                                          ? "text-[#22C55E] fill-[#22C55E]"
                                           : "text-gray-300"
                                       }`}
                                     />
@@ -251,7 +251,7 @@ const ProductReviews = ({
                                 onClick={() =>
                                   toggleCommentExpansion(review._id)
                                 }
-                                className="mt-2 flex items-center space-x-1 text-[#2A4365] hover:text-[#3A5A7A] text-sm font-medium transition-colors duration-200"
+                                className="mt-2 flex items-center space-x-1 text-[#16A34A] hover:text-[#15803D] text-sm font-medium transition-colors duration-200"
                               >
                                 {isExpanded ? (
                                   <>
@@ -323,8 +323,8 @@ const ProductReviews = ({
                             onClick={() => setCurrentReviewPage(pageNumber)}
                             className={`w-8 h-8  text-sm font-medium transition-all duration-200 ${
                               isActive
-                                ? "bg-[#16A34A] text-white shadow-lg transform scale-105"
-                                : "text-gray-500 hover:text-[#16A34A] hover:bg-gray-100"
+                                ? "bg-[#2A4365] text-white shadow-lg transform scale-105"
+                                : "text-gray-500 hover:text-[#2A4365] hover:bg-gray-100"
                             }`}
                           >
                             {pageNumber}

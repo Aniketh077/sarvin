@@ -9,23 +9,23 @@ const ProductTabs = ({ product, activeTab, setActiveTab }) => {
           <button
             onClick={() => setActiveTab('specifications')}
             className={`py-4 mr-8 font-medium text-sm transition-colors relative whitespace-nowrap ${
-              activeTab === 'specifications' ? 'text-[#2A4365]' : 'text-gray-500 hover:text-gray-700'
+              activeTab === 'specifications' ? 'text-[#16A34A]' : 'text-gray-500 hover:text-gray-700'
             }`}
           >
             Specifications
             {activeTab === 'specifications' && (
-              <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#2A4365]"></span>
+              <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#16A34A]"></span>
             )}
           </button>
           <button
             onClick={() => setActiveTab('additionalInfo')}
             className={`py-4 mr-8 font-medium text-sm transition-colors relative whitespace-nowrap ${
-              activeTab === 'additionalInfo' ? 'text-[#2A4365]' : 'text-gray-500 hover:text-gray-700'
+              activeTab === 'additionalInfo' ? 'text-[#16A34A]' : 'text-gray-500 hover:text-gray-700'
             }`}
           >
             Additional Information
             {activeTab === 'additionalInfo' && (
-              <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#2A4365]"></span>
+              <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#16A34A]"></span>
             )}
           </button>
         </div>
@@ -54,6 +54,7 @@ const ProductTabs = ({ product, activeTab, setActiveTab }) => {
             </p>
             <p>
               For installation assistance or technical support, please contact our customer service team at sarvinhomeappl@gmail.com or call us at +91 93109 79906.
+              For installation assistance or technical support, please contact our customer service team at info@ecotrade.com or call us at +91 93109 79906.
             </p>
             <h4>Care Instructions</h4>
             <ul>
