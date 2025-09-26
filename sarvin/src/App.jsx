@@ -1,4 +1,5 @@
 import React from "react";
+import { ErrorBoundary } from "react-error-boundary";
 import {
   BrowserRouter as Router,
   Routes,
@@ -37,6 +38,25 @@ import ScrollToTop from "./components/ScrollToTop";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
 
+// Error fallback component
+const ErrorFallback = ({ error, resetErrorBoundary }) => {
+  console.error('App Error:', error);
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="max-w-md mx-auto bg-white p-8 rounded-lg shadow-lg text-center">
+        <h2 className="text-xl font-bold text-red-600 mb-4">Something went wrong</h2>
+        <p className="text-gray-600 mb-4">{error.message}</p>
+        <button
+          onClick={resetErrorBoundary}
+          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+        >
+          Try again
+        </button>
+      </div>
+    </div>
+  );
+};
+
 const Layout = ({ children }) => {
   const location = useLocation();
   const isAdminRoute = location.pathname.startsWith("/admin");
@@ -67,93 +87,95 @@ const Layout = ({ children }) => {
 
 function App() {
   return (
-    <Provider store={store}>
-      <AuthProvider>
-        <ToastProvider>
-          <CartProvider>
-            <Router>
-              <ScrollToTop />
-              <Layout>
-                <Routes>
-                  {/* Customer Routes */}
-                  <Route path="/" element={<HomePage />} />
-                  <Route
-                    path="/products/:collectionName"
-                    element={<ProductsPage />}
-                  />
-                  <Route path="/products" element={<ProductsPage />} />
-                  <Route path="/product/:identifier" element={<ProductDetailPage />} />
-                  <Route path="/search" element={<SearchPage />} />
-                  <Route path="/cart" element={<CartPage />} />
-                  <Route path="/checkout" element={<CheckoutPage />} />
-                  <Route path="/order-success" element={<OrderSuccessPage />} />
-                  <Route path="/login" element={<LoginPage />} />
-                  <Route path="/register" element={<RegisterPage />} />
-                  <Route
-                    path="/verify-email"
-                    element={<EmailVerificationPage />}
-                  />
-                  <Route
-                    path="/verify-email/:token"
-                    element={<EmailVerificationPage />}
-                  />
-                  <Route
-                    path="/forgot-password"
-                    element={<ForgotPasswordPage />}
-                  />
-                  <Route
-                    path="/reset-password"
-                    element={<ResetPasswordPage />}
-                  />
-                  <Route path="/account" element={<AccountPage />} />
-                  <Route path="/orders" element={<OrdersPage />} />
-                  <Route path="/about" element={<AboutPage />} />
-                  <Route path="/contact" element={<ContactPage />} />
-                  <Route
-                    path="/orders/:orderId"
-                    element={<OrderDetailsPage />}
-                  />
+    <ErrorBoundary FallbackComponent={ErrorFallback}>
+      <Provider store={store}>
+        <AuthProvider>
+          <ToastProvider>
+            <CartProvider>
+              <Router>
+                <ScrollToTop />
+                <Layout>
+                  <Routes>
+                    {/* Customer Routes */}
+                    <Route path="/" element={<HomePage />} />
+                    <Route
+                      path="/products/:collectionName"
+                      element={<ProductsPage />}
+                    />
+                    <Route path="/products" element={<ProductsPage />} />
+                    <Route path="/product/:identifier" element={<ProductDetailPage />} />
+                    <Route path="/search" element={<SearchPage />} />
+                    <Route path="/cart" element={<CartPage />} />
+                    <Route path="/checkout" element={<CheckoutPage />} />
+                    <Route path="/order-success" element={<OrderSuccessPage />} />
+                    <Route path="/login" element={<LoginPage />} />
+                    <Route path="/register" element={<RegisterPage />} />
+                    <Route
+                      path="/verify-email"
+                      element={<EmailVerificationPage />}
+                    />
+                    <Route
+                      path="/verify-email/:token"
+                      element={<EmailVerificationPage />}
+                    />
+                    <Route
+                      path="/forgot-password"
+                      element={<ForgotPasswordPage />}
+                    />
+                    <Route
+                      path="/reset-password"
+                      element={<ResetPasswordPage />}
+                    />
+                    <Route path="/account" element={<AccountPage />} />
+                    <Route path="/orders" element={<OrdersPage />} />
+                    <Route path="/about" element={<AboutPage />} />
+                    <Route path="/contact" element={<ContactPage />} />
+                    <Route
+                      path="/orders/:orderId"
+                      element={<OrderDetailsPage />}
+                    />
 
-                  {/* Admin Routes */}
-                  <Route
-                    path="/admin"
-                    element={
-                      <ProtectedAdminRoute>
-                        <AdminDashboard />
-                      </ProtectedAdminRoute>
-                    }
-                  />
-                  <Route
-                    path="/admin/products"
-                    element={
-                      <ProtectedAdminRoute>
-                        <AdminProducts />
-                      </ProtectedAdminRoute>
-                    }
-                  />
-                  <Route
-                    path="/admin/orders"
-                    element={
-                      <ProtectedAdminRoute>
-                        <AdminOrders />
-                      </ProtectedAdminRoute>
-                    }
-                  />
-                  <Route
-                    path="/admin/customers"
-                    element={
-                      <ProtectedAdminRoute>
-                        <AdminCustomers />
-                      </ProtectedAdminRoute>
-                    }
-                  />
-                </Routes>
-              </Layout>
-            </Router>
-          </CartProvider>
-        </ToastProvider>
-      </AuthProvider>
-    </Provider>
+                    {/* Admin Routes */}
+                    <Route
+                      path="/admin"
+                      element={
+                        <ProtectedAdminRoute>
+                          <AdminDashboard />
+                        </ProtectedAdminRoute>
+                      }
+                    />
+                    <Route
+                      path="/admin/products"
+                      element={
+                        <ProtectedAdminRoute>
+                          <AdminProducts />
+                        </ProtectedAdminRoute>
+                      }
+                    />
+                    <Route
+                      path="/admin/orders"
+                      element={
+                        <ProtectedAdminRoute>
+                          <AdminOrders />
+                        </ProtectedAdminRoute>
+                      }
+                    />
+                    <Route
+                      path="/admin/customers"
+                      element={
+                        <ProtectedAdminRoute>
+                          <AdminCustomers />
+                        </ProtectedAdminRoute>
+                      }
+                    />
+                  </Routes>
+                </Layout>
+              </Router>
+            </CartProvider>
+          </ToastProvider>
+        </AuthProvider>
+      </Provider>
+    </ErrorBoundary>
   );
 }
 
