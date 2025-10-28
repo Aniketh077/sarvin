@@ -9,11 +9,11 @@ const ToastContainer = () => {
     switch (type) {
       case 'success':
         return {
-          bg: 'bg-green-50',
-          border: 'border-green-200',
-          text: 'text-green-800',
+          bg: 'bg-slate-50', 
+          border: 'border-[#2A4365]', 
+          text: 'text-[#2A4365]',    
           icon: CheckCircle,
-          iconColor: 'text-green-600'
+          iconColor: 'text-[#2A4365]' 
         };
       case 'error':
         return {

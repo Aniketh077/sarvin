@@ -23,6 +23,7 @@ const getProducts = async (req, res) => {
       minPrice,
       maxPrice,
       types,
+      type,
       burners,
       ignition,
       inStock
@@ -74,18 +75,56 @@ const getProducts = async (req, res) => {
       ];
     }
 
-    // Type filter
-    if (types) {
-      const typeNames = types.split(',').map(type => type.trim());
-      const typeDocs = await Type.find({
-        name: { $in: typeNames }
-      });
-      const typeIds = typeDocs.map(type => type._id);
+    if (type && mongoose.Types.ObjectId.isValid(type)) {
+        // Ensure the query.type uses $in for consistency, even for one ID
+        if (query.type && query.type.$in) {
+            // If filtering by 'types' (names) already added IDs, add this one too
+             query.type.$in.push(new mongoose.Types.ObjectId(type));
+             // Remove duplicates if necessary (optional, $in handles them)
+             // query.type.$in = [...new Set(query.type.$in.map(id => id.toString()))].map(idStr => new mongoose.Types.ObjectId(idStr));
+        } else {
+             // Otherwise, start the type filter with this ID
+            query.type = { $in: [new mongoose.Types.ObjectId(type)] };
+        }
+        console.log("Added type filter (ID):", query.type); 
+    }
+ 
 
-      if (typeIds.length > 0) {
-        query.type = { $in: typeIds };
+    if (types) {
+      const typeNames = types.split(',').map(t => t.trim());
+      const typeDocs = await Type.find({ name: { $in: typeNames } }).select('_id');
+      const typeIdsFromName = typeDocs.map(doc => doc._id);
+
+      if (typeIdsFromName.length > 0) {
+        if (query.type && query.type.$in) {
+          // Combine with existing type ID filter
+           query.type.$in.push(...typeIdsFromName);
+           // Remove duplicates
+           query.type.$in = [...new Set(query.type.$in.map(id => id.toString()))].map(idStr => new mongoose.Types.ObjectId(idStr));
+        } else {
+          // Start the filter with IDs found from names
+          query.type = { $in: typeIdsFromName };
+        }
+         console.log("Added/Combined type filter (Names):", query.type);
+      } else if (!query.type) {
+         // Handle case where 'types' names were invalid and no 'type' ID was given
+          console.log("Invalid type names provided in 'types', returning no results for type filter.");
+          query.type = new mongoose.Types.ObjectId(); 
       }
     }
+
+    // Type filter
+    // if (types) {
+    //   const typeNames = types.split(',').map(type => type.trim());
+    //   const typeDocs = await Type.find({
+    //     name: { $in: typeNames }
+    //   });
+    //   const typeIds = typeDocs.map(type => type._id);
+
+    //   if (typeIds.length > 0) {
+    //     query.type = { $in: typeIds };
+    //   }
+    // }
 
     // Burner type filter
     if (burners) {

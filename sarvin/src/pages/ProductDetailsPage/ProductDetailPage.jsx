@@ -35,21 +35,56 @@ const ProductDetailPage = () => {
     }
   }, [identifier, dispatch]);
 
-  useEffect(() => {
-     if (product && product.collection){
-       dispatch(fetchProducts({ 
-         collection: product.collection,
-         limit: 5 
-       })).then((action) => {
-         if (action.payload && action.payload.products) {
-           const related = action.payload.products
-             .filter(p => p._id !== product._id)
-             .slice(0, 4);
-           setRelatedProducts(related);
-         }
-       });
-    }
-  }, [product, dispatch]);
+
+
+useEffect(() => {
+  if (product && product.productCollection && product.type?._id) {
+    console.log("[Limit 10 Effect] Fetching related for:", product.productCollection, product.type.name);
+
+    dispatch(
+      fetchProducts({
+        collection: product.productCollection,
+        type: product.type._id,
+        limit: 10, // Using limit 10
+      })
+    ).then((action) => {
+      console.log("[Limit 10 Effect] API Response:", action.payload); // Log raw response
+
+      if (action.payload && Array.isArray(action.payload.products)) { // Check if products is an array
+        // Filter out the current product
+        let relatedBeforeFilter = action.payload.products;
+        let relatedAfterFilter = relatedBeforeFilter.filter((p) => p._id !== product._id);
+
+        console.log(`[Limit 10 Effect] Products received: ${relatedBeforeFilter.length}, After filtering current: ${relatedAfterFilter.length}`, relatedAfterFilter); // Log count and array after filter
+
+        // --- Shuffle ---
+        // Create a copy before shuffling if you want to preserve the original order for debugging
+        let shuffledRelated = [...relatedAfterFilter]; // Work on a copy
+        for (let i = shuffledRelated.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [shuffledRelated[i], shuffledRelated[j]] = [shuffledRelated[j], shuffledRelated[i]];
+        }
+        console.log("[Limit 10 Effect] After shuffle:", shuffledRelated); // Log after shuffle
+
+        // Slice after shuffling
+        let finalRelated = shuffledRelated.slice(0, 4);
+        console.log("[Limit 10 Effect] After slice(0, 4):", finalRelated); // Log after slice
+
+        setRelatedProducts(finalRelated); // Set the final result
+
+      } else {
+        console.log("[Limit 10 Effect] No 'products' array found in payload or payload is invalid.");
+        setRelatedProducts([]); // Ensure state is cleared if no products
+      }
+    }).catch(error => {
+      console.error("[Limit 10 Effect] Error fetching related products:", error);
+      setRelatedProducts([]); // Clear on error
+    });
+  } else {
+    console.log("[Limit 10 Effect] Skipping fetch: product/collection/type missing.", product);
+    // setRelatedProducts([]); // Optionally clear here too if needed
+  }
+}, [product, dispatch, product?.productCollection, product?.type?._id]);
 
   useEffect(() => {
     if (product) {
@@ -57,21 +92,15 @@ const ProductDetailPage = () => {
     }
   }, [product]);
 
-  const handleAddToCart = () => {
-    if (product) {
-      const cartProduct = {
-        id: product._id,
-        name: product.name,
-        price: product.price,
-        discountPrice: product.discountPrice,
-        image: product.image,
-        stock: product.stock,
-        productCollection: product.productCollection,
-        type: product.type?.name || product.type
-      };
-      addToCart(cartProduct, quantity);
-    }
-  };
+const handleAddToCart = () => {
+  // Add a check to make sure product is fully loaded
+  if (product && product._id) { 
+    addToCart(product, quantity); // <--- PASS THE ORIGINAL 'product'
+  } else {
+    // You can add a toast error here
+    console.error("Cannot add to cart: Product data is not available.");
+  }
+};
 
   const incrementQuantity = () => {
     if (product && quantity < product.stock) {

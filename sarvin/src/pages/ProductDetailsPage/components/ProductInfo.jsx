@@ -229,8 +229,8 @@ const ProductInfo = ({
 
       <div className="border-t border-gray-100 pt-4 mt-auto">
         <div className="flex items-center text-sm">
-          <span className="text-gray-500">SKU: {product._id}</span>
-          <span className="mx-2 text-gray-300">|</span>
+          {/* <span className="text-gray-500">SKU: {product._id}</span>
+          <span className="mx-2 text-gray-300">|</span> */}
           <span className="text-gray-500">Collection: {collectionName}</span>
         </div>
       </div>

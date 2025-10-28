@@ -69,8 +69,8 @@ function App() {
   return (
     <Provider store={store}>
       <AuthProvider>
-        <CartProvider>
-          <ToastProvider>
+        <ToastProvider>
+          <CartProvider>
             <Router>
               <ScrollToTop />
               <Layout>
@@ -150,8 +150,8 @@ function App() {
                 </Routes>
               </Layout>
             </Router>
-          </ToastProvider>
-        </CartProvider>
+          </CartProvider>
+        </ToastProvider>
       </AuthProvider>
     </Provider>
   );
