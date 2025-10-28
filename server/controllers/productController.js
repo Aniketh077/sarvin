@@ -605,43 +605,30 @@ const getBestSellers = async (req, res) => {
   }
 };
 
-//for suffleing
-function shuffleArray(array) {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]]; 
-  }
-  return array; 
-}
-
+// @desc    Get 4 featured products (with fallbacks)
+// @route   GET /api/products/featured
 const getFeaturedProducts = async (req, res) => {
   try {
     let products = await Product.find({ featured: true })
-      .sort({ createdAt: -1 }) 
-      .limit(25) 
+      .sort({ createdAt: -1 })
+      .limit(4)
       .populate('type', 'name logo')
       .lean();
 
-    // Fetch fallbacks if needed
     if (products.length < 4) {
-      const needed = 8 - products.length; 
+      const needed = 4 - products.length;
       const existingIds = products.map(p => p._id);
-
-      const fallbackProducts = await Product.find({
-        _id: { $nin: existingIds },
-        featured: { $ne: true } 
-      })
-        .sort({ createdAt: -1 }) 
+      
+      const fallbackProducts = await Product.find({ _id: { $nin: existingIds } })
+        .sort({ createdAt: -1 })
         .limit(needed)
         .populate('type', 'name logo')
         .lean();
-
+      
       products = [...products, ...fallbackProducts];
     }
-    products = shuffleArray(products);
-    const finalProducts = products.slice(0, 4);
-
-    res.json(finalProducts);
+    
+    res.json(products);
   } catch (error) {
     console.error('Error fetching featured products:', error);
     res.status(500).json({ message: 'Server error fetching featured products' });
@@ -649,43 +636,30 @@ const getFeaturedProducts = async (req, res) => {
 };
 
 
-// @desc    Get 4 new arrival products (with fallbacks & SHUFFLED)
+// @desc    Get 4 new arrival products (with fallbacks)
 // @route   GET /api/products/new-arrivals
 const getNewArrivals = async (req, res) => {
   try {
-    // Fetch initial new arrivals
     let products = await Product.find({ newArrival: true })
-      .sort({ createdAt: -1 }) 
-      .limit(25) 
+      .sort({ createdAt: -1 })
+      .limit(4)
       .populate('type', 'name logo')
       .lean();
 
-    // Fetch fallbacks if needed
     if (products.length < 4) {
-      const needed = 8 - products.length; 
+      const needed = 4 - products.length;
       const existingIds = products.map(p => p._id);
 
-      const fallbackProducts = await Product.find({
-         _id: { $nin: existingIds },
-         newArrival: { $ne: true } 
-      })
-        .sort({ createdAt: -1 }) 
+      const fallbackProducts = await Product.find({ _id: { $nin: existingIds } })
+        .sort({ createdAt: -1 })
         .limit(needed)
         .populate('type', 'name logo')
         .lean();
 
       products = [...products, ...fallbackProducts];
     }
-
-    // --- ADD SHUFFLE ---
-    products = shuffleArray(products);
-    // --- END SHUFFLE ---
-
-    // Slice to final count *after* shuffling
-    const finalProducts = products.slice(0, 4);
-
-    res.json(finalProducts); // Send shuffled and sliced array
-
+    
+    res.json(products);
   } catch (error) {
     console.error('Error fetching new arrivals:', error);
     res.status(500).json({ message: 'Server error fetching new arrivals' });
