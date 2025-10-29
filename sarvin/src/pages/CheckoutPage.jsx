@@ -13,7 +13,7 @@ const CheckoutPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
- const [shippingAddress, setShippingAddress] = useState({
+  const [shippingAddress, setShippingAddress] = useState({
     fullName: '',
     email: '',
     phone: '',
@@ -22,7 +22,7 @@ const CheckoutPage = () => {
     state: '',
     pincode: '',
     country: 'India',
-});
+  });
 
   const [isProcessing, setIsProcessing] = useState(false);
   const [showProcessingOverlay, setShowProcessingOverlay] = useState(false);
@@ -33,23 +33,25 @@ const CheckoutPage = () => {
   const total = subtotal; 
 
   useEffect(() => {
-        const savedGuestData = sessionStorage.getItem('checkoutFormData');
-        if (savedGuestData) {
-            setShippingAddress(JSON.parse(savedGuestData));
-            sessionStorage.removeItem('checkoutFormData');
-        } else if (isAuthenticated && user) {
-            setShippingAddress((prev) => ({
-                ...prev,
-                fullName: user.name || '',
-                email: user.email || '',
-                phone: user.phoneNumber || '',
-                address: user.address || '',
-                city: user.city || '',
-                state: user.state || '',
-                pincode: user.pincode || '',
-            }));
-        }
-    }, [user, isAuthenticated]);
+    if (isAuthenticated && user) {
+      const savedGuestData = sessionStorage.getItem('checkoutFormData');
+      if (savedGuestData) {
+        setShippingAddress(JSON.parse(savedGuestData));
+        sessionStorage.removeItem('checkoutFormData');
+      } else {
+        setShippingAddress((prev) => ({
+          ...prev,
+          fullName: user.name || '',
+          email: user.email || '',
+          phone: user.phoneNumber || '',
+          address: user.address || '',
+          city: user.city || '',
+          state: user.state || '',
+          pincode: user.pincode || '',
+        }));
+      }
+    }
+  }, [user, isAuthenticated]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -97,17 +99,14 @@ const CheckoutPage = () => {
   };
 
   const handlePayment = async () => {
-    if (!validateForm()) return;
-
-    setIsProcessing(true);
-    setPaymentError('');
-
+    // If not authenticated, redirect to login immediately
     if (!isAuthenticated) {
-      sessionStorage.setItem('checkoutFormData', JSON.stringify(shippingAddress));
       navigate('/login', { state: { from: location } });
-      return; 
+      return;
     }
 
+    // Only validate if user is authenticated
+    if (!validateForm()) return;
 
     setIsProcessing(true);
     setPaymentError('');
@@ -116,7 +115,7 @@ const CheckoutPage = () => {
       // Prepare order data
       const orderData = {
         items: cart.items.map(item => ({
-          product:  item.product._id,
+          product: item.product._id,
           quantity: item.quantity,
           price: item.product.discountPrice || item.product.price
         })),
@@ -183,7 +182,7 @@ const CheckoutPage = () => {
     return (
       <div className="min-h-screen pt-20 pb-16">
         <div className="container mx-auto px-4">
-          <div className="max-w-2xl mx-auto bg-white  shadow-sm p-8 mt-12 text-center">
+          <div className="max-w-2xl mx-auto bg-white shadow-sm p-8 mt-12 text-center">
             <ShoppingBag className="h-16 w-16 text-gray-400 mx-auto mb-4" />
             <h1 className="text-2xl font-bold mb-4">Your cart is empty</h1>
             <p className="text-gray-600 mb-8">Add some products to your cart before checkout.</p>
@@ -217,7 +216,7 @@ const CheckoutPage = () => {
 
           {paymentError && (
             <div className="mb-6 max-w-4xl mx-auto">
-              <div className="bg-red-50 border border-red-200  p-4 flex items-start">
+              <div className="bg-red-50 border border-red-200 p-4 flex items-start">
                 <AlertCircle className="h-5 w-5 text-red-500 mt-0.5 mr-3 flex-shrink-0" />
                 <div>
                   <h3 className="text-red-800 font-medium">Payment Error</h3>
@@ -230,173 +229,204 @@ const CheckoutPage = () => {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Shipping Information */}
             <div className="lg:col-span-2">
-              <div className="bg-white  shadow-sm p-6 mb-6">
-                <div className="flex items-center mb-6">
-                  <MapPin className="h-6 w-6 text-[#2A4365] mr-2" />
-                  <h2 className="text-xl font-semibold">Shipping Address</h2>
+              {!isAuthenticated ? (
+                // Guest user view - Show message to login
+                <div className="bg-white shadow-sm p-8 text-center">
+                  <User className="h-16 w-16 text-[#2A4365] mx-auto mb-4" />
+                  <h2 className="text-2xl font-semibold mb-3">Login Required</h2>
+                  <p className="text-gray-600 mb-6">
+                    Please login or create an account to complete your purchase and manage your orders.
+                  </p>
+                  <div className="max-w-md mx-auto space-y-3">
+                    <Button
+                      variant="primary"
+                      size="lg"
+                      fullWidth
+                      onClick={() => navigate('/login', { state: { from: location } })}
+                    >
+                      Login to Continue
+                    </Button>
+                    <p className="text-sm text-gray-500">
+                      Don't have an account?{' '}
+                      <button
+                        onClick={() => navigate('/register', { state: { from: location } })}
+                        className="text-[#2A4365] hover:text-[#335077] font-medium"
+                      >
+                        Create one here
+                      </button>
+                    </p>
+                  </div>
                 </div>
+              ) : (
+                // Authenticated user view - Show shipping form
+                <div className="bg-white shadow-sm p-6 mb-6">
+                  <div className="flex items-center mb-6">
+                    <MapPin className="h-6 w-6 text-[#2A4365] mr-2" />
+                    <h2 className="text-xl font-semibold">Shipping Address</h2>
+                  </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Full Name *
-                    </label>
-                    <div className="relative">
-                      <User className="h-5 w-5 text-gray-400 absolute left-3 top-3" />
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        Full Name *
+                      </label>
+                      <div className="relative">
+                        <User className="h-5 w-5 text-gray-400 absolute left-3 top-3" />
+                        <input
+                          type="text"
+                          name="fullName"
+                          value={shippingAddress.fullName}
+                          onChange={handleInputChange}
+                          className={`w-full pl-10 pr-3 py-2 border focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                            errors.fullName ? 'border-red-500' : 'border-gray-300'
+                          }`}
+                          placeholder="Enter your full name"
+                        />
+                      </div>
+                      {errors.fullName && (
+                        <p className="text-red-500 text-sm mt-1">{errors.fullName}</p>
+                      )}
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        Email *
+                      </label>
+                      <div className="relative">
+                        <Mail className="h-5 w-5 text-gray-400 absolute left-3 top-3" />
+                        <input
+                          type="email"
+                          name="email"
+                          value={shippingAddress.email}
+                          onChange={handleInputChange}
+                          className={`w-full pl-10 pr-3 py-2 border focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                            errors.email ? 'border-red-500' : 'border-gray-300'
+                          }`}
+                          placeholder="Enter your email"
+                        />
+                      </div>
+                      {errors.email && (
+                        <p className="text-red-500 text-sm mt-1">{errors.email}</p>
+                      )}
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        Phone Number *
+                      </label>
+                      <div className="relative">
+                        <Phone className="h-5 w-5 text-gray-400 absolute left-3 top-3" />
+                        <input
+                          type="tel"
+                          name="phone"
+                          value={shippingAddress.phone}
+                          onChange={handleInputChange}
+                          className={`w-full pl-10 pr-3 py-2 border focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                            errors.phone ? 'border-red-500' : 'border-gray-300'
+                          }`}
+                          placeholder="10-digit mobile number"
+                        />
+                      </div>
+                      {errors.phone && (
+                        <p className="text-red-500 text-sm mt-1">{errors.phone}</p>
+                      )}
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        Pincode *
+                      </label>
                       <input
                         type="text"
-                        name="fullName"
-                        value={shippingAddress.fullName}
+                        name="pincode"
+                        value={shippingAddress.pincode}
                         onChange={handleInputChange}
-                        className={`w-full pl-10 pr-3 py-2 border  focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                          errors.fullName ? 'border-red-500' : 'border-gray-300'
+                        className={`w-full px-3 py-2 border focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                          errors.pincode ? 'border-red-500' : 'border-gray-300'
                         }`}
-                        placeholder="Enter your full name"
+                        placeholder="6-digit pincode"
                       />
+                      {errors.pincode && (
+                        <p className="text-red-500 text-sm mt-1">{errors.pincode}</p>
+                      )}
                     </div>
-                    {errors.fullName && (
-                      <p className="text-red-500 text-sm mt-1">{errors.fullName}</p>
+                  </div>
+
+                  <div className="mt-4">
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Address *
+                    </label>
+                    <input
+                      type="text"
+                      name="address"
+                      value={shippingAddress.address}
+                      onChange={handleInputChange}
+                      className={`w-full px-3 py-2 border focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                        errors.address ? 'border-red-500' : 'border-gray-300'
+                      }`}
+                      placeholder="House no, Building, Street, Area"
+                    />
+                    {errors.address && (
+                      <p className="text-red-500 text-sm mt-1">{errors.address}</p>
                     )}
                   </div>
 
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Email *
-                    </label>
-                    <div className="relative">
-                      <Mail className="h-5 w-5 text-gray-400 absolute left-3 top-3" />
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        City *
+                      </label>
                       <input
-                        type="email"
-                        name="email"
-                        value={shippingAddress.email}
+                        type="text"
+                        name="city"
+                        value={shippingAddress.city}
                         onChange={handleInputChange}
-                        className={`w-full pl-10 pr-3 py-2 border  focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                          errors.email ? 'border-red-500' : 'border-gray-300'
+                        className={`w-full px-3 py-2 border focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                          errors.city ? 'border-red-500' : 'border-gray-300'
                         }`}
-                        placeholder="Enter your email"
+                        placeholder="Enter city"
                       />
+                      {errors.city && (
+                        <p className="text-red-500 text-sm mt-1">{errors.city}</p>
+                      )}
                     </div>
-                    {errors.email && (
-                      <p className="text-red-500 text-sm mt-1">{errors.email}</p>
-                    )}
-                  </div>
 
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Phone Number *
-                    </label>
-                    <div className="relative">
-                      <Phone className="h-5 w-5 text-gray-400 absolute left-3 top-3" />
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        State *
+                      </label>
                       <input
-                        type="tel"
-                        name="phone"
-                        value={shippingAddress.phone}
+                        type="text"
+                        name="state"
+                        value={shippingAddress.state}
                         onChange={handleInputChange}
-                        className={`w-full pl-10 pr-3 py-2 border  focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                          errors.phone ? 'border-red-500' : 'border-gray-300'
+                        className={`w-full px-3 py-2 border focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                          errors.state ? 'border-red-500' : 'border-gray-300'
                         }`}
-                        placeholder="10-digit mobile number"
+                        placeholder="Enter state"
                       />
+                      {errors.state && (
+                        <p className="text-red-500 text-sm mt-1">{errors.state}</p>
+                      )}
                     </div>
-                    {errors.phone && (
-                      <p className="text-red-500 text-sm mt-1">{errors.phone}</p>
-                    )}
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Pincode *
-                    </label>
-                    <input
-                      type="text"
-                      name="pincode"
-                      value={shippingAddress.pincode}
-                      onChange={handleInputChange}
-                      className={`w-full px-3 py-2 border  focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                        errors.pincode ? 'border-red-500' : 'border-gray-300'
-                      }`}
-                      placeholder="6-digit pincode"
-                    />
-                    {errors.pincode && (
-                      <p className="text-red-500 text-sm mt-1">{errors.pincode}</p>
-                    )}
                   </div>
                 </div>
-
-                <div className="mt-4">
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Address *
-                  </label>
-                  <input
-                    type="text"
-                    name="address"
-                    value={shippingAddress.address}
-                    onChange={handleInputChange}
-                    className={`w-full px-3 py-2 border  focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                      errors.address ? 'border-red-500' : 'border-gray-300'
-                    }`}
-                    placeholder="House no, Building, Street, Area"
-                  />
-                  {errors.address && (
-                    <p className="text-red-500 text-sm mt-1">{errors.address}</p>
-                  )}
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      City *
-                    </label>
-                    <input
-                      type="text"
-                      name="city"
-                      value={shippingAddress.city}
-                      onChange={handleInputChange}
-                      className={`w-full px-3 py-2 border  focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                        errors.city ? 'border-red-500' : 'border-gray-300'
-                      }`}
-                      placeholder="Enter city"
-                    />
-                    {errors.city && (
-                      <p className="text-red-500 text-sm mt-1">{errors.city}</p>
-                    )}
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      State *
-                    </label>
-                    <input
-                      type="text"
-                      name="state"
-                      value={shippingAddress.state}
-                      onChange={handleInputChange}
-                      className={`w-full px-3 py-2 border  focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                        errors.state ? 'border-red-500' : 'border-gray-300'
-                      }`}
-                      placeholder="Enter state"
-                    />
-                    {errors.state && (
-                      <p className="text-red-500 text-sm mt-1">{errors.state}</p>
-                    )}
-                  </div>
-                </div>
-              </div>
+              )}
             </div>
 
             {/* Order Summary */}
             <div className="lg:col-span-1">
-              <div className="bg-white  shadow-sm p-6 sticky top-24">
+              <div className="bg-white shadow-sm p-6 sticky top-24">
                 <h2 className="text-xl font-semibold mb-6">Order Summary</h2>
 
                 <div className="space-y-4 mb-6">
                   {cart.items.map((item) => (
-                    <div key={item.product.id || item.product._id} className="flex items-center space-x-3">
+                    <div key={item.product._id} className="flex items-center space-x-3">
                       <img
                         src={item.product.image}
                         alt={item.product.name}
-                        className="w-16 h-16 object-contain rounded border"
-                        onClick={() => navigate(`/product/${item.product.id || item.product._id}`)}
+                        className="w-16 h-16 object-contain rounded border cursor-pointer"
+                        onClick={() => navigate(`/product/${item.product.slug || item.product._id}`)}
                       />
                       <div className="flex-1">
                         <h3 className="font-medium text-sm line-clamp-2">{item.product.name}</h3>
@@ -436,12 +466,12 @@ const CheckoutPage = () => {
                     fullWidth
                     onClick={handlePayment}
                     disabled={isProcessing}
-                    leftIcon={<CreditCard className="h-5 w-5" />}
+                    leftIcon={isAuthenticated ? <CreditCard className="h-5 w-5" /> : <User className="h-5 w-5" />}
                   >
-                     {isProcessing ? 'Processing...' : isAuthenticated ? 'Pay with Razorpay' : 'Login to Pay'}
+                    {isProcessing ? 'Processing...' : isAuthenticated ? 'Pay with Razorpay' : 'Login to Pay'}
                   </Button>
                   <p className="text-xs text-gray-500 mt-3 text-center">
-                    Secure payment powered by Razorpay
+                    {isAuthenticated ? 'Secure payment powered by Razorpay' : 'Your cart will be saved after login'}
                   </p>
                 </div>
               </div>
@@ -453,7 +483,7 @@ const CheckoutPage = () => {
       {/* Processing Overlay */}
       {showProcessingOverlay && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white  p-8 max-w-md mx-4 text-center">
+          <div className="bg-white p-8 max-w-md mx-4 text-center">
             <div className="mb-6">
               <Loader2 className="h-12 w-12 text-blue-600 mx-auto animate-spin" />
             </div>

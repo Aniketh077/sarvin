@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useReducer, useEffect, useCallback } from 'react';
+import React, { createContext, useContext, useReducer, useEffect, useCallback, useRef } from 'react';
 import { useAuth } from './AuthContext';
 import { useToast } from './ToastContext';
 
@@ -12,7 +12,13 @@ const initialState = {
     itemCount: 0,
     loading: true,
     error: null,
-    isGuest: true, 
+    isGuest: true,
+    synced: false,
+};
+
+// Helper to get consistent product ID
+const getProductId = (product) => {
+    return product._id || product.id;
 };
 
 // Helper to calculate totals from an items array
@@ -39,11 +45,11 @@ const cartReducer = (state, action) => {
                 subtotal: action.payload.subtotal || 0,
                 itemCount: action.payload.itemCount || 0,
                 isGuest: action.payload.isGuest,
+                synced: action.payload.synced || false,
                 loading: false,
                 error: null,
             };
         case 'CLEAR_CART':
-            // Reset to initial but keep loading false and respect current auth state
             return { ...initialState, loading: false, isGuest: state.isGuest };
         default:
             return state;
@@ -52,8 +58,10 @@ const cartReducer = (state, action) => {
 
 export const CartProvider = ({ children }) => {
     const [cart, dispatch] = useReducer(cartReducer, initialState);
-    const { isAuthenticated } = useAuth();
+    const { isAuthenticated, user } = useAuth();
     const { showSuccess, showError } = useToast();
+    const syncInProgressRef = useRef(false);
+    const hasSyncedRef = useRef(false);
 
     const API_BASE_URL = import.meta.env.VITE_BACKEND_URL
         ? `${import.meta.env.VITE_BACKEND_URL}/api`
@@ -86,10 +94,14 @@ export const CartProvider = ({ children }) => {
     const getGuestCart = useCallback(() => {
         try {
             const guestCartJson = localStorage.getItem(GUEST_CART_KEY);
-            return guestCartJson ? JSON.parse(guestCartJson) : { items: [] };
+            if (!guestCartJson) return { items: [] };
+            
+            const parsed = JSON.parse(guestCartJson);
+            // Ensure items is an array
+            return { items: Array.isArray(parsed.items) ? parsed.items : [] };
         } catch (error) {
             console.error('Failed to parse guest cart:', error);
-            localStorage.removeItem(GUEST_CART_KEY); // Clear corrupted data
+            localStorage.removeItem(GUEST_CART_KEY);
             return { items: [] };
         }
     }, []);
@@ -97,7 +109,7 @@ export const CartProvider = ({ children }) => {
     const saveGuestCart = useCallback((items) => {
         const newState = calculateCartState(items);
         localStorage.setItem(GUEST_CART_KEY, JSON.stringify(newState));
-        dispatch({ type: 'SET_CART', payload: { ...newState, isGuest: true } });
+        dispatch({ type: 'SET_CART', payload: { ...newState, isGuest: true, synced: false } });
     }, []);
 
     // --- AUTH CART ACTIONS ---
@@ -106,56 +118,106 @@ export const CartProvider = ({ children }) => {
             dispatch({ type: 'SET_LOADING', payload: true });
             const data = await apiCall('/cart');
             const itemCount = data.items.reduce((sum, item) => sum + item.quantity, 0);
-            dispatch({ type: 'SET_CART', payload: { ...data, itemCount, isGuest: false } });
+            dispatch({ 
+                type: 'SET_CART', 
+                payload: { 
+                    items: data.items,
+                    subtotal: data.subtotal,
+                    itemCount, 
+                    isGuest: false,
+                    synced: true
+                } 
+            });
         } catch (error) {
+            console.error('Fetch cart error:', error);
             dispatch({ type: 'SET_ERROR', payload: error.message });
         }
     }, []);
 
     const syncCart = useCallback(async () => {
-        const guestCart = getGuestCart();
-        if (!guestCart || guestCart.items.length === 0) {
-            await fetchUserCart();
+        // Prevent multiple simultaneous syncs
+        if (syncInProgressRef.current || hasSyncedRef.current) {
             return;
         }
 
-        showSuccess("Syncing your saved items...", { duration: 2000 });
+        syncInProgressRef.current = true;
+
         try {
+            const guestCart = getGuestCart();
+            
+            // If no guest cart items, just fetch the user's existing cart
+            if (!guestCart.items || guestCart.items.length === 0) {
+                await fetchUserCart();
+                hasSyncedRef.current = true;
+                return;
+            }
+
+            // Prepare items for sync - deduplicate on client side first
+            const itemsMap = new Map();
+            guestCart.items.forEach(item => {
+                const productId = getProductId(item.product);
+                if (itemsMap.has(productId)) {
+                    itemsMap.get(productId).quantity += item.quantity;
+                } else {
+                    itemsMap.set(productId, {
+                        productId: productId,
+                        quantity: item.quantity
+                    });
+                }
+            });
+
+            const itemsToSync = Array.from(itemsMap.values());
+
+            showSuccess("Syncing your cart...", { duration: 1500 });
+            
             const finalCart = await apiCall('/cart/sync', {
                 method: 'POST',
-                body: JSON.stringify({
-                    items: guestCart.items.map(item => ({
-                        productId: item.product._id,
-                        quantity: item.quantity,
-                    })),
-                }),
+                body: JSON.stringify({ items: itemsToSync }),
             });
+            
+            // Clear guest cart after successful sync
             localStorage.removeItem(GUEST_CART_KEY);
             
-            // Dispatch the final cart state returned from the sync endpoint
-            const itemCount = finalCart.items.reduce((sum, item) => sum + item.quantity, 0);
-            dispatch({ type: 'SET_CART', payload: { ...finalCart, itemCount, isGuest: false } });
+            // Calculate total quantity
+            const totalQuantity = finalCart.items.reduce((sum, item) => sum + item.quantity, 0);
+            
+            dispatch({ 
+                type: 'SET_CART', 
+                payload: { 
+                    items: finalCart.items,
+                    subtotal: finalCart.subtotal,
+                    itemCount: totalQuantity,
+                    isGuest: false,
+                    synced: true
+                } 
+            });
+
+            hasSyncedRef.current = true;
 
         } catch (error) {
             console.error('Failed to sync cart:', error);
-            showError('Could not sync local cart. Please contact support.');
-            // Still fetch the user's original cart
+            showError('Could not sync cart. Loading your saved items...');
+            // Fallback to user's existing cart
             await fetchUserCart();
+            hasSyncedRef.current = true;
+        } finally {
+            syncInProgressRef.current = false;
         }
-    },[getGuestCart, showError, showSuccess, fetchUserCart]); 
+    }, [getGuestCart, showError, showSuccess, fetchUserCart]);
 
 
-    // --- UNIVERSAL CART ACTIONS (Handles both guest and auth) ---
+    // --- UNIVERSAL CART ACTIONS ---
 
     const addToCart = async (product, quantity = 1) => {
-        dispatch({ type: 'CLEAR_ERROR' });
+        const productId = getProductId(product);
+        
         if (isAuthenticated) {
             try {
                 await apiCall('/cart', {
                     method: 'POST',
-                    body: JSON.stringify({ productId: product._id, quantity }),
+                    body: JSON.stringify({ productId, quantity }),
                 });
-                await fetchUserCart(); // Refresh cart from server
+                await fetchUserCart();
                 showSuccess(`${product.name} added to cart!`);
             } catch (error) {
                 showError(error.message || 'Failed to add item to cart.');
@@ -163,7 +225,10 @@ export const CartProvider = ({ children }) => {
             }
         } else {
             const guestCart = getGuestCart();
-            const existingItemIndex = guestCart.items.findIndex(item => item.product._id === product._id);
+            const existingItemIndex = guestCart.items.findIndex(
+                item => getProductId(item.product) === productId
+            );
+            
             if (existingItemIndex > -1) {
                 guestCart.items[existingItemIndex].quantity += quantity;
             } else {
@@ -189,7 +254,9 @@ export const CartProvider = ({ children }) => {
             }
         } else {
             const guestCart = getGuestCart();
-            const itemIndex = guestCart.items.findIndex(item => item.product._id === productId);
+            const itemIndex = guestCart.items.findIndex(
+                item => getProductId(item.product) === productId
+            );
             if (itemIndex > -1) {
                 guestCart.items[itemIndex].quantity = quantity;
                 saveGuestCart(guestCart.items);
@@ -207,7 +274,9 @@ export const CartProvider = ({ children }) => {
             }
         } else {
             let guestCart = getGuestCart();
-            guestCart.items = guestCart.items.filter(item => item.product._id !== productId);
+            guestCart.items = guestCart.items.filter(
+                item => getProductId(item.product) !== productId
+            );
             saveGuestCart(guestCart.items);
         }
     };
@@ -229,28 +298,38 @@ export const CartProvider = ({ children }) => {
     // --- MAIN EFFECT: Handles authentication state changes ---
     useEffect(() => {
         const initializeCart = async () => {
-            if (isAuthenticated) {
-                dispatch({ type: 'SET_LOADING', payload: true });
-                // This will now handle both syncing and fetching correctly.
-                await syncCart(); 
+            if (isAuthenticated && user) {
+                // Only sync once per session when user logs in
+                if (!hasSyncedRef.current) {
+                    dispatch({ type: 'SET_LOADING', payload: true });
+                    await syncCart();
+                }
             } else {
-                // This part for guests remains the same.
+                // Reset sync flags when logged out
+                hasSyncedRef.current = false;
+                syncInProgressRef.current = false;
+                
                 const guestCart = getGuestCart();
                 const newState = calculateCartState(guestCart.items);
-                dispatch({ type: 'SET_CART', payload: { ...newState, isGuest: true } });
+                dispatch({ type: 'SET_CART', payload: { ...newState, isGuest: true, synced: false } });
             }
         };
+        
         initializeCart();
-    }, [isAuthenticated, syncCart]);
+    }, [isAuthenticated, user?.id]);
+
     // Helper functions
-    const isInCart = (productId) => cart.items.some(item => (item.product._id || item.product.id) === productId);
+    const isInCart = (productId) => 
+        cart.items.some(item => getProductId(item.product) === productId);
+    
     const getItemQuantity = (productId) => {
-        const item = cart.items.find(item => (item.product._id || item.product.id) === productId);
+        const item = cart.items.find(item => getProductId(item.product) === productId);
         return item ? item.quantity : 0;
     };
+    
     const getCartSummary = () => {
         const subtotal = cart.subtotal;
-        const shipping = 0; // Assuming free shipping as in your code
+        const shipping = 0;
         const total = subtotal + shipping;
         return { subtotal, shipping, total, itemCount: cart.itemCount };
     };
