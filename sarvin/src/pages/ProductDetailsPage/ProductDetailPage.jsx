@@ -50,25 +50,22 @@ useEffect(() => {
     ).then((action) => {
       console.log("[Limit 10 Effect] API Response:", action.payload); // Log raw response
 
-      if (action.payload && Array.isArray(action.payload.products)) { // Check if products is an array
+      if (action.payload && Array.isArray(action.payload.products)) {
         // Filter out the current product
         let relatedBeforeFilter = action.payload.products;
         let relatedAfterFilter = relatedBeforeFilter.filter((p) => p._id !== product._id);
 
-        console.log(`[Limit 10 Effect] Products received: ${relatedBeforeFilter.length}, After filtering current: ${relatedAfterFilter.length}`, relatedAfterFilter); // Log count and array after filter
-
-        // --- Shuffle ---
-        // Create a copy before shuffling if you want to preserve the original order for debugging
+        // console.log(`[Limit 10 Effect] Products received: ${relatedBeforeFilter.length}, After filtering current: ${relatedAfterFilter.length}`, relatedAfterFilter); 
         let shuffledRelated = [...relatedAfterFilter]; // Work on a copy
         for (let i = shuffledRelated.length - 1; i > 0; i--) {
           const j = Math.floor(Math.random() * (i + 1));
           [shuffledRelated[i], shuffledRelated[j]] = [shuffledRelated[j], shuffledRelated[i]];
         }
-        console.log("[Limit 10 Effect] After shuffle:", shuffledRelated); // Log after shuffle
+        // console.log("[Limit 10 Effect] After shuffle:", shuffledRelated); // Log after shuffle
 
         // Slice after shuffling
         let finalRelated = shuffledRelated.slice(0, 4);
-        console.log("[Limit 10 Effect] After slice(0, 4):", finalRelated); // Log after slice
+        // console.log("[Limit 10 Effect] After slice(0, 4):", finalRelated); // Log after slice
 
         setRelatedProducts(finalRelated); // Set the final result
 
@@ -81,7 +78,7 @@ useEffect(() => {
       setRelatedProducts([]); // Clear on error
     });
   } else {
-    console.log("[Limit 10 Effect] Skipping fetch: product/collection/type missing.", product);
+    // console.log("[Limit 10 Effect] Skipping fetch: product/collection/type missing.", product);
     // setRelatedProducts([]); // Optionally clear here too if needed
   }
 }, [product, dispatch, product?.productCollection, product?.type?._id]);

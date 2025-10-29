@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const ProductBreadcrumb = ({ product, collectionName }) => {
   return (
     <nav className="py-4">
-      <ol className="flex text-sm overflow-x-auto whitespace-nowrap">
+      <ol className="flex text-sm overflow-x-auto whitespace-nowrap [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
         <li className="flex items-center">
           <Link to="/" className="text-gray-500 hover:text-[#2A4365]">Home</Link>
           <span className="mx-2 text-gray-400">/</span>
