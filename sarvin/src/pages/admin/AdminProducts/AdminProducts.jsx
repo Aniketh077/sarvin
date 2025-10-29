@@ -157,68 +157,51 @@ const AdminProducts = () => {
     dispatch(resetUploadState());
   };
   
-  const handleSaveProduct = async (productData) => {
+
+const handleSaveProduct = async (productData) => { 
     try {
-      let typeId = productData.typeId;
+        let finalPayload = { ...productData }; 
 
-      if (productData.newType && productData.newType.name.trim()) {
-        const newTypeResult = await dispatch(createNewType(productData.newType)).unwrap();
-        typeId = newTypeResult._id;
-      }
+        if (finalPayload.newType && finalPayload.newType.name.trim()) {
+            console.log("Creating new type:", finalPayload.newType);
+            const newTypeResult = await dispatch(createNewType(finalPayload.newType)).unwrap();
+            finalPayload.type = newTypeResult._id;
+            delete finalPayload.newType; 
+            console.log("New type created, ID:", finalPayload.type);
+        }
+        const fieldsToRemove = [
+           'id', '_id', '__v', 'createdAt',
+        ];
+        fieldsToRemove.forEach(field => delete finalPayload[field]);
 
-      const payload = {
-        ...productData,
-        type: typeId,
-        specifications: productData.specifications || {}
-      };
+        let result;
+        const isEditMode = !!editingProduct;
+        console.log("Final Payload BEFORE DISPATCH in AdminProducts:", finalPayload);
 
-      if (payload.collection !== 'Cooking Appliances') {
-        delete payload.burners;
-        delete payload.ignitionType;
-      } else {
-        if (!payload.burners) delete payload.burners;
-        if (!payload.ignitionType) delete payload.ignitionType;
-      }
+        if (isEditMode) {
+            result = await dispatch(updateExistingProduct({
+                id: editingProduct._id,
+                productData: finalPayload 
+            })).unwrap();
+        } else {
+             result = await dispatch(createProduct(finalPayload)).unwrap(); 
+        }
 
-      payload.price = Number(payload.price);
-      payload.stock = Number(payload.stock);
-      if (payload.discountPrice) {
-        payload.discountPrice = Number(payload.discountPrice);
-      }
+        closeProductForm();
 
-      const fieldsToRemove = [
-        'typeId', 'newType',
-        'id', '_id', '__v', 'createdAt'
-      ];
-      fieldsToRemove.forEach(field => delete payload[field]);
-
-      let result;
-      const isEditMode = !!editingProduct;
-
-      if (isEditMode) {
-        result = await dispatch(updateExistingProduct({
-          id: editingProduct._id,
-          productData: payload
-        })).unwrap();
-      } else {
-        result = await dispatch(createProduct(payload)).unwrap();
-      }
-
-      closeProductForm();
-
-      setConfirmationModal({
-        isOpen: true,
-        message: `Product "${payload.name}" has been ${isEditMode ? 'updated' : 'created'} successfully!`,
-        product: result,
-        isEditMode
-      });
+        setConfirmationModal({
+            isOpen: true,
+            message: `Product "${finalPayload.name}" has been ${isEditMode ? 'updated' : 'created'} successfully!`,
+            product: result, 
+            isEditMode
+        });
 
     } catch (err) {
-      console.error('Error saving product:', err);
-      const errorMessage = err.message || (err.error ? `${err.message}: ${err.error}` : 'An unknown error occurred.');
-      alert(`Failed to save product: ${errorMessage}`);
+        console.error('Error saving product in AdminProducts:', err);
+        const errorMessage = err.message || (err.error ? `${err.message}: ${err.error}` : 'An unknown error occurred.');
+        alert(`Failed to save product: ${errorMessage}`);
     }
-  };
+};
 
   const closeConfirmationModal = () => {
     setConfirmationModal({

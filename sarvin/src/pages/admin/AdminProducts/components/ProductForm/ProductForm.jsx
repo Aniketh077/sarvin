@@ -149,9 +149,10 @@ const ProductForm = ({ onClose, onSave, product, types }) => {
     setNewTypeData({ name: '', logo: '' });
   };
 
-  const handleSubmit = (e) => {
+
+const handleSubmit = (e) => {
     e.preventDefault();
-    if (formData.discountPrice && formData.price && 
+    if (formData.discountPrice && formData.price &&
         parseFloat(formData.discountPrice) > parseFloat(formData.price)) {
       setErrors({ ...errors, discountPrice: 'Discount price must be less than or equal to regular price' });
       return;
@@ -160,25 +161,59 @@ const ProductForm = ({ onClose, onSave, product, types }) => {
       setErrors({ ...errors, image: 'Valid main image URL is required' });
       return;
     }
-    
+
     const cleanData = {
       ...formData,
-      type: showNewType ? undefined : formData.typeId,
       features: formData.features.filter(f => f.trim()),
       images: formData.images.filter(img => img.trim()),
-      discountPrice: formData.discountPrice || undefined,
     };
 
-    if (!showNewType && formData.typeId && formData.typeId !== 'new') {
-      cleanData.type = formData.typeId;
+    if (showNewType && newTypeData.name.trim()) {
+      cleanData.newType = newTypeData; // Send newType data
+      delete cleanData.typeId;       // Don't send typeId if creating new
+      delete cleanData.type;         // Remove original type field if it exists
+    } else if (formData.typeId && formData.typeId !== 'new' && formData.typeId !== 'manage') {
+      cleanData.type = formData.typeId; // Send existing typeId as 'type'
+      delete cleanData.typeId;       // Remove the temporary typeId field
+      delete cleanData.newType;      // Remove newType if it exists
+    } else {
+       delete cleanData.type;
+       delete cleanData.typeId;
+       delete cleanData.newType;
     }
 
-    if (showNewType && newTypeData.name.trim()) {
-      cleanData.newType = newTypeData;
+    if (cleanData.productCollection === 'Cooking Appliances') {
+      const burnerVal = parseInt(cleanData.burners, 10);
+      cleanData.burners = !isNaN(burnerVal) ? burnerVal : null; 
+      cleanData.ignitionType = cleanData.ignitionType === '' ? null : cleanData.ignitionType; 
+    } else {
+      cleanData.burners = undefined;
+      cleanData.ignitionType = undefined;
     }
-    
+
+    cleanData.price = Number(cleanData.price);
+    cleanData.stock = Number(cleanData.stock);
+    if (cleanData.discountPrice) {
+       cleanData.discountPrice = Number(cleanData.discountPrice);
+       if (isNaN(cleanData.discountPrice) || cleanData.discountPrice <= 0) {
+           cleanData.discountPrice = undefined; 
+       }
+    } else {
+       cleanData.discountPrice = undefined; 
+    }
+    if (isNaN(cleanData.price)) cleanData.price = 0;
+    if (isNaN(cleanData.stock)) cleanData.stock = 0; 
+
+    const fieldsToRemove = [
+       'typeId', 
+       'id', '_id', '__v', 'createdAt', 
+       'specificationsInput' 
+    ];
+    fieldsToRemove.forEach(field => delete cleanData[field]);
+
+    // console.log("Payload being sent:", cleanData);
     onSave(cleanData);
-  };
+};
   
   const typeOptions = [
     { value: '', label: 'Select Type' },
